@@ -9,7 +9,14 @@ DB=Path(os.getenv("CMA_DB_PATH",str(DATA/"study.db")))
 SESSION_TIMEOUT_MINUTES=30
 
 def db():
- c=sqlite3.connect(DB); c.row_factory=sqlite3.Row
+ url=os.getenv("TURSO_DATABASE_URL")
+ token=os.getenv("TURSO_AUTH_TOKEN")
+ if url and token:
+  import libsql
+  c=libsql.connect(database=url, auth_token=token)
+ else:
+  c=sqlite3.connect(DB)
+ c.row_factory=sqlite3.Row
  c.execute("CREATE TABLE IF NOT EXISTS attempts(id INTEGER PRIMARY KEY,ts TEXT,question_id TEXT,part TEXT,domain TEXT,difficulty TEXT,selected TEXT,correct INTEGER,confidence INTEGER)")
  c.execute("CREATE TABLE IF NOT EXISTS goals(id INTEGER PRIMARY KEY CHECK(id=1),target_date TEXT,part TEXT,daily_minutes INTEGER)")
  c.execute("CREATE TABLE IF NOT EXISTS study_plans(id INTEGER PRIMARY KEY AUTOINCREMENT,created_at TEXT,target_date TEXT,part TEXT,daily_minutes INTEGER)")
