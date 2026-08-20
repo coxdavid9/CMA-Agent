@@ -1,7 +1,7 @@
 import re
 import streamlit as st
 from datetime import date
-from cma_agent.engine import choose_question, choose_followup, grade, learning_feedback, learning_snapshot, stats, plan, save_goal, get_preferences, save_preferences, save_resume_question, clear_resume_question, get_question, goal, goal_history, get_or_start_session, session_stats
+from cma_agent.engine import choose_question, choose_followup, grade, learning_feedback, learning_snapshot, stats, plan, save_goal, get_preferences, save_preferences, save_resume_question, clear_resume_question, get_question, goal, goal_history, get_or_start_session, start_new_session, session_stats
 
 st.set_page_config(page_title='CMA Agent', page_icon='📘', layout='wide', initial_sidebar_state='expanded')
 st.markdown('''<style>.block-container{max-width:1180px;padding-top:1.8rem}.hero{padding-bottom:14px}.hero h1{font-size:2.35rem;margin:0;letter-spacing:-1px}.hero p,.muted{color:#667085}.card{border:1px solid #e4e7ec;border-radius:16px;padding:20px;background:#fff;margin:10px 0}.question{background:#f8fafc;border-left:4px solid #98a2b3}.meta{font-size:.82rem;color:#667085;font-weight:650;margin-bottom:10px}.qtext{font-size:1.28rem;line-height:1.55;font-weight:650}.stat{border:1px solid #e4e7ec;border-radius:14px;padding:16px;background:#fff;margin-bottom:8px}.label{font-size:.8rem;color:#667085;font-weight:650}.value{font-size:1.75rem;font-weight:750;color:#101828}.section{font-size:1.25rem;font-weight:700;margin:24px 0 8px}.coach{border:1px solid #d0d5dd;border-radius:16px;padding:20px;background:#fff}.takeaway{border-radius:12px;padding:12px 14px;background:#f0f9ff;border:1px solid #b9e6fe}</style>''', unsafe_allow_html=True)
@@ -135,6 +135,15 @@ with dashboard:
         st.caption('Session resets after 30 minutes of inactivity.')
     else:
         st.info('No questions answered in the current session yet.')
+    if st.button('↻ Start New Session Now',use_container_width=True):
+        st.session_state.session_id=start_new_session()
+        st.session_state.question=None
+        st.session_state.submitted=False
+        st.session_state.selected=None
+        st.session_state.confidence_value=0
+        st.session_state.result=None
+        clear_resume_question()
+        st.rerun()
     st.markdown('<div class="section">Historical Progress</div>',unsafe_allow_html=True)
     a,b,c=st.columns(3)
     a.markdown(f'<div class="stat"><div class="label">Lifetime Accuracy</div><div class="value">{s["accuracy"]}%</div></div>',unsafe_allow_html=True)
