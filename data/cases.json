@@ -1,0 +1,24 @@
+[
+  {
+    "id": "CASE-001",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "title": "Capacity and Margin",
+    "scenario": "A manufacturer has idle capacity. Product X sells for $90, variable cost is $52, and requires 2 machine hours. Product Y sells for $120, variable cost is $72, and requires 3 machine hours. Machine time is constrained.",
+    "questions": [
+      {"q": "Which product has the higher contribution margin per unit?", "choices": {"A": "X", "B": "Y", "C": "Same", "D": "Cannot determine"}, "answer": "B", "explanation": "X contributes $38; Y contributes $48 per unit."},
+      {"q": "Which product has the higher contribution margin per machine hour?", "choices": {"A": "X", "B": "Y", "C": "Same", "D": "Neither"}, "answer": "A", "explanation": "X: $38/2=$19 per hour; Y: $48/3=$16 per hour."}
+    ]
+  },
+  {
+    "id": "CASE-002",
+    "part": "Part 2",
+    "domain": "Capital Investment Decisions",
+    "title": "Project Evaluation",
+    "scenario": "A company is evaluating a project requiring $200,000 initially. Expected annual after-tax cash inflows are $80,000 for three years. Required return is 10%. Ignore salvage value.",
+    "questions": [
+      {"q": "Ignoring discounting, what is simple payback?", "choices": {"A": "2.0 years", "B": "2.5 years", "C": "3.0 years", "D": "3.5 years"}, "answer": "B", "explanation": "$200,000/$80,000=2.5 years."},
+      {"q": "Why is NPV preferred over simple payback for value-creation decisions?", "choices": {"A": "NPV ignores cash flows", "B": "NPV incorporates time value of money", "C": "NPV is always positive", "D": "NPV ignores required return"}, "answer": "B", "explanation": "NPV discounts future cash flows using the required return."}
+    ]
+  }
+]
