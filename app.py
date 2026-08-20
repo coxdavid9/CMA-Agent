@@ -1,6 +1,6 @@
 import streamlit as st
 from datetime import date
-from cma_agent.engine import choose_question, choose_followup, grade, learning_feedback, learning_snapshot, stats, plan, save_goal, recent, get_preferences, save_preferences, save_resume_question, clear_resume_question, get_question, goal
+from cma_agent.engine import choose_question, choose_followup, grade, learning_feedback, learning_snapshot, stats, plan, save_goal, get_preferences, save_preferences, save_resume_question, clear_resume_question, get_question, goal
 
 st.set_page_config(page_title='CMA Agent', page_icon='📘', layout='wide', initial_sidebar_state='expanded')
 st.markdown('''<style>
@@ -88,8 +88,6 @@ with dashboard:
         if snap['recent_misses']:
             for m in snap['recent_misses']: st.write(f"• **{m['domain']}** · confidence {m['confidence']}/3")
         else: st.write('No missed questions yet.')
-    with st.expander('Detailed attempt history'):
-        h=recent(); st.dataframe(h,use_container_width=True,hide_index=True) if h else st.write('No practice history yet.')
 
 with study:
     st.markdown('<div class="section">Your Study Plan</div>',unsafe_allow_html=True)
