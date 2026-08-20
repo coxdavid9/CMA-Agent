@@ -20,7 +20,7 @@ for key, default in {
     "question": None,
     "submitted": False,
     "selected": None,
-    "confidence": 0,
+    "confidence_value": 0,
     "result": None,
     "followup": None,
 }.items():
@@ -48,7 +48,7 @@ with practice:
         st.session_state.question = choose_question(part, domain, difficulty)
         st.session_state.submitted = False
         st.session_state.selected = None
-        st.session_state.confidence = 0
+        st.session_state.confidence_value = 0
         st.session_state.result = None
         st.session_state.followup = None
         st.rerun()
@@ -61,7 +61,7 @@ with practice:
             "Select your answer",
             list(q["choices"].keys()),
             format_func=lambda x: f"{x}. {q['choices'][x]}",
-            key="answer",
+            key="answer_widget",
         )
 
         confidence = st.radio(
@@ -75,8 +75,9 @@ with practice:
                 5: "5 — Very confident",
             }[x],
             horizontal=True,
-            key="confidence",
+            key="confidence_widget",
         )
+        st.session_state.confidence_value = confidence
 
         if not st.session_state.submitted and st.button(
             "Submit & Learn", type="primary", use_container_width=True
@@ -84,13 +85,14 @@ with practice:
             ok, graded = grade(q["id"], answer, confidence)
             st.session_state.submitted = True
             st.session_state.selected = answer
+            st.session_state.confidence_value = confidence
             st.session_state.result = (ok, graded)
             st.rerun()
 
         if st.session_state.submitted:
             ok, graded = st.session_state.result
             feedback = learning_feedback(
-                q["id"], st.session_state.selected, st.session_state.confidence
+                q["id"], st.session_state.selected, st.session_state.confidence_value
             )
 
             if ok:
@@ -132,7 +134,7 @@ with practice:
                     st.session_state.question = st.session_state.followup
                     st.session_state.submitted = False
                     st.session_state.selected = None
-                    st.session_state.confidence = 0
+                    st.session_state.confidence_value = 0
                     st.session_state.result = None
                     st.rerun()
             with col2:
@@ -140,7 +142,7 @@ with practice:
                     st.session_state.question = choose_question(part, domain, difficulty)
                     st.session_state.submitted = False
                     st.session_state.selected = None
-                    st.session_state.confidence = 0
+                    st.session_state.confidence_value = 0
                     st.session_state.result = None
                     st.session_state.followup = None
                     st.rerun()
