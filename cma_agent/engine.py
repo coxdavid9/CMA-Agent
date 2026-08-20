@@ -29,6 +29,9 @@ def get_or_start_session():
   sid=r["session_id"]; c.execute("UPDATE session_state SET last_activity=? WHERE id=1",(now.isoformat(timespec="seconds"),))
  c.commit(); c.close(); return sid
 
+def start_new_session():
+ c=db(); sid=str(uuid.uuid4()); now=datetime.now(); c.execute("INSERT OR REPLACE INTO session_state(id,session_id,last_activity) VALUES(1,?,?)",(sid,now.isoformat(timespec="seconds"))); c.commit(); c.close(); return sid
+
 def session_stats(session_id):
  c=db(); r=c.execute("SELECT COUNT(*) n,COALESCE(SUM(correct),0) correct FROM attempts WHERE session_id=?",(session_id,)).fetchone(); misses=c.execute("SELECT domain,COUNT(*) n FROM attempts WHERE session_id=? AND correct=0 GROUP BY domain ORDER BY n DESC",(session_id,)).fetchall(); result={"attempted":r["n"],"correct":r["correct"],"accuracy":round(r["correct"]/r["n"]*100,1) if r["n"] else 0,"miss_domains":[x["domain"] for x in misses]}; c.close(); return result
 
