@@ -2,36 +2,35 @@ import json, os, random, sqlite3
 from pathlib import Path
 from datetime import date, datetime
 
-ROOT = Path(__file__).resolve().parent.parent
-DATA = ROOT / "data"
-QUESTIONS = json.loads((DATA / "questions.json").read_text(encoding="utf-8"))
-CASES = json.loads((DATA / "cases.json").read_text(encoding="utf-8"))
-DB = Path(os.getenv("CMA_DB_PATH", str(DATA / "study.db")))
+ROOT=Path(__file__).resolve().parent.parent
+DATA=ROOT/"data"
+QUESTIONS=json.loads((DATA/"questions.json").read_text(encoding="utf-8"))
+CASES=json.loads((DATA/"cases.json").read_text(encoding="utf-8"))
+DB=Path(os.getenv("CMA_DB_PATH",str(DATA/"study.db")))
 
 def db():
-    DB.parent.mkdir(parents=True, exist_ok=True)
-    c = sqlite3.connect(DB); c.row_factory = sqlite3.Row
-    c.execute("CREATE TABLE IF NOT EXISTS attempts(id INTEGER PRIMARY KEY, ts TEXT, question_id TEXT, part TEXT, domain TEXT, difficulty TEXT, selected TEXT, correct INTEGER, confidence INTEGER)")
-    c.execute("CREATE TABLE IF NOT EXISTS goals(id INTEGER PRIMARY KEY CHECK(id=1), target_date TEXT, part TEXT, daily_minutes INTEGER)")
-    c.execute("CREATE TABLE IF NOT EXISTS preferences(id INTEGER PRIMARY KEY CHECK(id=1), part TEXT, difficulty TEXT, domain TEXT)")
-    cols = {r[1] for r in c.execute("PRAGMA table_info(preferences)").fetchall()}
-    if "resume_question_id" not in cols: c.execute("ALTER TABLE preferences ADD COLUMN resume_question_id TEXT")
+    DB.parent.mkdir(parents=True,exist_ok=True); c=sqlite3.connect(DB); c.row_factory=sqlite3.Row
+    c.execute("CREATE TABLE IF NOT EXISTS attempts(id INTEGER PRIMARY KEY,ts TEXT,question_id TEXT,part TEXT,domain TEXT,difficulty TEXT,selected TEXT,correct INTEGER,confidence INTEGER)")
+    c.execute("CREATE TABLE IF NOT EXISTS goals(id INTEGER PRIMARY KEY CHECK(id=1),target_date TEXT,part TEXT,daily_minutes INTEGER)")
+    c.execute("CREATE TABLE IF NOT EXISTS study_plans(id INTEGER PRIMARY KEY AUTOINCREMENT,created_at TEXT,target_date TEXT,part TEXT,daily_minutes INTEGER)")
+    c.execute("CREATE TABLE IF NOT EXISTS preferences(id INTEGER PRIMARY KEY CHECK(id=1),part TEXT,difficulty TEXT,domain TEXT)")
+    cols={r[1] for r in c.execute("PRAGMA table_info(preferences)").fetchall()}
+    if "resume_question_id" not in cols:c.execute("ALTER TABLE preferences ADD COLUMN resume_question_id TEXT")
     c.commit(); return c
 
 def get_preferences():
-    c = db(); r = c.execute("SELECT part,difficulty,domain,resume_question_id FROM preferences WHERE id=1").fetchone()
-    result = dict(r) if r else {"part":"Both","difficulty":"All","domain":"All","resume_question_id":None}; c.close(); return result
+    c=db(); r=c.execute("SELECT part,difficulty,domain,resume_question_id FROM preferences WHERE id=1").fetchone(); result=dict(r) if r else {"part":"Both","difficulty":"All","domain":"All","resume_question_id":None}; c.close(); return result
 
-def save_preferences(part, difficulty, domain):
-    c = db(); c.execute("INSERT OR REPLACE INTO preferences(id,part,difficulty,domain,resume_question_id) VALUES(1,?,?,?,COALESCE((SELECT resume_question_id FROM preferences WHERE id=1),NULL))", (part,difficulty,domain)); c.commit(); c.close()
+def save_preferences(part,difficulty,domain):
+    c=db(); c.execute("INSERT OR REPLACE INTO preferences(id,part,difficulty,domain,resume_question_id) VALUES(1,?,?,?,COALESCE((SELECT resume_question_id FROM preferences WHERE id=1),NULL))",(part,difficulty,domain)); c.commit(); c.close()
 
 def save_resume_question(question_id):
-    c = db(); c.execute("UPDATE preferences SET resume_question_id=? WHERE id=1", (question_id,)); c.commit(); c.close()
+    c=db(); c.execute("UPDATE preferences SET resume_question_id=? WHERE id=1",(question_id,)); c.commit(); c.close()
 
 def clear_resume_question():
-    c = db(); c.execute("UPDATE preferences SET resume_question_id=NULL WHERE id=1"); c.commit(); c.close()
+    c=db(); c.execute("UPDATE preferences SET resume_question_id=NULL WHERE id=1"); c.commit(); c.close()
 
-def get_question(question_id): return next((q for q in QUESTIONS if q["id"] == question_id), None)
+def get_question(question_id): return next((q for q in QUESTIONS if q["id"]==question_id),None)
 
 def domains(part="Both"):
     p1=["External Financial Reporting Decisions","Planning, Budgeting, and Forecasting","Performance Management","Cost Management","Internal Controls","Technology and Analytics"]
@@ -39,18 +38,18 @@ def domains(part="Both"):
     return p1 if part=="Part 1" else p2 if part=="Part 2" else p1+p2
 
 def _question_history(conn):
-    rows=conn.execute("SELECT question_id,COUNT(*) AS attempts,SUM(correct) AS correct,MAX(id) AS last_id FROM attempts GROUP BY question_id").fetchall(); return {r["question_id"]:dict(r) for r in rows}
+    rows=conn.execute("SELECT question_id,COUNT(*) attempts,SUM(correct) correct,MAX(id) last_id FROM attempts GROUP BY question_id").fetchall(); return {r["question_id"]:dict(r) for r in rows}
 
-def question_status(question_id, conn=None):
+def question_status(question_id,conn=None):
     owns=conn is None; conn=conn or db(); rows=conn.execute("SELECT correct FROM attempts WHERE question_id=? ORDER BY id DESC LIMIT 5",(question_id,)).fetchall()
-    if owns: conn.close()
+    if owns:conn.close()
     if not rows:return "New"
     results=[int(r["correct"]) for r in rows]; attempts=len(results)
     if attempts>=3 and sum(results[:3])==3:return "Mastered"
     if results[0]==0 or sum(results)/attempts<.67:return "Weak"
     return "Learning"
 
-def topic_status(domain, conn=None):
+def topic_status(domain,conn=None):
     owns=conn is None; conn=conn or db(); rows=conn.execute("SELECT correct FROM attempts WHERE domain=? ORDER BY id DESC LIMIT 10",(domain,)).fetchall()
     if owns:conn.close()
     if not rows:return "New"
@@ -60,13 +59,12 @@ def topic_status(domain, conn=None):
     return "Learning"
 
 def choose_question(part="Both",domain="All",difficulty="All",exclude=None,review_mode=False):
-    exclude=set(exclude or []); conn=db()
-    filtered=[q for q in QUESTIONS if q["id"] not in exclude and (part=="Both" or q["part"]==part) and (domain=="All" or q["domain"]==domain) and (difficulty=="All" or q["difficulty"]==difficulty)]
+    exclude=set(exclude or []); conn=db(); filtered=[q for q in QUESTIONS if q["id"] not in exclude and (part=="Both" or q["part"]==part) and (domain=="All" or q["domain"]==domain) and (difficulty=="All" or q["difficulty"]==difficulty)]
     if not filtered:filtered=[q for q in QUESTIONS if q["id"] not in exclude and (part=="Both" or q["part"]==part)]
     history=_question_history(conn); buckets={"New":[],"Learning":[],"Weak":[],"Mastered":[]}
     for q in filtered:buckets[question_status(q["id"],conn)].append(q)
     pool=(buckets["Weak"] or buckets["Learning"] or buckets["New"] or buckets["Mastered"] or filtered) if review_mode else (buckets["New"] or buckets["Weak"] or buckets["Learning"] or buckets["Mastered"] or filtered)
-    domain_rows=conn.execute("SELECT domain,AVG(correct) AS pct,COUNT(*) AS n FROM attempts GROUP BY domain").fetchall(); domain_scores={r["domain"]:(float(r["pct"]),int(r["n"])) for r in domain_rows}; weighted=[]
+    domain_rows=conn.execute("SELECT domain,AVG(correct) pct,COUNT(*) n FROM attempts GROUP BY domain").fetchall(); domain_scores={r["domain"]:(float(r["pct"]),int(r["n"])) for r in domain_rows}; weighted=[]
     for q in pool:
         pct,_=domain_scores.get(q["domain"],(.5,0)); attempts=int(history.get(q["id"],{}).get("attempts",0)); status=question_status(q["id"],conn); weight={"New":5,"Weak":4,"Learning":2,"Mastered":.25}[status]; weight*=max(.5,1.5-pct); weight*=1/(1+attempts*.15); weighted.extend([q]*max(1,int(weight*10)))
     chosen=random.choice(weighted or pool); conn.close(); return chosen
@@ -110,15 +108,20 @@ def recent(limit=25):
     c=db(); rows=c.execute("SELECT * FROM attempts ORDER BY id DESC LIMIT ?",(limit,)).fetchall(); result=[dict(r) for r in rows]; c.close(); return result
 
 def save_goal(target_date,part,daily_minutes):
-    c=db(); c.execute("INSERT OR REPLACE INTO goals VALUES(1,?,?,?)",(target_date,part,daily_minutes)); c.commit(); c.close()
+    c=db(); now=datetime.now().isoformat(timespec="seconds")
+    c.execute("INSERT OR REPLACE INTO goals(id,target_date,part,daily_minutes) VALUES(1,?,?,?)",(target_date,part,daily_minutes))
+    c.execute("INSERT INTO study_plans(created_at,target_date,part,daily_minutes) VALUES(?,?,?,?)",(now,target_date,part,daily_minutes)); c.commit(); c.close()
 
 def goal():
     c=db(); r=c.execute("SELECT * FROM goals WHERE id=1").fetchone(); result=dict(r) if r else None; c.close(); return result
 
+def goal_history(limit=10):
+    c=db(); rows=c.execute("SELECT id,created_at,target_date,part,daily_minutes FROM study_plans ORDER BY id DESC LIMIT ?",(limit,)).fetchall(); result=[dict(r) for r in rows]; c.close(); return result
+
 def plan():
     g=goal()
     if not g:return {"message":"Set an exam target date first."}
-    s=stats(); days=max(1,(date.fromisoformat(g["target_date"])-date.today()).days); allowed=domains(g["part"]); weak=[r["domain"] for r in sorted(s["by_domain"],key=lambda x:x["pct"]) if r["domain"] in allowed]; focus=weak[:3] or allowed[:3]; m=g["daily_minutes"]; return {"days_remaining":days,"daily_minutes":m,"part":g["part"],"focus_topics":focus,"session":[f"{max(5,m//3)} min concept review",f"{max(10,m//2)} min adaptive practice",f"{max(5,m//6)} min error review"]}
+    s=stats(); days=max(1,(date.fromisoformat(g["target_date"])-date.today()).days); allowed=domains(g["part"]); weak=[r["domain"] for r in sorted(s["by_domain"],key=lambda x:x["pct"]) if r["domain"] in allowed]; focus=weak[:3] or allowed[:3]; m=g["daily_minutes"]; return {"days_remaining":days,"daily_minutes":m,"part":g["part"],"target_date":g["target_date"],"focus_topics":focus,"session":[f"{max(5,m//3)} min concept review",f"{max(10,m//2)} min adaptive practice",f"{max(5,m//6)} min error review"]}
 
 def reset():
     c=db(); c.execute("DELETE FROM attempts"); c.commit(); c.close()
