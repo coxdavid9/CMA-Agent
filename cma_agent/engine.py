@@ -68,12 +68,16 @@ def question_status(question_id, conn=None):
     rows = conn.execute("""
         SELECT correct FROM attempts WHERE question_id=? ORDER BY id DESC LIMIT 5
     """, (question_id,)).fetchall()
-    if owns: conn.close()
-    if not rows: return "New"
+    if owns:
+        conn.close()
+    if not rows:
+        return "New"
     results = [int(r["correct"]) for r in rows]
     attempts = len(results)
-    if attempts >= 3 and sum(results[:3]) == 3: return "Mastered"
-    if results[0] == 0 or sum(results) / attempts < 0.67: return "Weak"
+    if attempts >= 3 and sum(results[:3]) == 3:
+        return "Mastered"
+    if results[0] == 0 or sum(results) / attempts < 0.67:
+        return "Weak"
     return "Learning"
 
 
@@ -83,18 +87,28 @@ def topic_status(domain, conn=None):
     rows = conn.execute("""
         SELECT correct FROM attempts WHERE domain=? ORDER BY id DESC LIMIT 10
     """, (domain,)).fetchall()
-    if owns: conn.close()
-    if not rows: return "New"
+    if owns:
+        conn.close()
+    if not rows:
+        return "New"
     results = [int(r["correct"]) for r in rows]
-    if len(results) >= 5 and sum(results[:5]) / 5 >= 0.85: return "Mastered"
-    if results[0] == 0 or sum(results) / len(results) < 0.70: return "Weak"
+    if len(results) >= 5 and sum(results[:5]) / 5 >= 0.85:
+        return "Mastered"
+    if results[0] == 0 or sum(results) / len(results) < 0.70:
+        return "Weak"
     return "Learning"
 
 
 def choose_question(part="Both", domain="All", difficulty="All", exclude=None, review_mode=False):
     exclude = set(exclude or [])
     conn = db()
-    filtered = [q for q in QUESTIONS if q["id"] not in exclude and (part == "Both" or q["part"] == part) and (domain == "All" or q["domain"] == domain) and (difficulty == "All" or q["difficulty"] == difficulty)]
+    filtered = [
+        q for q in QUESTIONS
+        if q["id"] not in exclude
+        and (part == "Both" or q["part"] == part)
+        and (domain == "All" or q["domain"] == domain)
+        and (difficulty == "All" or q["difficulty"] == difficulty)
+    ]
     if not filtered:
         filtered = [q for q in QUESTIONS if q["id"] not in exclude and (part == "Both" or q["part"] == part)]
     history = _question_history(conn)
@@ -122,12 +136,128 @@ def choose_question(part="Both", domain="All", difficulty="All", exclude=None, r
     return chosen
 
 
+def choose_followup(question_id, selected, part="Both", difficulty="All"):
+    """Choose a fresh question that reinforces the same domain after a review."""
+    source = next(q for q in QUESTIONS if q["id"] == question_id)
+    candidates = [
+        q for q in QUESTIONS
+        if q["id"] != question_id
+        and q["part"] == source["part"]
+        and q["domain"] == source["domain"]
+        and (difficulty == "All" or q["difficulty"] == difficulty)
+    ]
+    if not candidates:
+        candidates = [
+            q for q in QUESTIONS
+            if q["id"] != question_id
+            and q["part"] == source["part"]
+            and (difficulty == "All" or q["difficulty"] == difficulty)
+        ]
+    if not candidates:
+        return choose_question(part, "All", difficulty, exclude=[question_id], review_mode=True)
+    conn = db()
+    history = _question_history(conn)
+    scored = []
+    for q in candidates:
+        h = history.get(q["id"], {})
+        attempts = int(h.get("attempts", 0))
+        correct = int(h.get("correct", 0))
+        if attempts == 0:
+            score = 10
+        elif correct / max(1, attempts) < 0.67:
+            score = 7
+        else:
+            score = 2
+        scored.append((score + random.random(), q))
+    conn.close()
+    return max(scored, key=lambda x: x[0])[1]
+
+
+def learning_feedback(question_id, selected, confidence):
+    """Deterministic coaching that works without an AI/API key."""
+    q = next(q for q in QUESTIONS if q["id"] == question_id)
+    correct = selected.upper() == q["answer"]
+    confidence = int(confidence or 0)
+
+    if correct and confidence <= 2:
+        diagnosis = "Correct, but fragile"
+        advice = "You got it right, but low confidence suggests this concept needs another recall check."
+    elif correct:
+        diagnosis = "Solid understanding"
+        advice = "You appear comfortable with this concept. We can spend less time here and move to weaker areas."
+    elif confidence >= 4:
+        diagnosis = "Likely concept/application gap"
+        advice = "You were confident but missed it. That usually means the rule or its application needs attention."
+    else:
+        diagnosis = "Likely knowledge gap"
+        advice = "Low confidence plus an incorrect answer suggests this is a good candidate for a short concept review."
+
+    takeaway = q.get("explanation") or "Review the explanation and identify the rule that determines the correct answer."
+    return {
+        "correct": correct,
+        "diagnosis": diagnosis,
+        "advice": advice,
+        "takeaway": takeaway,
+        "correct_answer": q["answer"],
+        "explanation": q.get("explanation", ""),
+        "calculation": q.get("calculation"),
+    }
+
+
+def learning_snapshot(domain="All"):
+    """Summarize recent learning signals without using an AI service."""
+    c = db()
+    where = "" if domain == "All" else "WHERE domain=?"
+    args = () if domain == "All" else (domain,)
+    rows = c.execute(
+        f"SELECT correct, confidence, domain FROM attempts {where} ORDER BY id DESC LIMIT 50",
+        args,
+    ).fetchall()
+
+    weak = []
+    fragile = []
+    for d in domains("Both"):
+        drows = [r for r in rows if r["domain"] == d]
+        if not drows:
+            continue
+        pct = sum(int(r["correct"]) for r in drows) / len(drows)
+        low_conf_correct = sum(1 for r in drows if int(r["correct"]) == 1 and int(r["confidence"] or 0) <= 2)
+        if pct < 0.70:
+            weak.append((pct, d))
+        if low_conf_correct >= 2:
+            fragile.append((low_conf_correct, d))
+
+    recent_misses = [dict(r) for r in rows if int(r["correct"]) == 0][:5]
+    c.close()
+    weak.sort()
+    fragile.sort(reverse=True)
+    return {
+        "weak_domains": [d for _, d in weak[:3]],
+        "fragile_domains": [d for _, d in fragile[:3]],
+        "recent_misses": recent_misses,
+    }
+
+
 def grade(question_id, selected, confidence=0):
     q = next(q for q in QUESTIONS if q["id"] == question_id)
     correct = int(selected.upper() == q["answer"])
     c = db()
-    c.execute("""INSERT INTO attempts (ts, question_id, part, domain, difficulty, selected, correct, confidence) VALUES(?,?,?,?,?,?,?,?)""", (datetime.now().isoformat(timespec="seconds"), question_id, q["part"], q["domain"], q["difficulty"], selected.upper(), correct, confidence))
-    c.commit(); c.close()
+    c.execute(
+        """INSERT INTO attempts (ts, question_id, part, domain, difficulty, selected, correct, confidence)
+           VALUES(?,?,?,?,?,?,?,?)""",
+        (
+            datetime.now().isoformat(timespec="seconds"),
+            question_id,
+            q["part"],
+            q["domain"],
+            q["difficulty"],
+            selected.upper(),
+            correct,
+            int(confidence or 0),
+        ),
+    )
+    c.commit()
+    c.close()
     return correct, q
 
 
@@ -138,31 +268,51 @@ def stats():
     rows = c.execute("SELECT part, domain, COUNT(*) n, SUM(correct) correct, ROUND(AVG(correct)*100,1) pct FROM attempts GROUP BY part, domain").fetchall()
     mastery = [{"domain": d, "status": topic_status(d, c)} for d in domains("Both")]
     question_counts = {"New": 0, "Learning": 0, "Weak": 0, "Mastered": 0}
-    for q in QUESTIONS: question_counts[question_status(q["id"], c)] += 1
+    for q in QUESTIONS:
+        question_counts[question_status(q["id"], c)] += 1
     result = {"attempted": n, "correct": k, "accuracy": round(k / n * 100, 1) if n else 0, "by_domain": [dict(r) for r in rows], "mastery": mastery, "question_status_counts": question_counts, "question_bank_size": len(QUESTIONS)}
-    c.close(); return result
+    c.close()
+    return result
 
 
 def recent(limit=25):
-    c = db(); rows = c.execute("SELECT * FROM attempts ORDER BY id DESC LIMIT ?", (limit,)).fetchall(); result = [dict(r) for r in rows]; c.close(); return result
+    c = db()
+    rows = c.execute("SELECT * FROM attempts ORDER BY id DESC LIMIT ?", (limit,)).fetchall()
+    result = [dict(r) for r in rows]
+    c.close()
+    return result
 
 
 def save_goal(target_date, part, daily_minutes):
-    c = db(); c.execute("INSERT OR REPLACE INTO goals VALUES(1,?,?,?)", (target_date, part, daily_minutes)); c.commit(); c.close()
+    c = db()
+    c.execute("INSERT OR REPLACE INTO goals VALUES(1,?,?,?)", (target_date, part, daily_minutes))
+    c.commit()
+    c.close()
 
 
 def goal():
-    c = db(); r = c.execute("SELECT * FROM goals WHERE id=1").fetchone(); result = dict(r) if r else None; c.close(); return result
+    c = db()
+    r = c.execute("SELECT * FROM goals WHERE id=1").fetchone()
+    result = dict(r) if r else None
+    c.close()
+    return result
 
 
 def plan():
     g = goal()
-    if not g: return {"message": "Set an exam target date first."}
-    s = stats(); days = max(1, (date.fromisoformat(g["target_date"]) - date.today()).days); allowed = domains(g["part"])
+    if not g:
+        return {"message": "Set an exam target date first."}
+    s = stats()
+    days = max(1, (date.fromisoformat(g["target_date"]) - date.today()).days)
+    allowed = domains(g["part"])
     weak = [r["domain"] for r in sorted(s["by_domain"], key=lambda x: x["pct"]) if r["domain"] in allowed]
-    focus = weak[:3] or allowed[:3]; m = g["daily_minutes"]
+    focus = weak[:3] or allowed[:3]
+    m = g["daily_minutes"]
     return {"days_remaining": days, "daily_minutes": m, "part": g["part"], "focus_topics": focus, "session": [f"{max(5, m//3)} min concept review", f"{max(10, m//2)} min adaptive practice", f"{max(5, m//6)} min error review"]}
 
 
 def reset():
-    c = db(); c.execute("DELETE FROM attempts"); c.commit(); c.close()
+    c = db()
+    c.execute("DELETE FROM attempts")
+    c.commit()
+    c.close()
