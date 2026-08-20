@@ -1,6 +1,6 @@
 import streamlit as st
 from datetime import date
-from cma_agent.engine import choose_question, choose_followup, grade, learning_feedback, learning_snapshot, stats, plan, save_goal, get_preferences, save_preferences, save_resume_question, clear_resume_question, get_question, goal
+from cma_agent.engine import choose_question, choose_followup, grade, learning_feedback, learning_snapshot, stats, plan, save_goal, recent, get_preferences, save_preferences, save_resume_question, clear_resume_question, get_question, goal
 
 st.set_page_config(page_title='CMA Agent', page_icon='📘', layout='wide', initial_sidebar_state='expanded')
 st.markdown('''<style>
@@ -23,6 +23,17 @@ with st.sidebar:
     opts=['All']+(p1 if part=='Part 1' else p2 if part=='Part 2' else p1+p2)
     if st.session_state.domain_setting not in opts: st.session_state.domain_setting='All'
     domain=st.selectbox('Domain',opts,key='domain_setting')
+
+    settings_changed=(part!=prefs['part'] or difficulty!=prefs['difficulty'] or domain!=prefs['domain'])
+    if settings_changed:
+        # A changed filter means the saved question may no longer belong to the selected study area.
+        # Clear the resume point so the next question always matches the new settings.
+        clear_resume_question()
+        st.session_state.question=None
+        st.session_state.submitted=False
+        st.session_state.selected=None
+        st.session_state.confidence_value=0
+        st.session_state.result=None
     save_preferences(part,difficulty,domain)
     st.caption('✓ Settings saved automatically')
     if st.session_state.question:
