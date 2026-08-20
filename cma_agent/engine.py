@@ -210,7 +210,7 @@ def learning_snapshot(domain="All"):
     where = "" if domain == "All" else "WHERE domain=?"
     args = () if domain == "All" else (domain,)
     rows = c.execute(
-        f"SELECT correct, confidence, domain FROM attempts {where} ORDER BY id DESC LIMIT 50",
+        f"SELECT question_id, correct, confidence, domain FROM attempts {where} ORDER BY id DESC LIMIT 50",
         args,
     ).fetchall()
 
