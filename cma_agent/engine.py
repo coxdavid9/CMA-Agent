@@ -46,7 +46,13 @@ def get_preferences():
  c=db(); r=c.execute("SELECT part,difficulty,domain,resume_question_id FROM preferences WHERE id=1").fetchone(); result=dict(r) if r else {"part":"Both","difficulty":"All","domain":"All","resume_question_id":None}; c.close(); return result
 
 def save_preferences(part,difficulty,domain):
- c=db(); c.execute("INSERT OR REPLACE INTO preferences(id,part,difficulty,domain,resume_question_id) VALUES(1,?,?,?,COALESCE((SELECT resume_question_id FROM preferences WHERE id=1),NULL))",(part,difficulty,domain)); c.commit(); c.close()
+ c=db()
+ r=c.execute("SELECT id,resume_question_id FROM preferences WHERE id=1").fetchone()
+ if r:
+  c.execute("UPDATE preferences SET part=?,difficulty=?,domain=? WHERE id=1",(part,difficulty,domain))
+ else:
+  c.execute("INSERT INTO preferences(id,part,difficulty,domain,resume_question_id) VALUES(1,?,?,?,NULL)",(part,difficulty,domain))
+ c.commit(); c.close()
 def save_resume_question(question_id):
  c=db(); c.execute("UPDATE preferences SET resume_question_id=? WHERE id=1",(question_id,)); c.commit(); c.close()
 def clear_resume_question():
