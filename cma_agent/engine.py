@@ -37,10 +37,12 @@ def db():
 def get_or_start_session():
  c=db(); now=datetime.now(); r=c.execute("SELECT session_id,last_activity FROM session_state WHERE id=1").fetchone()
  if not r or not r[1] or now-datetime.fromisoformat(r[1])>timedelta(minutes=SESSION_TIMEOUT_MINUTES):
-  sid=str(uuid.uuid4()); c.execute("INSERT OR REPLACE INTO session_state(id,session_id,last_activity) VALUES(1,?,?)",(sid,now.isoformat(timespec="seconds")))
+  sid=str(uuid.uuid4())
+  c.execute("INSERT OR REPLACE INTO session_state(id,session_id,last_activity) VALUES(1,?,?)",(sid,now.isoformat(timespec="seconds")))
+  c.commit()
  else:
-  sid=r[0]; c.execute("UPDATE session_state SET last_activity=? WHERE id=1",(now.isoformat(timespec="seconds"),))
- c.commit(); c.close(); return sid
+  sid=r[0]
+ c.close(); return sid
 
 
 def start_new_session():
@@ -56,8 +58,7 @@ def get_preferences():
 
 
 def save_preferences(part,difficulty,domain):
- c=db()
- r=c.execute("SELECT id,resume_question_id FROM preferences WHERE id=1").fetchone()
+ c=db(); r=c.execute("SELECT id,resume_question_id FROM preferences WHERE id=1").fetchone()
  if r:c.execute("UPDATE preferences SET part=?,difficulty=?,domain=? WHERE id=1",(part,difficulty,domain))
  else:c.execute("INSERT INTO preferences(id,part,difficulty,domain,resume_question_id) VALUES(1,?,?,?,NULL)",(part,difficulty,domain))
  c.commit(); c.close()
@@ -145,7 +146,7 @@ def learning_snapshot(domain="All"):
 
 
 def grade(question_id,selected,confidence=0,session_id=None):
- q=get_question(question_id); correct=int(selected.upper()==q["answer"]); c=db(); c.execute("INSERT INTO attempts(ts,question_id,part,domain,difficulty,selected,correct,confidence,session_id) VALUES(?,?,?,?,?,?,?,?,?)",(datetime.now().isoformat(timespec="seconds"),question_id,q["part"],q["domain"],q["difficulty"],selected.upper(),correct,int(confidence or 0),session_id or get_or_start_session())); c.commit(); c.close(); return correct,q
+ q=get_question(question_id); correct=int(selected.upper()==q["answer"]); sid=session_id or get_or_start_session(); c=db(); c.execute("INSERT INTO attempts(ts,question_id,part,domain,difficulty,selected,correct,confidence,session_id) VALUES(?,?,?,?,?,?,?,?,?)",(datetime.now().isoformat(timespec="seconds"),question_id,q["part"],q["domain"],q["difficulty"],selected.upper(),correct,int(confidence or 0),sid)); c.commit(); c.close(); return correct,q
 
 
 def stats():
