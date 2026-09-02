@@ -12,7 +12,7 @@ def db():
  url=os.getenv("TURSO_DATABASE_URL")
  token=os.getenv("TURSO_AUTH_TOKEN")
  if url and token:
-  import libsql
+  import libsql_experimental as libsql
   c=libsql.connect(database=url, auth_token=token)
  else:
   c=sqlite3.connect(DB)
@@ -40,7 +40,7 @@ def start_new_session():
  c=db(); sid=str(uuid.uuid4()); now=datetime.now(); c.execute("INSERT OR REPLACE INTO session_state(id,session_id,last_activity) VALUES(1,?,?)",(sid,now.isoformat(timespec="seconds"))); c.commit(); c.close(); return sid
 
 def session_stats(session_id):
- c=db(); r=c.execute("SELECT COUNT(*) n,COALESCE(SUM(correct),0) correct FROM attempts WHERE session_id=?",(session_id,)).fetchone(); misses=c.execute("SELECT domain,COUNT(*) n FROM attempts WHERE session_id=? AND correct=0 GROUP BY domain ORDER BY n DESC",(session_id,)).fetchall(); result={"attempted":r["n"],"correct":r["correct"],"accuracy":round(r["correct"]/r["n"]*100,1) if r["n"] else 0,"miss_domains":[x["domain"] for x in misses]}; c.close(); return result
+ c=db(); r=c.execute("SELECT COUNT(*) n,COALESCE(SUM(correct),0) correct FROM attempts WHERE session_id=?",(session_id,)).fetchone(); misses=c.execute("SELECT domain,COUNT(*) n FROM attempts WHERE session_id=? AND correct=0 GROUP BY domain ORDER BY n DESC").fetchall(); result={"attempted":r["n"],"correct":r["correct"],"accuracy":round(r["correct"]/r["n"]*100,1) if r["n"] else 0,"miss_domains":[x["domain"] for x in misses]}; c.close(); return result
 
 def get_preferences():
  c=db(); r=c.execute("SELECT part,difficulty,domain,resume_question_id FROM preferences WHERE id=1").fetchone(); result=dict(r) if r else {"part":"Both","difficulty":"All","domain":"All","resume_question_id":None}; c.close(); return result
@@ -48,10 +48,8 @@ def get_preferences():
 def save_preferences(part,difficulty,domain):
  c=db()
  r=c.execute("SELECT id,resume_question_id FROM preferences WHERE id=1").fetchone()
- if r:
-  c.execute("UPDATE preferences SET part=?,difficulty=?,domain=? WHERE id=1",(part,difficulty,domain))
- else:
-  c.execute("INSERT INTO preferences(id,part,difficulty,domain,resume_question_id) VALUES(1,?,?,?,NULL)",(part,difficulty,domain))
+ if r:c.execute("UPDATE preferences SET part=?,difficulty=?,domain=? WHERE id=1",(part,difficulty,domain))
+ else:c.execute("INSERT INTO preferences(id,part,difficulty,domain,resume_question_id) VALUES(1,?,?,?,NULL)",(part,difficulty,domain))
  c.commit(); c.close()
 def save_resume_question(question_id):
  c=db(); c.execute("UPDATE preferences SET resume_question_id=? WHERE id=1",(question_id,)); c.commit(); c.close()
@@ -64,7 +62,7 @@ def domains(part="Both"):
 def _question_history(conn):
  rows=conn.execute("SELECT question_id,COUNT(*) attempts,SUM(correct) correct,MAX(id) last_id FROM attempts GROUP BY question_id").fetchall(); return {r["question_id"]:dict(r) for r in rows}
 def question_status(question_id,conn=None):
- owns=conn is None; conn=conn or db(); rows=conn.execute("SELECT correct FROM attempts WHERE question_id=? ORDER BY id DESC LIMIT 5",(question_id,)).fetchall();
+ owns=conn is None; conn=conn or db(); rows=conn.execute("SELECT correct FROM attempts WHERE question_id=? ORDER BY id DESC LIMIT 5",(question_id,)).fetchall()
  if owns:conn.close()
  if not rows:return "New"
  results=[int(r["correct"]) for r in rows]; attempts=len(results)
@@ -72,7 +70,7 @@ def question_status(question_id,conn=None):
  if results[0]==0 or sum(results)/attempts<.67:return "Weak"
  return "Learning"
 def topic_status(domain,conn=None):
- owns=conn is None; conn=conn or db(); rows=conn.execute("SELECT correct FROM attempts WHERE domain=? ORDER BY id DESC LIMIT 10",(domain,)).fetchall();
+ owns=conn is None; conn=conn or db(); rows=conn.execute("SELECT correct FROM attempts WHERE domain=? ORDER BY id DESC LIMIT 10",(domain,)).fetchall()
  if owns:conn.close()
  if not rows:return "New"
  results=[int(r["correct"]) for r in rows]
