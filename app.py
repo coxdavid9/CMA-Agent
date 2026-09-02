@@ -108,6 +108,7 @@ with practice:
     st.markdown('<div class="muted">The goal is to learn the concept behind the question, not just improve the score.</div>', unsafe_allow_html=True)
     current = session_stats(st.session_state.session_id)
     st.markdown(f'<span class="session-pill">Session · {current["attempted"]} answered</span>', unsafe_allow_html=True)
+
     q = st.session_state.question
     if q is None:
         st.markdown("<div style='height:12px'></div>", unsafe_allow_html=True)
@@ -120,8 +121,8 @@ with practice:
             st.session_state.confidence_value = 0
             st.session_state.result = None
             save_resume_question(q["id"])
-            st.rerun()
-    else:
+
+    if q is not None:
         st.markdown(f'<div class="card question"><div class="meta">{q["part"]} · {q["domain"]} · {q["difficulty"]}</div><div class="qtext">{clean_question(q["question"])}</div></div>', unsafe_allow_html=True)
         answer = st.radio("Your answer", list(q["choices"].keys()), format_func=lambda x: f"{x}. {q['choices'][x]}", key=f"answer_{q['id']}", disabled=st.session_state.submitted)
         confidence = st.radio("How sure are you?", [1, 2, 3], format_func=lambda x: {1:"🔴 Not sure", 2:"🟡 Somewhat sure", 3:"🟢 Very sure"}[x], horizontal=True, key=f"confidence_{q['id']}", disabled=st.session_state.submitted)
