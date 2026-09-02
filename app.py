@@ -93,7 +93,7 @@ with st.sidebar:
         st.session_state.selected = None
         st.session_state.confidence_value = 0
         st.session_state.result = None
-    save_preferences(part, difficulty, domain)
+        save_preferences(part, difficulty, domain)
     st.caption("✓ Settings saved automatically")
     if st.session_state.question:
         st.divider()
@@ -134,8 +134,6 @@ with practice:
                 st.session_state.selected = answer
                 st.session_state.confidence_value = confidence
                 st.session_state.result = (ok, graded)
-                # Do not call st.rerun() here. The button click already causes
-                # a Streamlit rerun, and the feedback can render in this run.
         else:
             ok, graded = st.session_state.result
             fb = learning_feedback(q["id"], st.session_state.selected, st.session_state.confidence_value)
@@ -254,6 +252,6 @@ with study:
     st.markdown('<div class="section">Historical Study Plans</div>', unsafe_allow_html=True)
     if history:
         for item in history:
-            st.markdown(f'<div class="card"><strong>📚 {item["target_date"]} · {item["part"]} · {item["daily_minutes"]} min/day</strong><br><span class="muted">Saved {item["created_at"]}</span></div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="card"><strong>📚 {item["target_date"]} · {item["part"]} · {item["daily_minutes"]} min/day</strong><br><span class="muted">{item["created_at"]}</span></div>', unsafe_allow_html=True)
     else:
-        st.write("No saved plans yet.")
+        st.caption("No previous study plans saved yet.")
