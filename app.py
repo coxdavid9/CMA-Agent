@@ -134,7 +134,8 @@ with practice:
                 st.session_state.selected = answer
                 st.session_state.confidence_value = confidence
                 st.session_state.result = (ok, graded)
-                st.rerun()
+                # Do not call st.rerun() here. The button click already causes
+                # a Streamlit rerun, and the feedback can render in this run.
         else:
             ok, graded = st.session_state.result
             fb = learning_feedback(q["id"], st.session_state.selected, st.session_state.confidence_value)
@@ -255,4 +256,4 @@ with study:
         for item in history:
             st.markdown(f'<div class="card"><strong>📚 {item["target_date"]} · {item["part"]} · {item["daily_minutes"]} min/day</strong><br><span class="muted">Saved {item["created_at"]}</span></div>', unsafe_allow_html=True)
     else:
-        st.info("No historical plans yet.")
+        st.write("No saved plans yet.")
