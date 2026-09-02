@@ -1,4 +1,4 @@
-import json, os, random, sqlite3, uuid
+import json, os, random, sqlite3, uuid, time
 from pathlib import Path
 from datetime import date, datetime, timedelta
 ROOT=Path(__file__).resolve().parent.parent
@@ -7,10 +7,30 @@ QUESTIONS=json.loads((DATA/"questions.json").read_text(encoding="utf-8"))
 CASES=json.loads((DATA/"cases.json").read_text(encoding="utf-8"))
 DB=Path(os.getenv("CMA_DB_PATH",str(DATA/"study.db")))
 SESSION_TIMEOUT_MINUTES=30
+_schema_ready=False
 
 
 def _dict_row(row, columns):
  return dict(zip(columns, row)) if row else None
+
+
+def _ensure_schema(c):
+ global _schema_ready
+ if _schema_ready:
+  return
+ c.execute("CREATE TABLE IF NOT EXISTS attempts(id INTEGER PRIMARY KEY,ts TEXT,question_id TEXT,part TEXT,domain TEXT,difficulty TEXT,selected TEXT,correct INTEGER,confidence INTEGER)")
+ c.execute("CREATE TABLE IF NOT EXISTS goals(id INTEGER PRIMARY KEY CHECK(id=1),target_date TEXT,part TEXT,daily_minutes INTEGER)")
+ c.execute("CREATE TABLE IF NOT EXISTS study_plans(id INTEGER PRIMARY KEY AUTOINCREMENT,created_at TEXT,target_date TEXT,part TEXT,daily_minutes INTEGER)")
+ c.execute("CREATE TABLE IF NOT EXISTS preferences(id INTEGER PRIMARY KEY CHECK(id=1),part TEXT,difficulty TEXT,domain TEXT)")
+ c.execute("CREATE TABLE IF NOT EXISTS session_state(id INTEGER PRIMARY KEY CHECK(id=1),session_id TEXT,last_activity TEXT)")
+ cols={r[1] for r in c.execute("PRAGMA table_info(preferences)").fetchall()}
+ if "resume_question_id" not in cols:
+  c.execute("ALTER TABLE preferences ADD COLUMN resume_question_id TEXT")
+ cols={r[1] for r in c.execute("PRAGMA table_info(attempts)").fetchall()}
+ if "session_id" not in cols:
+  c.execute("ALTER TABLE attempts ADD COLUMN session_id TEXT")
+ c.commit()
+ _schema_ready=True
 
 
 def db():
@@ -22,29 +42,45 @@ def db():
  else:
   c=sqlite3.connect(DB)
   c.row_factory=sqlite3.Row
- c.execute("CREATE TABLE IF NOT EXISTS attempts(id INTEGER PRIMARY KEY,ts TEXT,question_id TEXT,part TEXT,domain TEXT,difficulty TEXT,selected TEXT,correct INTEGER,confidence INTEGER)")
- c.execute("CREATE TABLE IF NOT EXISTS goals(id INTEGER PRIMARY KEY CHECK(id=1),target_date TEXT,part TEXT,daily_minutes INTEGER)")
- c.execute("CREATE TABLE IF NOT EXISTS study_plans(id INTEGER PRIMARY KEY AUTOINCREMENT,created_at TEXT,target_date TEXT,part TEXT,daily_minutes INTEGER)")
- c.execute("CREATE TABLE IF NOT EXISTS preferences(id INTEGER PRIMARY KEY CHECK(id=1),part TEXT,difficulty TEXT,domain TEXT)")
- c.execute("CREATE TABLE IF NOT EXISTS session_state(id INTEGER PRIMARY KEY CHECK(id=1),session_id TEXT,last_activity TEXT)")
- cols={r[1] for r in c.execute("PRAGMA table_info(preferences)").fetchall()}
- if "resume_question_id" not in cols:c.execute("ALTER TABLE preferences ADD COLUMN resume_question_id TEXT")
- cols={r[1] for r in c.execute("PRAGMA table_info(attempts)").fetchall()}
- if "session_id" not in cols:c.execute("ALTER TABLE attempts ADD COLUMN session_id TEXT")
- c.commit(); return c
+ _ensure_schema(c)
+ return c
+
+
+def _write(fn,retries=3):
+ last=None
+ for attempt in range(retries):
+  c=db()
+  try:
+   result=fn(c)
+   c.commit()
+   c.close()
+   return result
+  except Exception as exc:
+   last=exc
+   try:c.close()
+   except Exception:pass
+   if attempt<retries-1:time.sleep(0.5*(attempt+1))
+ raise last
 
 
 def get_or_start_session():
- c=db(); now=datetime.now(); r=c.execute("SELECT session_id,last_activity FROM session_state WHERE id=1").fetchone()
- if not r or not r[1] or now-datetime.fromisoformat(r[1])>timedelta(minutes=SESSION_TIMEOUT_MINUTES):
-  sid=str(uuid.uuid4()); c.execute("INSERT OR REPLACE INTO session_state(id,session_id,last_activity) VALUES(1,?,?)",(sid,now.isoformat(timespec="seconds")))
- else:
-  sid=r[0]; c.execute("UPDATE session_state SET last_activity=? WHERE id=1",(now.isoformat(timespec="seconds"),))
- c.commit(); c.close(); return sid
+ c=db(); now=datetime.now()
+ try:
+  r=c.execute("SELECT session_id,last_activity FROM session_state WHERE id=1").fetchone()
+  if not r or not r[1] or now-datetime.fromisoformat(r[1])>timedelta(minutes=SESSION_TIMEOUT_MINUTES):
+   sid=str(uuid.uuid4())
+   c.execute("INSERT OR REPLACE INTO session_state(id,session_id,last_activity) VALUES(1,?,?)",(sid,now.isoformat(timespec="seconds")))
+   c.commit()
+   return sid
+  return r[0]
+ finally:
+  c.close()
 
 
 def start_new_session():
- c=db(); sid=str(uuid.uuid4()); now=datetime.now(); c.execute("INSERT OR REPLACE INTO session_state(id,session_id,last_activity) VALUES(1,?,?)",(sid,now.isoformat(timespec="seconds"))); c.commit(); c.close(); return sid
+ sid=str(uuid.uuid4()); now=datetime.now().isoformat(timespec="seconds")
+ _write(lambda c:c.execute("INSERT OR REPLACE INTO session_state(id,session_id,last_activity) VALUES(1,?,?)",(sid,now)))
+ return sid
 
 
 def session_stats(session_id):
@@ -56,19 +92,19 @@ def get_preferences():
 
 
 def save_preferences(part,difficulty,domain):
- c=db()
- r=c.execute("SELECT id,resume_question_id FROM preferences WHERE id=1").fetchone()
- if r:c.execute("UPDATE preferences SET part=?,difficulty=?,domain=? WHERE id=1",(part,difficulty,domain))
- else:c.execute("INSERT INTO preferences(id,part,difficulty,domain,resume_question_id) VALUES(1,?,?,?,NULL)",(part,difficulty,domain))
- c.commit(); c.close()
+ def op(c):
+  r=c.execute("SELECT id,resume_question_id FROM preferences WHERE id=1").fetchone()
+  if r:c.execute("UPDATE preferences SET part=?,difficulty=?,domain=? WHERE id=1",(part,difficulty,domain))
+  else:c.execute("INSERT INTO preferences(id,part,difficulty,domain,resume_question_id) VALUES(1,?,?,?,NULL)",(part,difficulty,domain))
+ _write(op)
 
 
 def save_resume_question(question_id):
- c=db(); c.execute("UPDATE preferences SET resume_question_id=? WHERE id=1",(question_id,)); c.commit(); c.close()
+ _write(lambda c:c.execute("UPDATE preferences SET resume_question_id=? WHERE id=1",(question_id,)))
 
 
 def clear_resume_question():
- c=db(); c.execute("UPDATE preferences SET resume_question_id=NULL WHERE id=1"); c.commit(); c.close()
+ _write(lambda c:c.execute("UPDATE preferences SET resume_question_id=NULL WHERE id=1"))
 
 
 def get_question(question_id): return next((q for q in QUESTIONS if q["id"]==question_id),None)
@@ -142,7 +178,11 @@ def learning_snapshot(domain="All"):
 
 
 def grade(question_id,selected,confidence=0,session_id=None):
- q=get_question(question_id); correct=int(selected.upper()==q["answer"]); c=db(); c.execute("INSERT INTO attempts(ts,question_id,part,domain,difficulty,selected,correct,confidence,session_id) VALUES(?,?,?,?,?,?,?,?,?)",(datetime.now().isoformat(timespec="seconds"),question_id,q["part"],q["domain"],q["difficulty"],selected.upper(),correct,int(confidence or 0),session_id or get_or_start_session())); c.commit(); c.close(); return correct,q
+ q=get_question(question_id); correct=int(selected.upper()==q["answer"]); sid=session_id or get_or_start_session()
+ def op(c):
+  c.execute("INSERT INTO attempts(ts,question_id,part,domain,difficulty,selected,correct,confidence,session_id) VALUES(?,?,?,?,?,?,?,?,?)",(datetime.now().isoformat(timespec="seconds"),question_id,q["part"],q["domain"],q["difficulty"],selected.upper(),correct,int(confidence or 0),sid))
+ _write(op)
+ return correct,q
 
 
 def stats():
@@ -156,7 +196,9 @@ def recent(limit=25):
 
 
 def save_goal(target_date,part,daily_minutes):
- c=db(); now=datetime.now().isoformat(timespec="seconds"); c.execute("INSERT OR REPLACE INTO goals(id,target_date,part,daily_minutes) VALUES(1,?,?,?)",(target_date,part,daily_minutes)); c.execute("INSERT INTO study_plans(created_at,target_date,part,daily_minutes) VALUES(?,?,?,?)",(now,target_date,part,daily_minutes)); c.commit(); c.close()
+ def op(c):
+  now=datetime.now().isoformat(timespec="seconds"); c.execute("INSERT OR REPLACE INTO goals(id,target_date,part,daily_minutes) VALUES(1,?,?,?)",(target_date,part,daily_minutes)); c.execute("INSERT INTO study_plans(created_at,target_date,part,daily_minutes) VALUES(?,?,?,?)",(now,target_date,part,daily_minutes))
+ _write(op)
 
 
 def goal():
@@ -174,4 +216,4 @@ def plan():
 
 
 def reset():
- c=db(); c.execute("DELETE FROM attempts"); c.commit(); c.close()
+ _write(lambda c:c.execute("DELETE FROM attempts"))
