@@ -47,21 +47,15 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-prefs = get_preferences()
-initial_q = get_question(prefs.get("resume_question_id")) if prefs.get("resume_question_id") else None
-new_session_id = get_or_start_session()
+# Only initialize the persistent session once per browser session.
+# Previously this hit Supabase on every Streamlit rerun, including widget changes.
 if "session_id" not in st.session_state:
-    st.session_state.session_id = new_session_id
-elif st.session_state.session_id != new_session_id:
-    st.session_state.session_id = new_session_id
-    st.session_state.question = None
-    st.session_state.submitted = False
-    st.session_state.selected = None
-    st.session_state.confidence_value = 0
-    st.session_state.result = None
+    st.session_state.session_id = get_or_start_session()
+
+prefs = get_preferences()
 
 for key, value in {
-    "question": initial_q,
+    "question": get_question(prefs.get("resume_question_id")) if prefs.get("resume_question_id") else None,
     "submitted": False,
     "selected": None,
     "confidence_value": 0,
