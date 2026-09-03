@@ -121,19 +121,22 @@ with practice:
             st.session_state.confidence_value = 0
             st.session_state.result = None
             save_resume_question(q["id"])
+            st.rerun()
 
     if q is not None:
         st.markdown(f'<div class="card question"><div class="meta">{q["part"]} · {q["domain"]} · {q["difficulty"]}</div><div class="qtext">{clean_question(q["question"])}</div></div>', unsafe_allow_html=True)
-        answer = st.radio("Your answer", list(q["choices"].keys()), format_func=lambda x: f"{x}. {q['choices'][x]}", key=f"answer_{q['id']}", disabled=st.session_state.submitted)
-        confidence = st.radio("How sure are you?", [1, 2, 3], format_func=lambda x: {1:"🔴 Not sure", 2:"🟡 Somewhat sure", 3:"🟢 Very sure"}[x], horizontal=True, key=f"confidence_{q['id']}", disabled=st.session_state.submitted)
-        st.session_state.confidence_value = confidence
         if not st.session_state.submitted:
-            if st.button("Submit Answer", type="primary", use_container_width=True):
+            with st.form(f"answer_form_{q['id']}"):
+                answer = st.radio("Your answer", list(q["choices"].keys()), format_func=lambda x: f"{x}. {q['choices'][x]}")
+                confidence = st.radio("How sure are you?", [1, 2, 3], format_func=lambda x: {1:"🔴 Not sure", 2:"🟡 Somewhat sure", 3:"🟢 Very sure"}[x], horizontal=True)
+                submitted = st.form_submit_button("Submit Answer", type="primary", use_container_width=True)
+            if submitted:
                 ok, graded = grade(q["id"], answer, confidence, st.session_state.session_id)
                 st.session_state.submitted = True
                 st.session_state.selected = answer
                 st.session_state.confidence_value = confidence
                 st.session_state.result = (ok, graded)
+                st.rerun()
         else:
             ok, graded = st.session_state.result
             fb = learning_feedback(q["id"], st.session_state.selected, st.session_state.confidence_value)
