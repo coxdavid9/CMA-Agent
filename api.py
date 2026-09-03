@@ -1,3 +1,5 @@
+import re
+import copy
 import cma_agent.engine as engine
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
@@ -77,6 +79,37 @@ class GoalRequest(BaseModel):
     daily_minutes: int
 
 
+# The question bank contains older difficulty variants with a generated
+# contextual tail appended to the stem. Those tails make otherwise valid CMA
+# questions read like broken fill-in-the-blank sentences (for example:
+# "...primarily affects: when evaluating a current-period decision.").
+# Strip only those known generated tails at the API boundary so the stored
+# question bank remains untouched while the learner sees a clean stem.
+_CONTEXT_TAILS = (
+    " for a manufacturing business.",
+    " when evaluating a current-period decision.",
+    " when comparing two operating alternatives.",
+    " in a multi-site organization.",
+    " for a manager preparing a forecast.",
+    " when analyzing the current reporting period.",
+    " when reviewing the underlying business drivers.",
+    " for a monthly management review.",
+)
+
+
+def clean_question(q):
+    if not q:
+        return q
+    result = copy.deepcopy(q)
+    text = result.get("question")
+    if isinstance(text, str):
+        for tail in _CONTEXT_TAILS:
+            if text.endswith(tail):
+                result["question"] = text[:-len(tail)].rstrip()
+                break
+    return result
+
+
 @app.get("/api/health")
 def health():
     return {"ok": True}
@@ -111,21 +144,21 @@ def question(question_id: str):
     q = get_question(question_id)
     if not q:
         raise HTTPException(status_code=404, detail="Question not found")
-    return q
+    return clean_question(q)
 
 
 @app.post("/api/question")
 def question_choose(request: QuestionRequest):
     q = choose_question(request.part, request.domain, request.difficulty, exclude=request.exclude)
     save_resume_question(q["id"])
-    return q
+    return clean_question(q)
 
 
 @app.post("/api/followup")
 def followup(request: FollowupRequest):
     q = choose_followup(request.question_id, request.selected, request.part, request.difficulty)
     save_resume_question(q["id"])
-    return q
+    return clean_question(q)
 
 
 @app.post("/api/grade")
@@ -136,7 +169,7 @@ def grade_question(request: GradeRequest):
     ok, graded = grade(request.question_id, request.selected, request.confidence, request.session_id)
     feedback = learning_feedback(request.question_id, request.selected, request.confidence)
     sid = request.session_id or get_or_start_session()
-    return {"correct": bool(ok), "question": graded, "feedback": feedback, "session": session_stats(sid)}
+    return {"correct": bool(ok), "question": clean_question(graded), "feedback": feedback, "session": session_stats(sid)}
 
 
 @app.get("/api/dashboard")
