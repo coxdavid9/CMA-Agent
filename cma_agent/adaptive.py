@@ -35,14 +35,10 @@ def record_result(question_id, correct, confidence):
     now = _now()
 
     if not correct:
-        # Misses return soon, but not immediately. The next question should
-        # test the concept first; the missed item comes back for retrieval later.
         interval = 0.25 if previous_interval == 0 else 0.5
         streak = 0
         due = now + timedelta(days=interval)
     elif int(confidence or 0) <= 1:
-        # Correct + low confidence is intentionally treated differently from
-        # a confident answer: the learner needs another retrieval soon.
         interval = 1 if previous_interval == 0 else min(max(previous_interval * 1.5, 1), 7)
         streak = previous_streak + 1
         due = now + timedelta(days=interval)
@@ -80,14 +76,7 @@ def _filtered_questions(part, domain, difficulty, exclude):
 
 
 def _mastery_status(results):
-    """Return a conservative question-level mastery status.
-
-    Mastery is deliberately harder to earn than the old rule of three recent
-    correct answers. We require sustained correctness plus evidence that the
-    learner was not simply guessing. A single miss removes Mastered status so
-    the scheduler can re-test the item, but it does not automatically label a
-    previously strong learner as Weak.
-    """
+    """Conservative question-level mastery status."""
     if not results:
         return "New"
 
@@ -151,8 +140,8 @@ def _topic_mastery_status(results):
 
 
 def mastery_by_domain(part="Both", domain="All"):
-    allowed = set(_filtered_questions(part, domain, "All", set()))
-    allowed_domains = {q["domain"] for q in allowed}
+    allowed_questions = _filtered_questions(part, domain, "All", set())
+    allowed_domains = {q["domain"] for q in allowed_questions}
     conn = engine.db()
     rows = conn.execute(
         "SELECT domain,correct,confidence FROM attempts ORDER BY id DESC"
@@ -193,28 +182,24 @@ def choose_question(part="Both", domain="All", difficulty="All", exclude=None):
     ).fetchall()
     due = {r["question_id"]: dict(r) for r in rows}
     statuses = _question_statuses(conn)
-    history_rows = conn.execute("SELECT question_id,correct FROM attempts ORDER BY id DESC").fetchall()
     conn.close()
 
     due_candidates = [q for q in candidates if q["id"] in due]
     if due_candidates:
         def score(q):
             r = due[q["id"]]
-            # Misses and low-confidence correct answers get the highest priority.
             urgency = 30 if int(r["last_correct"] or 0) == 0 else 20 if int(r["last_confidence"] or 0) == 1 else 10
             return urgency + min(int(r["streak"] or 0), 10) + random.random()
         return max(due_candidates, key=score)
 
-    # No review is due. Use the stronger mastery model to avoid over-serving
-    # items that have already demonstrated sustained mastery.
+    # No review is due: prefer New/Weak/Learning before items that have
+    # demonstrated sustained mastery.
     by_status = {"New": [], "Weak": [], "Learning": [], "Mastered": []}
     for q in candidates:
         by_status[statuses.get(q["id"], "New")].append(q)
 
     pool = by_status["New"] or by_status["Weak"] or by_status["Learning"] or by_status["Mastered"] or candidates
-    if pool:
-        return random.choice(pool)
-    return candidates[0]
+    return random.choice(pool)
 
 
 def choose_followup(question_id, selected, part="Both", difficulty="All"):
@@ -222,8 +207,6 @@ def choose_followup(question_id, selected, part="Both", difficulty="All"):
     if not source:
         return engine.choose_followup(question_id, selected, part, difficulty)
 
-    # Follow-up means a different question testing the same CMA domain. The
-    # scheduler handles when the original question returns for retrieval.
     candidates = [
         q for q in engine.QUESTIONS
         if q["id"] != question_id
@@ -246,7 +229,6 @@ def choose_followup(question_id, selected, part="Both", difficulty="All"):
         attempts = int(h.get("attempts", 0))
         correct = int(h.get("correct", 0))
         status = statuses.get(q["id"], "New")
-        # Prefer unseen/weak questions while still keeping some randomness.
         score = {"New": 12, "Weak": 10, "Learning": 5, "Mastered": 1}.get(status, 1)
         if attempts:
             score += max(0, 4 - correct / max(1, attempts) * 4)
