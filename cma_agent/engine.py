@@ -125,6 +125,31 @@ def question_status(question_id,conn=None):
     return "Learning"
 
 
+def _question_statuses(conn):
+    """Calculate all question statuses with one database query.
+
+    This is important for the remote Supabase backend: choosing one question
+    should not open hundreds of queries against Postgres.
+    """
+    rows=conn.execute("SELECT question_id,correct FROM attempts ORDER BY id DESC").fetchall()
+    recent={}
+    for row in rows:
+        qid=row["question_id"]
+        bucket=recent.setdefault(qid,[])
+        if len(bucket)<5:
+            bucket.append(int(row["correct"]))
+    statuses={}
+    for qid,results in recent.items():
+        attempts=len(results)
+        if attempts>=3 and sum(results[:3])==3:
+            statuses[qid]="Mastered"
+        elif results[0]==0 or sum(results)/attempts<.67:
+            statuses[qid]="Weak"
+        else:
+            statuses[qid]="Learning"
+    return statuses
+
+
 def topic_status(domain,conn=None):
     owns=conn is None; conn=conn or db(); rows=conn.execute("SELECT correct FROM attempts WHERE domain=? ORDER BY id DESC LIMIT 10",(domain,)).fetchall();
     if owns:conn.close()
@@ -138,12 +163,12 @@ def topic_status(domain,conn=None):
 def choose_question(part="Both",domain="All",difficulty="All",exclude=None,review_mode=False):
     exclude=set(exclude or []); conn=db(); filtered=[q for q in QUESTIONS if q["id"] not in exclude and (part=="Both" or q["part"]==part) and (domain=="All" or q["domain"]==domain) and (difficulty=="All" or q["difficulty"]==difficulty)]
     if not filtered:filtered=[q for q in QUESTIONS if q["id"] not in exclude and (part=="Both" or q["part"]==part)]
-    history=_question_history(conn); buckets={"New":[],"Learning":[],"Weak":[],"Mastered":[]}
-    for q in filtered:buckets[question_status(q["id"],conn)].append(q)
+    history=_question_history(conn); statuses=_question_statuses(conn); buckets={"New":[],"Learning":[],"Weak":[],"Mastered":[]}
+    for q in filtered:buckets[statuses.get(q["id"],"New")].append(q)
     pool=(buckets["Weak"] or buckets["Learning"] or buckets["New"] or buckets["Mastered"] or filtered) if review_mode else (buckets["New"] or buckets["Weak"] or buckets["Learning"] or buckets["Mastered"] or filtered)
     domain_rows=conn.execute("SELECT domain,AVG(correct) pct,COUNT(*) n FROM attempts GROUP BY domain").fetchall(); domain_scores={r["domain"]:(float(r["pct"]),int(r["n"])) for r in domain_rows}; weighted=[]
     for q in pool:
-        pct,_=domain_scores.get(q["domain"],(.5,0)); attempts=int(history.get(q["id"],{}).get("attempts",0)); status=question_status(q["id"],conn); weight={"New":5,"Weak":4,"Learning":2,"Mastered":.25}[status]; weight*=max(.5,1.5-pct); weight*=1/(1+attempts*.15); weighted.extend([q]*max(1,int(weight*10)))
+        pct,_=domain_scores.get(q["domain"],(.5,0)); attempts=int(history.get(q["id"],{}).get("attempts",0)); status=statuses.get(q["id"],"New"); weight={"New":5,"Weak":4,"Learning":2,"Mastered":.25}[status]; weight*=max(.5,1.5-pct); weight*=1/(1+attempts*.15); weighted.extend([q]*max(1,int(weight*10)))
     chosen=random.choice(weighted or pool); conn.close(); return chosen
 
 
@@ -182,8 +207,8 @@ def grade(question_id,selected,confidence=0,session_id=None):
 
 
 def stats():
-    c=db(); n=c.execute("SELECT COUNT(*) n FROM attempts").fetchone()["n"]; k=c.execute("SELECT COALESCE(SUM(correct),0) n FROM attempts").fetchone()["n"]; rows=c.execute("SELECT part,domain,COUNT(*) n,SUM(correct) correct,ROUND(AVG(correct)*100,1) pct FROM attempts GROUP BY part,domain").fetchall(); mastery=[{"domain":d,"status":topic_status(d,c)} for d in domains("Both")]; counts={"New":0,"Learning":0,"Weak":0,"Mastered":0}
-    for q in QUESTIONS:counts[question_status(q["id"],c)]+=1
+    c=db(); n=c.execute("SELECT COUNT(*) n FROM attempts").fetchone()["n"]; k=c.execute("SELECT COALESCE(SUM(correct),0) n FROM attempts").fetchone()["n"]; rows=c.execute("SELECT part,domain,COUNT(*) n,SUM(correct) correct,ROUND(AVG(correct)*100,1) pct FROM attempts GROUP BY part,domain").fetchall(); mastery=[{"domain":d,"status":topic_status(d,c)} for d in domains("Both")]; counts={"New":0,"Learning":0,"Weak":0,"Mastered":0}; statuses=_question_statuses(c)
+    for q in QUESTIONS:counts[statuses.get(q["id"],"New")]+=1
     result={"attempted":n,"correct":k,"accuracy":round(k/n*100,1) if n else 0,"by_domain":[dict(r) for r in rows],"mastery":mastery,"question_status_counts":counts,"question_bank_size":len(QUESTIONS)}; c.close(); return result
 
 
