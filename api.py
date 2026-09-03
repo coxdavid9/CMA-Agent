@@ -37,18 +37,19 @@ def db():
 
 engine.db = db
 
-# Add a larger set of original Part 1 practice questions. These are written for
-# CMA Coach and are not copied from IMA or commercial prep materials.
-_expanded_path = Path(__file__).resolve().parent / "data" / "questions_part1_expanded.json"
-if _expanded_path.exists():
+# Load all original Part 1 supplemental banks. Keeping them as separate files
+# makes the bank easier to expand and review without changing the API again.
+_data_dir = Path(__file__).resolve().parent / "data"
+_loaded_ids = {q.get("id") for q in engine.QUESTIONS}
+for _path in sorted(_data_dir.glob("questions_part1_*.json")):
     try:
-        extra_questions = json.loads(_expanded_path.read_text(encoding="utf-8"))
-        existing_ids = {q.get("id") for q in engine.QUESTIONS}
-        engine.QUESTIONS.extend(q for q in extra_questions if q.get("id") not in existing_ids)
+        _items = json.loads(_path.read_text(encoding="utf-8"))
+        for _q in _items:
+            if _q.get("id") not in _loaded_ids:
+                engine.QUESTIONS.append(_q)
+                _loaded_ids.add(_q.get("id"))
     except Exception:
-        # The original question bank remains usable if the supplemental file
-        # cannot be loaded for any reason.
-        pass
+        continue
 
 from cma_agent.engine import (
     choose_question, choose_followup, grade, learning_feedback,
@@ -94,9 +95,6 @@ class GoalRequest(BaseModel):
     daily_minutes: int
 
 
-# The question bank contains older difficulty variants with a generated
-# contextual tail appended to the stem. Those tails make otherwise valid CMA
-# questions read like broken fill-in-the-blank sentences.
 _CONTEXT_TAILS = (
     " for a manufacturing business.",
     " when evaluating a current-period decision.",
