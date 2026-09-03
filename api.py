@@ -1,5 +1,7 @@
 import re
 import copy
+import json
+from pathlib import Path
 import cma_agent.engine as engine
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
@@ -34,6 +36,19 @@ def db():
 
 
 engine.db = db
+
+# Add a larger set of original Part 1 practice questions. These are written for
+# CMA Coach and are not copied from IMA or commercial prep materials.
+_expanded_path = Path(__file__).resolve().parent / "data" / "questions_part1_expanded.json"
+if _expanded_path.exists():
+    try:
+        extra_questions = json.loads(_expanded_path.read_text(encoding="utf-8"))
+        existing_ids = {q.get("id") for q in engine.QUESTIONS}
+        engine.QUESTIONS.extend(q for q in extra_questions if q.get("id") not in existing_ids)
+    except Exception:
+        # The original question bank remains usable if the supplemental file
+        # cannot be loaded for any reason.
+        pass
 
 from cma_agent.engine import (
     choose_question, choose_followup, grade, learning_feedback,
@@ -81,10 +96,7 @@ class GoalRequest(BaseModel):
 
 # The question bank contains older difficulty variants with a generated
 # contextual tail appended to the stem. Those tails make otherwise valid CMA
-# questions read like broken fill-in-the-blank sentences (for example:
-# "...primarily affects: when evaluating a current-period decision.").
-# Strip only those known generated tails at the API boundary so the stored
-# question bank remains untouched while the learner sees a clean stem.
+# questions read like broken fill-in-the-blank sentences.
 _CONTEXT_TAILS = (
     " for a manufacturing business.",
     " when evaluating a current-period decision.",
@@ -108,6 +120,36 @@ def clean_question(q):
                 result["question"] = text[:-len(tail)].rstrip()
                 break
     return result
+
+
+def _recent_question_ids(limit=15):
+    """Return recently attempted IDs so mixed practice does not recycle them."""
+    c = db()
+    rows = c.execute("SELECT question_id FROM attempts ORDER BY id DESC LIMIT ?", (limit,)).fetchall()
+    ids = [r["question_id"] for r in rows]
+    c.close()
+    return ids
+
+
+def _clean_bank_duplicates():
+    """Remove exact duplicate stems created by older generated variants.
+
+    Keep the harder version when the same cleaned stem exists at multiple
+    difficulties. This prevents the learner from seeing the same question with
+    only a cosmetic difficulty/context change.
+    """
+    rank = {"Easy": 1, "Medium": 2, "Hard": 3}
+    chosen = {}
+    for q in engine.QUESTIONS:
+        cleaned = clean_question(q)
+        key = (q.get("part"), q.get("domain"), cleaned.get("question", "").strip().lower())
+        current = chosen.get(key)
+        if current is None or rank.get(q.get("difficulty"), 0) > rank.get(current.get("difficulty"), 0):
+            chosen[key] = q
+    engine.QUESTIONS[:] = list(chosen.values())
+
+
+_clean_bank_duplicates()
 
 
 @app.get("/api/health")
@@ -149,7 +191,8 @@ def question(question_id: str):
 
 @app.post("/api/question")
 def question_choose(request: QuestionRequest):
-    q = choose_question(request.part, request.domain, request.difficulty, exclude=request.exclude)
+    exclude = list(dict.fromkeys((request.exclude or []) + _recent_question_ids(15)))
+    q = choose_question(request.part, request.domain, request.difficulty, exclude=exclude)
     save_resume_question(q["id"])
     return clean_question(q)
 
