@@ -188,7 +188,17 @@ def learning_feedback(question_id,selected,confidence):
     elif correct:diagnosis,advice="Solid understanding","You appear comfortable with this concept. We can spend less time here and focus on weaker areas."
     elif confidence==3:diagnosis,advice="Likely concept/application gap","You were fairly sure but missed it. Review the rule, then prove you can apply it in a different situation."
     else:diagnosis,advice="Likely knowledge gap","You were not sure and missed it. This is a good candidate for a short concept review before moving on."
-    return {"correct":correct,"diagnosis":diagnosis,"advice":advice,"takeaway":q.get("explanation") or "Review the explanation and identify the rule that determines the correct answer.","correct_answer":q["answer"],"explanation":q.get("explanation",""),"calculation":q.get("calculation")}
+
+    choices=q.get("choices") or {}
+    answer=q["answer"]
+    choice_text=choices.get(answer,answer)
+    calculation=q.get("calculation")
+    if calculation:
+        takeaway=f"**Exam cue:** {answer}. {choice_text} — identify the formula first, then substitute the numbers."
+    else:
+        takeaway=f"**Exam cue:** **{answer}. {choice_text}** — focus on the defining rule or distinction the question is testing."
+
+    return {"correct":correct,"diagnosis":diagnosis,"advice":advice,"takeaway":takeaway,"correct_answer":answer,"explanation":q.get("explanation",""),"calculation":calculation}
 
 
 def learning_snapshot(domain="All"):
