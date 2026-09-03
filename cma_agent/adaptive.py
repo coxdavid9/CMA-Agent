@@ -79,6 +79,106 @@ def _filtered_questions(part, domain, difficulty, exclude):
     ]
 
 
+def _mastery_status(results):
+    """Return a conservative question-level mastery status.
+
+    Mastery is deliberately harder to earn than the old rule of three recent
+    correct answers. We require sustained correctness plus evidence that the
+    learner was not simply guessing. A single miss removes Mastered status so
+    the scheduler can re-test the item, but it does not automatically label a
+    previously strong learner as Weak.
+    """
+    if not results:
+        return "New"
+
+    attempts = len(results)
+    correct = [int(r["correct"]) for r in results]
+    confidence = [int(r["confidence"] or 0) for r in results]
+
+    if attempts < 3:
+        return "Weak" if correct[0] == 0 else "Learning"
+
+    last_five = correct[:5]
+    last_five_conf = confidence[:5]
+    accuracy = sum(last_five) / len(last_five)
+
+    # Five consecutive correct recalls, with at least three at medium/high
+    # confidence, is the minimum evidence for question-level mastery.
+    if len(last_five) >= 5 and all(last_five) and sum(c >= 2 for c in last_five_conf) >= 3:
+        return "Mastered"
+
+    # Repeated misses or a low recent success rate indicate a weak item.
+    if accuracy < 0.67 or (correct[0] == 0 and len(last_five) >= 3 and accuracy < 0.75):
+        return "Weak"
+
+    return "Learning"
+
+
+def _question_statuses(conn):
+    rows = conn.execute(
+        "SELECT question_id,correct,confidence FROM attempts ORDER BY id DESC"
+    ).fetchall()
+    recent = {}
+    for row in rows:
+        qid = row["question_id"]
+        bucket = recent.setdefault(qid, [])
+        if len(bucket) < 5:
+            bucket.append({"correct": int(row["correct"]), "confidence": int(row["confidence"] or 0)})
+    return {qid: _mastery_status(results) for qid, results in recent.items()}
+
+
+def _topic_mastery_status(results):
+    """Conservative domain-level status using both accuracy and confidence."""
+    if not results:
+        return "New"
+    correct = [int(r["correct"]) for r in results]
+    confidence = [int(r["confidence"] or 0) for r in results]
+    attempts = len(correct)
+
+    if attempts < 3:
+        return "Weak" if correct[0] == 0 else "Learning"
+
+    recent = correct[:10]
+    recent_accuracy = sum(recent) / len(recent)
+    last_five_accuracy = sum(correct[:5]) / min(5, attempts)
+    avg_conf = sum(confidence[:min(10, attempts)]) / min(10, attempts)
+
+    if attempts >= 8 and recent_accuracy >= 0.85 and last_five_accuracy >= 0.80 and avg_conf >= 2.0:
+        return "Mastered"
+    if recent_accuracy < 0.67 or (correct[0] == 0 and recent_accuracy < 0.75):
+        return "Weak"
+    return "Learning"
+
+
+def mastery_by_domain(part="Both", domain="All"):
+    allowed = set(_filtered_questions(part, domain, "All", set()))
+    allowed_domains = {q["domain"] for q in allowed}
+    conn = engine.db()
+    rows = conn.execute(
+        "SELECT domain,correct,confidence FROM attempts ORDER BY id DESC"
+    ).fetchall()
+    conn.close()
+
+    grouped = {d: [] for d in allowed_domains}
+    for row in rows:
+        d = row["domain"]
+        if d in grouped and len(grouped[d]) < 10:
+            grouped[d].append({"correct": int(row["correct"]), "confidence": int(row["confidence"] or 0)})
+
+    result = []
+    for d, values in grouped.items():
+        if not values:
+            continue
+        correct = [v["correct"] for v in values]
+        result.append({
+            "domain": d,
+            "status": _topic_mastery_status(values),
+            "attempts": len(values),
+            "accuracy": round(sum(correct) / len(correct) * 100, 1),
+        })
+    return sorted(result, key=lambda x: (x["status"] != "Weak", x["accuracy"]))
+
+
 def choose_question(part="Both", domain="All", difficulty="All", exclude=None):
     candidates = _filtered_questions(part, domain, difficulty, exclude)
     if not candidates:
@@ -92,6 +192,8 @@ def choose_question(part="Both", domain="All", difficulty="All", exclude=None):
         (now,),
     ).fetchall()
     due = {r["question_id"]: dict(r) for r in rows}
+    statuses = _question_statuses(conn)
+    history_rows = conn.execute("SELECT question_id,correct FROM attempts ORDER BY id DESC").fetchall()
     conn.close()
 
     due_candidates = [q for q in candidates if q["id"] in due]
@@ -103,8 +205,16 @@ def choose_question(part="Both", domain="All", difficulty="All", exclude=None):
             return urgency + min(int(r["streak"] or 0), 10) + random.random()
         return max(due_candidates, key=score)
 
-    # No review is due: preserve the existing question-selection behavior.
-    return engine.choose_question(part, domain, difficulty, exclude=exclude)
+    # No review is due. Use the stronger mastery model to avoid over-serving
+    # items that have already demonstrated sustained mastery.
+    by_status = {"New": [], "Weak": [], "Learning": [], "Mastered": []}
+    for q in candidates:
+        by_status[statuses.get(q["id"], "New")].append(q)
+
+    pool = by_status["New"] or by_status["Weak"] or by_status["Learning"] or by_status["Mastered"] or candidates
+    if pool:
+        return random.choice(pool)
+    return candidates[0]
 
 
 def choose_followup(question_id, selected, part="Both", difficulty="All"):
@@ -127,7 +237,7 @@ def choose_followup(question_id, selected, part="Both", difficulty="All"):
     conn = engine.db()
     ensure_schema(conn)
     history = engine._question_history(conn)
-    statuses = engine._question_statuses(conn)
+    statuses = _question_statuses(conn)
     conn.close()
 
     scored = []
@@ -147,7 +257,7 @@ def choose_followup(question_id, selected, part="Both", difficulty="All"):
 def snapshot(part="Both", domain="All"):
     candidates = _filtered_questions(part, domain, "All", set())
     if not candidates:
-        return {"due_count": 0, "due_reviews": [], "next_best_action": None}
+        return {"due_count": 0, "due_reviews": [], "next_best_action": None, "mastery_by_domain": []}
 
     conn = engine.db()
     ensure_schema(conn)
@@ -169,4 +279,5 @@ def snapshot(part="Both", domain="All"):
         "due_count": len(due),
         "due_reviews": reviews,
         "next_best_action": reviews[0] if reviews else None,
+        "mastery_by_domain": mastery_by_domain(part, domain),
     }
