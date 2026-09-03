@@ -3,6 +3,7 @@ import copy
 import json
 from pathlib import Path
 import cma_agent.engine as engine
+import cma_agent.adaptive as adaptive
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -190,14 +191,14 @@ def question(question_id: str):
 @app.post("/api/question")
 def question_choose(request: QuestionRequest):
     exclude = list(dict.fromkeys((request.exclude or []) + _recent_question_ids(15)))
-    q = choose_question(request.part, request.domain, request.difficulty, exclude=exclude)
+    q = adaptive.choose_question(request.part, request.domain, request.difficulty, exclude=exclude)
     save_resume_question(q["id"])
     return clean_question(q)
 
 
 @app.post("/api/followup")
 def followup(request: FollowupRequest):
-    q = choose_followup(request.question_id, request.selected, request.part, request.difficulty)
+    q = adaptive.choose_followup(request.question_id, request.selected, request.part, request.difficulty)
     save_resume_question(q["id"])
     return clean_question(q)
 
@@ -208,6 +209,7 @@ def grade_question(request: GradeRequest):
     if not q:
         raise HTTPException(status_code=404, detail="Question not found")
     ok, graded = grade(request.question_id, request.selected, request.confidence, request.session_id)
+    adaptive.record_result(request.question_id, ok, request.confidence)
     feedback = learning_feedback(request.question_id, request.selected, request.confidence)
     sid = request.session_id or get_or_start_session()
     return {"correct": bool(ok), "question": clean_question(graded), "feedback": feedback, "session": session_stats(sid)}
@@ -215,7 +217,7 @@ def grade_question(request: GradeRequest):
 
 @app.get("/api/dashboard")
 def dashboard():
-    return {"stats": stats(), "snapshot": learning_snapshot()}
+    return {"stats": stats(), "snapshot": learning_snapshot(), "adaptive": adaptive.snapshot()}
 
 
 @app.get("/api/study-plan")
