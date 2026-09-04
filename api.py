@@ -199,6 +199,8 @@ def question_choose(request: QuestionRequest):
 @app.post("/api/followup")
 def followup(request: FollowupRequest):
     q = adaptive.choose_followup(request.question_id, request.selected, request.part, request.difficulty)
+    if q is None:
+        return {"drill_complete": True}
     save_resume_question(q["id"])
     return clean_question(q)
 
