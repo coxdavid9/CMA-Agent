@@ -1,6 +1,7 @@
 import re
 import copy
 import json
+import random
 from pathlib import Path
 import cma_agent.engine as engine
 import cma_agent.adaptive as adaptive
@@ -52,6 +53,36 @@ for _path in sorted(_data_dir.glob("questions_part1_*.json")):
     except Exception:
         continue
 
+# Flatten the case bank into question records so case questions use the same
+# grading/history machinery as regular questions. They are explicitly marked
+# so normal adaptive practice never selects them.
+_case_bank = []
+try:
+    _cases = json.loads((_data_dir / "cases.json").read_text(encoding="utf-8"))
+    for _case in _cases:
+        for _idx, _item in enumerate(_case.get("questions", []), 1):
+            _case_q = {
+                "id": f"{_case['id']}-Q{_idx}",
+                "part": _case["part"],
+                "domain": _case["domain"],
+                "difficulty": _case.get("difficulty", "Medium"),
+                "question": _item["q"],
+                "choices": _item["choices"],
+                "answer": _item["answer"],
+                "explanation": _item.get("explanation", ""),
+                "calculation": _item.get("calculation"),
+                "is_case": True,
+                "case_id": _case["id"],
+                "case_title": _case.get("title", "Case Practice"),
+                "scenario": _case.get("scenario", ""),
+                "case_question_number": _idx,
+                "case_question_count": len(_case.get("questions", [])),
+            }
+            engine.QUESTIONS.append(_case_q)
+            _case_bank.append(_case_q)
+except Exception:
+    _cases = []
+
 from cma_agent.engine import (
     choose_question, choose_followup, grade, learning_feedback,
     learning_snapshot, stats, plan, save_goal, get_preferences,
@@ -96,6 +127,23 @@ class GoalRequest(BaseModel):
     daily_minutes: int
 
 
+class CaseRequest(BaseModel):
+    part: str = "Both"
+    domain: str = "All"
+    exclude_case_ids: list[str] = []
+
+
+class ExamStartRequest(BaseModel):
+    part: str = "Part 1"
+
+
+class ExamGradeRequest(BaseModel):
+    question_id: str
+    selected: str
+    confidence: int = 0
+    session_id: Optional[str] = None
+
+
 _CONTEXT_TAILS = (
     " for a manufacturing business.",
     " when evaluating a current-period decision.",
@@ -121,6 +169,14 @@ def clean_question(q):
     return result
 
 
+def _public_exam_question(q):
+    """Strip answers/teaching content before sending an exam question to the browser."""
+    result = clean_question(q)
+    for key in ("answer", "explanation", "calculation"):
+        result.pop(key, None)
+    return result
+
+
 def _recent_question_ids(limit=15):
     """Return recently attempted IDs so mixed practice does not recycle them."""
     c = db()
@@ -134,21 +190,104 @@ def _clean_bank_duplicates():
     """Remove exact duplicate stems created by older generated variants.
 
     Keep the harder version when the same cleaned stem exists at multiple
-    difficulties. This prevents the learner from seeing the same question with
-    only a cosmetic difficulty/context change.
+    difficulties. Case questions are excluded from this cleanup because their
+    scenario/question structure is intentionally distinct.
     """
     rank = {"Easy": 1, "Medium": 2, "Hard": 3}
     chosen = {}
     for q in engine.QUESTIONS:
+        if q.get("is_case"):
+            continue
         cleaned = clean_question(q)
         key = (q.get("part"), q.get("domain"), cleaned.get("question", "").strip().lower())
         current = chosen.get(key)
         if current is None or rank.get(q.get("difficulty"), 0) > rank.get(current.get("difficulty"), 0):
             chosen[key] = q
-    engine.QUESTIONS[:] = list(chosen.values())
+    regular = list(chosen.values())
+    engine.QUESTIONS[:] = regular + _case_bank
 
 
 _clean_bank_duplicates()
+
+
+def _case_for_id(case_id):
+    for case in _cases:
+        if case.get("id") == case_id:
+            return case
+    return None
+
+
+def _choose_case(part="Both", domain="All", exclude_case_ids=None):
+    excluded = set(exclude_case_ids or [])
+    eligible = [c for c in _cases if c.get("id") not in excluded
+                and (part == "Both" or c.get("part") == part)
+                and (domain == "All" or c.get("domain") == domain)]
+    if not eligible:
+        eligible = [c for c in _cases if (part == "Both" or c.get("part") == part)
+                    and (domain == "All" or c.get("domain") == domain)]
+    return random.choice(eligible) if eligible else None
+
+
+def _public_case(case):
+    result = copy.deepcopy(case)
+    public_questions = []
+    for idx, item in enumerate(case.get("questions", []), 1):
+        q = {
+            "id": f"{case['id']}-Q{idx}",
+            "question": item.get("q", ""),
+            "choices": item.get("choices", {}),
+            "question_number": idx,
+            "question_count": len(case.get("questions", [])),
+        }
+        public_questions.append(q)
+    result["questions"] = public_questions
+    return result
+
+
+# Official CMA weighting used for simulation composition. The current IMA
+# blueprint is 15/20/20/15/15/15 for Part 1 and
+# 20/20/25/10/10/15 for Part 2.
+_BLUEPRINT = {
+    "Part 1": {
+        "External Financial Reporting Decisions": 15,
+        "Planning, Budgeting, and Forecasting": 20,
+        "Performance Management": 20,
+        "Cost Management": 15,
+        "Internal Controls": 15,
+        "Technology and Analytics": 15,
+    },
+    "Part 2": {
+        "Financial Statement Analysis": 20,
+        "Corporate Finance": 20,
+        "Business Decision Analysis": 25,
+        "Enterprise Risk Management": 10,
+        "Capital Investment Decisions": 10,
+        "Professional Ethics": 15,
+    },
+}
+
+
+def _exam_questions(part):
+    weights = _BLUEPRINT.get(part)
+    if not weights:
+        raise HTTPException(status_code=400, detail="Exam simulation requires Part 1 or Part 2")
+    regular = [q for q in engine.QUESTIONS if q.get("part") == part and not q.get("is_case")]
+    selected = []
+    used = set()
+    for domain, pct in weights.items():
+        pool = [q for q in regular if q.get("domain") == domain and q["id"] not in used]
+        target = round(pct)
+        random.shuffle(pool)
+        take = min(target, len(pool))
+        selected.extend(pool[:take])
+        used.update(q["id"] for q in pool[:take])
+    # If a bank is short in a domain, fill from any remaining question in the part.
+    if len(selected) < 100:
+        remaining = [q for q in regular if q["id"] not in used]
+        random.shuffle(remaining)
+        selected.extend(remaining[:100 - len(selected)])
+    random.shuffle(selected)
+    return selected[:100]
 
 
 @app.get("/api/health")
@@ -215,6 +354,41 @@ def grade_question(request: GradeRequest):
     feedback = learning_feedback(request.question_id, request.selected, request.confidence)
     sid = request.session_id or get_or_start_session()
     return {"correct": bool(ok), "question": clean_question(graded), "feedback": feedback, "session": session_stats(sid)}
+
+
+@app.post("/api/case")
+def case_choose(request: CaseRequest):
+    case = _choose_case(request.part, request.domain, request.exclude_case_ids)
+    if not case:
+        raise HTTPException(status_code=404, detail="No case found for those settings")
+    return _public_case(case)
+
+
+@app.post("/api/exam/start")
+def exam_start(request: ExamStartRequest):
+    questions = _exam_questions(request.part)
+    cases = [c for c in _cases if c.get("part") == request.part]
+    if len(cases) > 2:
+        cases = random.sample(cases, 2)
+    return {
+        "part": request.part,
+        "mcq_count": len(questions),
+        "mcq_time_minutes": 180,
+        "case_time_minutes": 60,
+        "mcq_questions": [_public_exam_question(q) for q in questions],
+        "cases": [_public_case(c) for c in cases],
+        "blueprint": _BLUEPRINT[request.part],
+    }
+
+
+@app.post("/api/exam/grade")
+def exam_grade(request: ExamGradeRequest):
+    q = get_question(request.question_id)
+    if not q:
+        raise HTTPException(status_code=404, detail="Question not found")
+    ok, _graded = grade(request.question_id, request.selected, request.confidence, request.session_id)
+    adaptive.record_result(request.question_id, ok, request.confidence)
+    return {"correct": bool(ok)}
 
 
 @app.get("/api/dashboard")
