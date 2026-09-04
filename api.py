@@ -10,9 +10,6 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import Optional
 
-# The old Streamlit app initialized the PostgreSQL schema on every DB connection.
-# Keep schema initialization once per API process instead; request handlers can
-# still open short-lived connections without repeating remote DDL/index calls.
 _original_db = engine.db
 _schema_ready = False
 
@@ -38,9 +35,6 @@ def db():
 
 
 engine.db = db
-
-# Load all original Part 1 supplemental banks. Keeping them as separate files
-# makes the bank easier to expand and review without changing the API again.
 _data_dir = Path(__file__).resolve().parent / "data"
 _loaded_ids = {q.get("id") for q in engine.QUESTIONS}
 for _path in sorted(_data_dir.glob("questions_part1_*.json")):
@@ -53,9 +47,6 @@ for _path in sorted(_data_dir.glob("questions_part1_*.json")):
     except Exception:
         continue
 
-# Flatten the case bank into question records so case questions use the same
-# grading/history machinery as regular questions. They are explicitly marked
-# so normal adaptive practice never selects them.
 _case_bank = []
 try:
     _cases = json.loads((_data_dir / "cases.json").read_text(encoding="utf-8"))
@@ -170,7 +161,6 @@ def clean_question(q):
 
 
 def _public_exam_question(q):
-    """Strip answers/teaching content before sending an exam question to the browser."""
     result = clean_question(q)
     for key in ("answer", "explanation", "calculation"):
         result.pop(key, None)
@@ -178,7 +168,6 @@ def _public_exam_question(q):
 
 
 def _recent_question_ids(limit=15):
-    """Return recently attempted IDs so mixed practice does not recycle them."""
     c = db()
     rows = c.execute("SELECT question_id FROM attempts ORDER BY id DESC LIMIT ?", (limit,)).fetchall()
     ids = [r["question_id"] for r in rows]
@@ -187,12 +176,6 @@ def _recent_question_ids(limit=15):
 
 
 def _clean_bank_duplicates():
-    """Remove exact duplicate stems created by older generated variants.
-
-    Keep the harder version when the same cleaned stem exists at multiple
-    difficulties. Case questions are excluded from this cleanup because their
-    scenario/question structure is intentionally distinct.
-    """
     rank = {"Easy": 1, "Medium": 2, "Hard": 3}
     chosen = {}
     for q in engine.QUESTIONS:
@@ -203,18 +186,10 @@ def _clean_bank_duplicates():
         current = chosen.get(key)
         if current is None or rank.get(q.get("difficulty"), 0) > rank.get(current.get("difficulty"), 0):
             chosen[key] = q
-    regular = list(chosen.values())
-    engine.QUESTIONS[:] = regular + _case_bank
+    engine.QUESTIONS[:] = list(chosen.values()) + _case_bank
 
 
 _clean_bank_duplicates()
-
-
-def _case_for_id(case_id):
-    for case in _cases:
-        if case.get("id") == case_id:
-            return case
-    return None
 
 
 def _choose_case(part="Both", domain="All", exclude_case_ids=None):
@@ -232,21 +207,17 @@ def _public_case(case):
     result = copy.deepcopy(case)
     public_questions = []
     for idx, item in enumerate(case.get("questions", []), 1):
-        q = {
+        public_questions.append({
             "id": f"{case['id']}-Q{idx}",
             "question": item.get("q", ""),
             "choices": item.get("choices", {}),
             "question_number": idx,
             "question_count": len(case.get("questions", [])),
-        }
-        public_questions.append(q)
+        })
     result["questions"] = public_questions
     return result
 
 
-# Official CMA weighting used for simulation composition. The current IMA
-# blueprint is 15/20/20/15/15/15 for Part 1 and
-# 20/20/25/10/10/15 for Part 2.
 _BLUEPRINT = {
     "Part 1": {
         "External Financial Reporting Decisions": 15,
@@ -281,7 +252,6 @@ def _exam_questions(part):
         take = min(target, len(pool))
         selected.extend(pool[:take])
         used.update(q["id"] for q in pool[:take])
-    # If a bank is short in a domain, fill from any remaining question in the part.
     if len(selected) < 100:
         remaining = [q for q in regular if q["id"] not in used]
         random.shuffle(remaining)
@@ -387,7 +357,8 @@ def exam_grade(request: ExamGradeRequest):
     if not q:
         raise HTTPException(status_code=404, detail="Question not found")
     ok, _graded = grade(request.question_id, request.selected, request.confidence, request.session_id)
-    adaptive.record_result(request.question_id, ok, request.confidence)
+    # Exam answers are recorded in history but deliberately do not enter the
+    # spaced-review scheduler because the simulation has no confidence input.
     return {"correct": bool(ok)}
 
 
