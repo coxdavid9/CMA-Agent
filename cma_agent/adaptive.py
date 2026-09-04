@@ -98,71 +98,6 @@ def _question_statuses(conn):
     return {qid: _mastery_status(results) for qid, results in recent.items()}
 
 
-def _topic_mastery_status(results):
-    """Conservative domain-level status using both accuracy and confidence."""
-    if not results:
-        return "New"
-    correct = [int(r["correct"]) for r in results]
-    confidence = [int(r["confidence"] or 0) for r in results]
-    attempts = len(correct)
-    if attempts < 3:
-        return "Weak" if correct[0] == 0 else "Learning"
-    recent = correct[:10]
-    recent_accuracy = sum(recent) / len(recent)
-    last_five_accuracy = sum(correct[:5]) / min(5, attempts)
-    avg_conf = sum(confidence[:min(10, attempts)]) / min(10, attempts)
-    if attempts >= 8 and recent_accuracy >= 0.85 and last_five_accuracy >= 0.80 and avg_conf >= 2.0:
-        return "Mastered"
-    if recent_accuracy < 0.67 or (correct[0] == 0 and recent_accuracy < 0.75):
-        return "Weak"
-    return "Learning"
-
-
-def mastery_by_domain(part="Both", domain="All"):
-    allowed_questions = _filtered_questions(part, domain, "All", set())
-    allowed_domains = {q["domain"] for q in allowed_questions}
-    conn = engine.db()
-    rows = conn.execute("SELECT domain,correct,confidence FROM attempts ORDER BY id DESC").fetchall()
-    conn.close()
-    grouped = {d: [] for d in allowed_domains}
-    for row in rows:
-        d = row["domain"]
-        if d in grouped and len(grouped[d]) < 10:
-            grouped[d].append({"correct": int(row["correct"]), "confidence": int(row["confidence"] or 0)})
-    result = []
-    for d, values in grouped.items():
-        if not values:
-            continue
-        correct = [v["correct"] for v in values]
-        result.append({"domain": d, "status": _topic_mastery_status(values), "attempts": len(values), "accuracy": round(sum(correct) / len(correct) * 100, 1)})
-    return sorted(result, key=lambda x: (x["status"] != "Weak", x["accuracy"]))
-
-
-def choose_question(part="Both", domain="All", difficulty="All", exclude=None):
-    candidates = _filtered_questions(part, domain, difficulty, exclude)
-    if not candidates:
-        return engine.choose_question(part, domain, difficulty, exclude=exclude)
-    conn = engine.db()
-    ensure_schema(conn)
-    now = _now().isoformat(timespec="seconds")
-    rows = conn.execute("SELECT question_id,due_at,last_correct,last_confidence,streak FROM review_state WHERE due_at<=?", (now,)).fetchall()
-    due = {r["question_id"]: dict(r) for r in rows}
-    statuses = _question_statuses(conn)
-    conn.close()
-    due_candidates = [q for q in candidates if q["id"] in due]
-    if due_candidates:
-        def score(q):
-            r = due[q["id"]]
-            urgency = 30 if int(r["last_correct"] or 0) == 0 else 20 if int(r["last_confidence"] or 0) == 1 else 10
-            return urgency + min(int(r["streak"] or 0), 10) + random.random()
-        return max(due_candidates, key=score)
-    by_status = {"New": [], "Weak": [], "Learning": [], "Mastered": []}
-    for q in candidates:
-        by_status[statuses.get(q["id"], "New")].append(q)
-    pool = by_status["New"] or by_status["Weak"] or by_status["Learning"] or by_status["Mastered"] or candidates
-    return random.choice(pool)
-
-
 _STOPWORDS = {"a","an","and","are","as","at","be","by","for","from","has","have","how","if","in","is","it","most","of","on","or","that","the","their","this","to","was","were","what","when","which","with","would","will","than","then","each","per","generally","primarily","directly","likely","company","manager","current","actual","budgeted","standard","appropriate"}
 _HIGH_VALUE_PHRASES = (
     "contribution margin", "sales volume", "volume variance", "sales mix", "price variance", "quantity variance",
@@ -176,7 +111,6 @@ _HIGH_VALUE_PHRASES = (
 
 
 def _concept_tokens(q):
-    """Create a lightweight fingerprint of the concept actually tested."""
     text = " ".join(str(q.get(k, "")) for k in ("question", "explanation", "calculation")).lower()
     words = re.findall(r"[a-z]{3,}", text)
     tokens = {w for w in words if w not in _STOPWORDS}
@@ -184,6 +118,16 @@ def _concept_tokens(q):
         if phrase in text:
             tokens.add(phrase)
     return tokens
+
+
+def _concept_labels(q):
+    """Return stable-ish concept labels used to measure breadth, not just volume."""
+    text = " ".join(str(q.get(k, "")) for k in ("question", "explanation", "calculation")).lower()
+    labels = {phrase for phrase in _HIGH_VALUE_PHRASES if phrase in text}
+    tokens = sorted(_concept_tokens(q))
+    if not labels and tokens:
+        labels.add("keywords:" + "|".join(tokens[:5]))
+    return labels
 
 
 def _concept_similarity(source, candidate):
@@ -205,6 +149,110 @@ def _recent_attempted_ids(conn, limit=15):
     return {r["question_id"] for r in rows}
 
 
+def _attempted_question_ids(conn, part="Both", domain="All"):
+    rows = conn.execute("SELECT question_id FROM attempts ORDER BY id DESC").fetchall()
+    allowed = {q["id"] for q in _filtered_questions(part, domain, "All", set())}
+    return {r["question_id"] for r in rows if r["question_id"] in allowed}
+
+
+def _topic_mastery_status(results, concept_count):
+    """Require a substantial sample and breadth before declaring domain mastery."""
+    if not results:
+        return "New"
+    correct = [int(r["correct"]) for r in results]
+    confidence = [int(r["confidence"] or 0) for r in results]
+    attempts = len(correct)
+    if attempts < 3:
+        return "Weak" if correct[0] == 0 else "Learning"
+
+    recent_10 = correct[:10]
+    recent_10_accuracy = sum(recent_10) / len(recent_10)
+    recent_20 = correct[:20]
+    recent_20_accuracy = sum(recent_20) / len(recent_20)
+    avg_conf = sum(confidence[:min(10, attempts)]) / min(10, attempts)
+
+    # Mastery is intentionally hard to earn: 50 attempts plus sustained
+    # performance and evidence that the learner has covered multiple concepts.
+    if (attempts >= 50 and concept_count >= 6 and
+            sum(correct) / attempts >= 0.85 and
+            recent_20_accuracy >= 0.85 and
+            recent_10_accuracy >= 0.80 and
+            avg_conf >= 2.0):
+        return "Mastered"
+
+    if recent_10_accuracy < 0.67 or (correct[0] == 0 and recent_10_accuracy < 0.75):
+        return "Weak"
+    return "Learning"
+
+
+def mastery_by_domain(part="Both", domain="All"):
+    allowed_questions = _filtered_questions(part, domain, "All", set())
+    allowed_domains = {q["domain"] for q in allowed_questions}
+    question_map = {q["id"]: q for q in allowed_questions}
+    conn = engine.db()
+    rows = conn.execute("SELECT question_id,domain,correct,confidence FROM attempts ORDER BY id DESC").fetchall()
+    conn.close()
+
+    grouped = {d: [] for d in allowed_domains}
+    concept_sets = {d: set() for d in allowed_domains}
+    for row in rows:
+        d = row["domain"]
+        if d in grouped and len(grouped[d]) < 50:
+            q = question_map.get(row["question_id"]) or engine.get_question(row["question_id"])
+            if not q or q.get("is_case"):
+                continue
+            grouped[d].append({"correct": int(row["correct"]), "confidence": int(row["confidence"] or 0), "question_id": row["question_id"]})
+            concept_sets[d].update(_concept_labels(q))
+
+    result = []
+    for d, values in grouped.items():
+        if not values:
+            continue
+        correct = [v["correct"] for v in values]
+        result.append({
+            "domain": d,
+            "status": _topic_mastery_status(values, len(concept_sets[d])),
+            "attempts": len(values),
+            "accuracy": round(sum(correct) / len(correct) * 100, 1),
+            "concepts_covered": len(concept_sets[d]),
+            "mastery_min_attempts": 50,
+        })
+    return sorted(result, key=lambda x: (x["status"] != "Weak", x["accuracy"]))
+
+
+def choose_question(part="Both", domain="All", difficulty="All", exclude=None):
+    candidates = _filtered_questions(part, domain, difficulty, exclude)
+    if not candidates:
+        return engine.choose_question(part, domain, difficulty, exclude=exclude)
+    conn = engine.db()
+    ensure_schema(conn)
+    now = _now().isoformat(timespec="seconds")
+    rows = conn.execute("SELECT question_id,due_at,last_correct,last_confidence,streak FROM review_state WHERE due_at<=?", (now,)).fetchall()
+    due = {r["question_id"]: dict(r) for r in rows}
+    statuses = _question_statuses(conn)
+    attempted_ids = _attempted_question_ids(conn, part, domain)
+    conn.close()
+
+    due_candidates = [q for q in candidates if q["id"] in due]
+    if due_candidates:
+        def score(q):
+            r = due[q["id"]]
+            urgency = 30 if int(r["last_correct"] or 0) == 0 else 20 if int(r["last_confidence"] or 0) == 1 else 10
+            return urgency + min(int(r["streak"] or 0), 10) + random.random()
+        return max(due_candidates, key=score)
+
+    # Prefer genuinely new stems before recycling questions. This makes the
+    # 50-question mastery sample much more meaningful when the bank contains variants.
+    unseen = [q for q in candidates if q["id"] not in attempted_ids]
+    candidate_pool = unseen or candidates
+
+    by_status = {"New": [], "Weak": [], "Learning": [], "Mastered": []}
+    for q in candidate_pool:
+        by_status[statuses.get(q["id"], "New")].append(q)
+    pool = by_status["New"] or by_status["Weak"] or by_status["Learning"] or by_status["Mastered"] or candidate_pool
+    return random.choice(pool)
+
+
 def choose_followup(question_id, selected, part="Both", difficulty="All"):
     source = engine.get_question(question_id)
     if not source:
@@ -218,7 +266,6 @@ def choose_followup(question_id, selected, part="Both", difficulty="All"):
     conn.close()
 
     source_stem = _stem_key(source)
-    # Concept practice is intentionally domain-locked and excludes case items.
     candidates = [q for q in engine.QUESTIONS if not q.get("is_case")
                   and q["id"] != question_id
                   and q["part"] == source["part"]
@@ -227,8 +274,6 @@ def choose_followup(question_id, selected, part="Both", difficulty="All"):
                   and _stem_key(q) != source_stem
                   and q["id"] not in recent_ids]
 
-    # If the chosen difficulty has no fresh question, relax difficulty but keep
-    # the same-part, same-domain, fresh-question requirement.
     if not candidates:
         candidates = [q for q in engine.QUESTIONS if not q.get("is_case")
                       and q["id"] != question_id
@@ -237,8 +282,6 @@ def choose_followup(question_id, selected, part="Both", difficulty="All"):
                       and _stem_key(q) != source_stem
                       and q["id"] not in recent_ids]
 
-    # Only if the bank is exhausted do we permit a previously seen question,
-    # but still never leave the source domain during concept practice.
     if not candidates:
         candidates = [q for q in engine.QUESTIONS if not q.get("is_case")
                       and q["id"] != question_id
@@ -262,9 +305,6 @@ def choose_followup(question_id, selected, part="Both", difficulty="All"):
             score += max(0, 2 - correct / max(1, attempts) * 2)
         scored.append((score + random.random() * 0.25, q, similarity))
 
-    # Require meaningful concept overlap. If the bank has no same-domain
-    # question that shares the concept fingerprint, stop the drill instead of
-    # silently substituting an unrelated question.
     meaningful = [item for item in scored if item[2] >= 0.15]
     if not meaningful:
         return None
