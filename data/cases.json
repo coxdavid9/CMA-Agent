@@ -20,5 +20,27 @@
       {"q": "Ignoring discounting, what is simple payback?", "choices": {"A": "2.0 years", "B": "2.5 years", "C": "3.0 years", "D": "3.5 years"}, "answer": "B", "explanation": "$200,000/$80,000=2.5 years."},
       {"q": "Why is NPV preferred over simple payback for value-creation decisions?", "choices": {"A": "NPV ignores cash flows", "B": "NPV incorporates time value of money", "C": "NPV is always positive", "D": "NPV ignores required return"}, "answer": "B", "explanation": "NPV discounts future cash flows using the required return."}
     ]
+  },
+  {
+    "id": "CASE-003",
+    "part": "Part 1",
+    "domain": "Planning, Budgeting, and Forecasting",
+    "title": "Flexible Budget Review",
+    "scenario": "A service company prepared a monthly static budget for 10,000 service hours. Budgeted variable operating costs are $18 per hour and budgeted fixed operating costs are $90,000. Actual activity was 12,000 hours and actual operating costs were $315,000.",
+    "questions": [
+      {"q": "What is the flexible-budget operating cost for 12,000 hours?", "choices": {"A": "$270,000", "B": "$306,000", "C": "$315,000", "D": "$336,000"}, "answer": "B", "explanation": "Flexible budget = ($18 × 12,000) + $90,000 = $306,000."},
+      {"q": "Compared with the flexible budget, actual operating costs produced what variance?", "choices": {"A": "$9,000 favorable", "B": "$9,000 unfavorable", "C": "$36,000 favorable", "D": "$36,000 unfavorable"}, "answer": "B", "explanation": "Actual $315,000 minus flexible budget $306,000 equals a $9,000 unfavorable variance."}
+    ]
+  },
+  {
+    "id": "CASE-004",
+    "part": "Part 2",
+    "domain": "Business Decision Analysis",
+    "title": "Special Order Decision",
+    "scenario": "A company has unused production capacity. A customer offers to buy 4,000 units for $42 each. Variable manufacturing cost is $27 per unit, and the special order would add $3 per unit of shipping cost. No fixed costs would change, and accepting the order would not reduce normal sales.",
+    "questions": [
+      {"q": "What is the incremental contribution per special-order unit?", "choices": {"A": "$9", "B": "$12", "C": "$15", "D": "$18"}, "answer": "B", "explanation": "Incremental revenue $42 less variable manufacturing $27 and shipping $3 equals $12 per unit."},
+      {"q": "What is the total incremental operating income from accepting the order?", "choices": {"A": "$36,000", "B": "$48,000", "C": "$60,000", "D": "$72,000"}, "answer": "B", "explanation": "$12 incremental contribution × 4,000 units = $48,000."}
+    ]
   }
 ]
