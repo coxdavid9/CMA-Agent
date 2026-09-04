@@ -194,25 +194,49 @@ def _concept_similarity(source, candidate):
     return len(a & b) / max(1, min(len(a), len(b)))
 
 
+def _stem_key(q):
+    """Normalize a stem so answer-order/difficulty variants count as the same question."""
+    text = re.sub(r"[^a-z0-9 ]+", " ", str(q.get("question", "")).lower())
+    return " ".join(w for w in text.split() if len(w) > 2)
+
+
+def _recent_attempted_ids(conn, limit=15):
+    rows = conn.execute("SELECT question_id FROM attempts ORDER BY id DESC LIMIT ?", (limit,)).fetchall()
+    return {r["question_id"] for r in rows}
+
+
 def choose_followup(question_id, selected, part="Both", difficulty="All"):
     source = engine.get_question(question_id)
     if not source:
-        return engine.choose_followup(question_id, selected, part, difficulty)
-
-    # Same domain is not the same as same concept. Rank by actual content overlap
-    # so a missed contribution-margin question gets another contribution-margin
-    # problem rather than an unrelated question from the same broad domain.
-    candidates = [q for q in engine.QUESTIONS if q["id"] != question_id
-                  and q["part"] == source["part"]
-                  and (difficulty == "All" or q["difficulty"] == difficulty)]
-    if not candidates:
         return engine.choose_followup(question_id, selected, part, difficulty)
 
     conn = engine.db()
     ensure_schema(conn)
     history = engine._question_history(conn)
     statuses = _question_statuses(conn)
+    recent_ids = _recent_attempted_ids(conn, 15)
     conn.close()
+
+    source_stem = _stem_key(source)
+    candidates = [q for q in engine.QUESTIONS if q["id"] != question_id
+                  and q["part"] == source["part"]
+                  and (difficulty == "All" or q["difficulty"] == difficulty)
+                  and _stem_key(q) != source_stem
+                  and q["id"] not in recent_ids]
+
+    # If the chosen difficulty has no fresh question, relax difficulty but keep
+    # the same-part, fresh-question requirement. This prevents cycling one item.
+    if not candidates:
+        candidates = [q for q in engine.QUESTIONS if q["id"] != question_id
+                      and q["part"] == source["part"]
+                      and _stem_key(q) != source_stem
+                      and q["id"] not in recent_ids]
+
+    # Only if the bank is exhausted do we permit a previously seen question.
+    if not candidates:
+        candidates = [q for q in engine.QUESTIONS if q["id"] != question_id and _stem_key(q) != source_stem]
+    if not candidates:
+        return engine.choose_followup(question_id, selected, part, difficulty)
 
     scored = []
     for q in candidates:
@@ -229,6 +253,8 @@ def choose_followup(question_id, selected, part="Both", difficulty="All"):
             score += max(0, 2 - correct / max(1, attempts) * 2)
         scored.append((score + random.random() * 0.25, q, similarity))
 
+    # Prefer questions that actually share the concept fingerprint. If none do,
+    # use the best fresh same-part question rather than repeating the same stem.
     meaningful = [item for item in scored if item[2] > 0]
     pool = meaningful if meaningful else scored
     return max(pool, key=lambda x: x[0])[1]
