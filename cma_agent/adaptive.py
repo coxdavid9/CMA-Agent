@@ -218,23 +218,31 @@ def choose_followup(question_id, selected, part="Both", difficulty="All"):
     conn.close()
 
     source_stem = _stem_key(source)
+    # Concept practice is intentionally domain-locked. A shared word such as
+    # "budget" or "cost" is not enough to jump into another CMA domain.
     candidates = [q for q in engine.QUESTIONS if q["id"] != question_id
                   and q["part"] == source["part"]
+                  and q.get("domain") == source.get("domain")
                   and (difficulty == "All" or q["difficulty"] == difficulty)
                   and _stem_key(q) != source_stem
                   and q["id"] not in recent_ids]
 
     # If the chosen difficulty has no fresh question, relax difficulty but keep
-    # the same-part, fresh-question requirement. This prevents cycling one item.
+    # the same-part, same-domain, fresh-question requirement.
     if not candidates:
         candidates = [q for q in engine.QUESTIONS if q["id"] != question_id
                       and q["part"] == source["part"]
+                      and q.get("domain") == source.get("domain")
                       and _stem_key(q) != source_stem
                       and q["id"] not in recent_ids]
 
-    # Only if the bank is exhausted do we permit a previously seen question.
+    # Only if the bank is exhausted do we permit a previously seen question,
+    # but still never leave the source domain during concept practice.
     if not candidates:
-        candidates = [q for q in engine.QUESTIONS if q["id"] != question_id and _stem_key(q) != source_stem]
+        candidates = [q for q in engine.QUESTIONS if q["id"] != question_id
+                      and q["part"] == source["part"]
+                      and q.get("domain") == source.get("domain")
+                      and _stem_key(q) != source_stem]
     if not candidates:
         return engine.choose_followup(question_id, selected, part, difficulty)
 
@@ -246,18 +254,19 @@ def choose_followup(question_id, selected, part="Both", difficulty="All"):
         correct = int(h.get("correct", 0))
         status = statuses.get(q["id"], "New")
         status_bonus = {"New": 3.0, "Weak": 2.5, "Learning": 1.0, "Mastered": 0.0}.get(status, 0.0)
-        domain_bonus = 1.0 if q.get("domain") == source.get("domain") else 0.0
         difficulty_bonus = 0.5 if q.get("difficulty") == source.get("difficulty") else 0.0
-        score = similarity * 20 + domain_bonus + difficulty_bonus + status_bonus
+        score = similarity * 20 + difficulty_bonus + status_bonus
         if attempts:
             score += max(0, 2 - correct / max(1, attempts) * 2)
         scored.append((score + random.random() * 0.25, q, similarity))
 
-    # Prefer questions that actually share the concept fingerprint. If none do,
-    # use the best fresh same-part question rather than repeating the same stem.
-    meaningful = [item for item in scored if item[2] > 0]
-    pool = meaningful if meaningful else scored
-    return max(pool, key=lambda x: x[0])[1]
+    # Require meaningful concept overlap. If the bank has no same-domain
+    # question that shares the concept fingerprint, stop the drill instead of
+    # silently substituting an unrelated question.
+    meaningful = [item for item in scored if item[2] >= 0.15]
+    if not meaningful:
+        return None
+    return max(meaningful, key=lambda x: x[0])[1]
 
 
 def snapshot(part="Both", domain="All"):
