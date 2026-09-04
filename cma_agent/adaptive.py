@@ -62,7 +62,7 @@ def record_result(question_id, correct, confidence):
 
 def _filtered_questions(part, domain, difficulty, exclude):
     excluded = set(exclude or [])
-    return [q for q in engine.QUESTIONS if q["id"] not in excluded
+    return [q for q in engine.QUESTIONS if not q.get("is_case") and q["id"] not in excluded
             and (part == "Both" or q["part"] == part)
             and (domain == "All" or q["domain"] == domain)
             and (difficulty == "All" or q["difficulty"] == difficulty)]
@@ -218,9 +218,9 @@ def choose_followup(question_id, selected, part="Both", difficulty="All"):
     conn.close()
 
     source_stem = _stem_key(source)
-    # Concept practice is intentionally domain-locked. A shared word such as
-    # "budget" or "cost" is not enough to jump into another CMA domain.
-    candidates = [q for q in engine.QUESTIONS if q["id"] != question_id
+    # Concept practice is intentionally domain-locked and excludes case items.
+    candidates = [q for q in engine.QUESTIONS if not q.get("is_case")
+                  and q["id"] != question_id
                   and q["part"] == source["part"]
                   and q.get("domain") == source.get("domain")
                   and (difficulty == "All" or q["difficulty"] == difficulty)
@@ -230,7 +230,8 @@ def choose_followup(question_id, selected, part="Both", difficulty="All"):
     # If the chosen difficulty has no fresh question, relax difficulty but keep
     # the same-part, same-domain, fresh-question requirement.
     if not candidates:
-        candidates = [q for q in engine.QUESTIONS if q["id"] != question_id
+        candidates = [q for q in engine.QUESTIONS if not q.get("is_case")
+                      and q["id"] != question_id
                       and q["part"] == source["part"]
                       and q.get("domain") == source.get("domain")
                       and _stem_key(q) != source_stem
@@ -239,7 +240,8 @@ def choose_followup(question_id, selected, part="Both", difficulty="All"):
     # Only if the bank is exhausted do we permit a previously seen question,
     # but still never leave the source domain during concept practice.
     if not candidates:
-        candidates = [q for q in engine.QUESTIONS if q["id"] != question_id
+        candidates = [q for q in engine.QUESTIONS if not q.get("is_case")
+                      and q["id"] != question_id
                       and q["part"] == source["part"]
                       and q.get("domain") == source.get("domain")
                       and _stem_key(q) != source_stem]
