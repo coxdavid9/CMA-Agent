@@ -1,4 +1,5 @@
 import React,{useEffect,useState} from 'react';
+import {createRoot} from 'react-dom/client';
 import './style.css';
 
 const p1=['External Financial Reporting Decisions','Planning, Budgeting, and Forecasting','Performance Management','Cost Management','Internal Controls','Technology and Analytics'];
