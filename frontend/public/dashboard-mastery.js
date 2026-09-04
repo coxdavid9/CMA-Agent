@@ -4,7 +4,7 @@
 
   async function load() {
     try {
-      const response = await fetch(API, { headers: { 'Content-Type': 'application/json' } });
+      const response = await fetch(API, { headers: { 'Content-Type': 'application/json' }, cache: 'no-store' });
       if (!response.ok) return;
       latest = await response.json();
       render();
@@ -15,11 +15,40 @@
     return String(value ?? '').replace(/[&<>\"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[ch]));
   }
 
+  function renderFallback() {
+    if (!latest?.adaptive?.mastery_by_domain) return;
+    const loading = document.querySelector('.loading');
+    if (!loading || !/Loading dashboard/i.test(loading.textContent || '')) return;
+    const s = latest.stats || {};
+    loading.className = 'dashboard-fallback';
+    loading.innerHTML = `
+      <div class="section"><h2>Historical Progress</h2></div>
+      <div class="grid2">
+        <div class="stat"><div>Questions Completed</div><strong>${esc(s.attempted ?? 0)}</strong></div>
+        <div class="stat"><div>Lifetime Accuracy</div><strong>${esc(s.accuracy ?? 0)}%</strong></div>
+      </div>
+      <div class="section"><h2>Mastery by Domain</h2></div>
+      ${latest.adaptive.mastery_by_domain.map(renderCard).join('')}
+    `;
+  }
+
+  function renderCard(row) {
+    const icons = {New:'⚪',Learning:'🟡',Weak:'🔴',Mastered:'🟢'};
+    const concepts = row.concept_coverage || [];
+    return `<div class="mastery">
+      <b>${icons[row.status] || '⚪'} ${esc(row.domain)}</b><span>${esc(row.status)}</span>
+      <div class="mastery-detail"><span><b>${esc(row.attempts)}</b> questions</span><span><b>${esc(row.accuracy)}%</b> accuracy</span><span><b>${esc(row.concepts_covered)}/${esc(row.concepts_total)}</b> concepts covered</span></div>
+      <div class="concept-coverage"><div class="concept-title">Concept Coverage</div><div class="concept-grid">${concepts.map(c => `<span class="concept ${c.covered ? 'covered' : 'uncovered'}"><span>${c.covered ? '✓' : '○'}</span>${esc(c.name)}</span>`).join('')}</div></div>
+    </div>`;
+  }
+
   function render() {
+    renderFallback();
     const rows = latest?.adaptive?.mastery_by_domain;
     if (!rows?.length) return;
 
     document.querySelectorAll('.mastery').forEach(card => {
+      if (card.classList.contains('dashboard-fallback-card')) return;
       const name = card.querySelector('b')?.textContent?.replace(/^[^A-Za-z]+/, '').trim();
       const row = rows.find(x => x.domain === name);
       if (!row) return;
@@ -56,6 +85,8 @@
     .concept span{width:16px;flex:0 0 16px;font-weight:700}
     .concept.covered span{opacity:1}
     .concept.uncovered{opacity:.48}
+    .dashboard-fallback{display:block}
+    .dashboard-fallback .mastery{margin-top:12px}
   `;
   document.head.appendChild(style);
 
