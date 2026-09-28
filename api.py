@@ -362,6 +362,31 @@ def exam_grade(request: ExamGradeRequest):
     return {"correct": bool(ok)}
 
 
+@app.get("/api/summary")
+def summary():
+    """Lightweight real-data summary for the practice UI hero."""
+    c = db()
+    row = c.execute("SELECT COUNT(*) AS attempted, COALESCE(SUM(correct),0) AS correct FROM attempts").fetchone()
+    focus = c.execute("""
+        SELECT domain, COUNT(*) AS n, COALESCE(SUM(correct),0) AS correct
+        FROM attempts
+        GROUP BY domain
+        ORDER BY n DESC, domain ASC
+        LIMIT 1
+    """).fetchone()
+    c.close()
+    attempted = int(row["attempted"] or 0)
+    correct = int(row["correct"] or 0)
+    accuracy = round(correct / attempted * 100, 1) if attempted else 0
+    regular_bank = [q for q in engine.QUESTIONS if not q.get("is_case")]
+    return {
+        "attempted": attempted,
+        "accuracy": accuracy,
+        "focus_domain": focus["domain"] if focus else "Build coverage",
+        "question_bank_size": len(regular_bank),
+    }
+
+
 @app.get("/api/dashboard")
 def dashboard():
     return {"stats": stats(), "snapshot": learning_snapshot(), "adaptive": adaptive.snapshot()}
