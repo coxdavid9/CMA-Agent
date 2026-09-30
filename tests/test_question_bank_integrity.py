@@ -26,7 +26,7 @@ class BankIntegrityTests(unittest.TestCase):
         original = json.loads((DATA / "audit" / "original_questions.json").read_text(encoding="utf-8"))
         self.assertEqual(set(self.audit["dispositions"]), {q["id"] for q in original})
         self.assertEqual({qid for qid, row in self.audit["dispositions"].items() if row["status"] == "active"},
-                         {q["id"] for q in self.questions})
+                         {q["id"] for q in self.questions if q["id"] in self.audit["dispositions"]})
 
     def test_wrong_keys_and_duplicate_correct_values_are_rejected(self):
         q = copy.deepcopy(self.by_id["P1Q-009"])

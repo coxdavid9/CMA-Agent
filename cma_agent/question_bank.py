@@ -51,6 +51,7 @@ def stem_key(text):
 
 
 def choice_number(text):
+    text = re.sub(r"^-\$", "$-", text)
     match = re.match(r"^\$?(-?\d[\d,]*(?:\.\d+)?)", text)
     if not match:
         return None
@@ -141,8 +142,8 @@ def validate_question(q):
             direction = None
             if check.get("positive_label"):
                 direction = check["positive_label"] if value > 0 else check["negative_label"] if value < 0 else "zero"
-                actual_labels = {k: (re.search(r"\b(unfavorable|favorable|gain|loss|higher|lower)\b", v).group(1)
-                                    if re.search(r"\b(unfavorable|favorable|gain|loss|higher|lower)\b", v) else None)
+                actual_labels = {k: (re.search(r"\b(unfavorable|favorable|gain|loss|higher|lower|underapplied|overapplied)\b", v).group(1)
+                                    if re.search(r"\b(unfavorable|favorable|gain|loss|higher|lower|underapplied|overapplied)\b", v) else None)
                                  for k, v in choices.items()}
                 require(actual_labels == check["choice_directions"], "direction metadata disagrees with choices")
             comparison = abs(value) if check.get("absolute") else value
