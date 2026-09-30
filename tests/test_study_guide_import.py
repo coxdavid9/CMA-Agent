@@ -30,7 +30,7 @@ class StudyGuideImportTests(unittest.TestCase):
             self.assertIn(decision['canonical_id'], self.by_id)
         for qid in added:
             self.assertEqual(validate_question(self.by_id[qid]), [])
-            self.assertNotRegex(self.by_id[qid]['question'], r'(?i)using (?:the data|[A-F]-\d)|data (?:in|above)')
+            self.assertNotRegex(self.by_id[qid]['question'], r'(?i)\busing (?:the data\b|[A-F]-\d)|\bdata (?:in\b|above\b)')
 
     def test_imported_stems_do_not_duplicate_any_active_stem(self):
         for q in self.questions:
