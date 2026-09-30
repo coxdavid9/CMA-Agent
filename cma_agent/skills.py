@@ -99,8 +99,16 @@ def snapshot(part="Both", domain="All"):
 
 
 def choose_question(part="Both", domain="All", difficulty="All", exclude=None):
-    # Due spaced-repetition reviews always win.
+    # Ask the spaced scheduler first. If it selected a question that is
+    # actually due, preserve that retrieval instead of overriding it.
     due = adaptive.choose_question(part, domain, difficulty, exclude=exclude)
+    conn = engine.db()
+    adaptive.ensure_schema(conn)
+    from datetime import datetime
+    due_row = conn.execute("SELECT question_id FROM review_state WHERE question_id=? AND due_at<=?", (due["id"], datetime.now().isoformat(timespec="seconds"))).fetchone()
+    conn.close()
+    if due_row:
+        return due
     snap = snapshot(part, domain)
     priorities = [x for x in snap["priorities"] if x["status"] != "Strong"]
     if not priorities:
