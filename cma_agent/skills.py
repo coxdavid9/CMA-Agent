@@ -29,6 +29,12 @@ def _ensure_schema(conn):
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             question_id TEXT, part TEXT, domain TEXT, skill TEXT,
             correct INTEGER, confidence INTEGER, mistake_type TEXT, ts TEXT)""")
+    if engine.DATABASE_URL:
+        conn.execute("ALTER TABLE skill_attempts ADD COLUMN IF NOT EXISTS bank_revision TEXT")
+    else:
+        columns = {r[1] for r in conn.execute("PRAGMA table_info(skill_attempts)").fetchall()}
+        if "bank_revision" not in columns:
+            conn.execute("ALTER TABLE skill_attempts ADD COLUMN bank_revision TEXT")
     conn.execute("CREATE INDEX IF NOT EXISTS idx_skill_attempts_skill ON skill_attempts(skill)")
     conn.execute("CREATE INDEX IF NOT EXISTS idx_skill_attempts_domain ON skill_attempts(domain)")
     conn.commit()
@@ -57,8 +63,8 @@ def record_attempt(q, correct, confidence):
     ts = datetime.now().isoformat(timespec="seconds")
     for skill in _labels(q):
         conn.execute(
-            "INSERT INTO skill_attempts(question_id,part,domain,skill,correct,confidence,mistake_type,ts) VALUES(?,?,?,?,?,?,?,?)",
-            (q["id"], q["part"], q["domain"], skill, int(bool(correct)), int(confidence or 0), mistake_type, ts),
+            "INSERT INTO skill_attempts(question_id,part,domain,skill,correct,confidence,mistake_type,ts,bank_revision) VALUES(?,?,?,?,?,?,?,?,?)",
+            (q["id"], q["part"], q["domain"], skill, int(bool(correct)), int(confidence or 0), mistake_type, ts, q.get("content_revision")),
         )
     conn.commit()
     conn.close()
@@ -68,7 +74,7 @@ def record_attempt(q, correct, confidence):
 def snapshot(part="Both", domain="All"):
     conn = engine.db()
     _ensure_schema(conn)
-    where, args = [], []
+    where, args = ["bank_revision=?"], [engine.REVISION]
     if part != "Both":
         where.append("part=?"); args.append(part)
     if domain != "All":
