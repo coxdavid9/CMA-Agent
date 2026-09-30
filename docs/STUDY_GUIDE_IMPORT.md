@@ -9,7 +9,7 @@ Source: user-supplied `CMA Part 1 study guide.md`. Comparison base: `544c9e91302
 - New tasks include cumulative-average learning curves, inverse production budgeting, operating leverage, weighted sales mix, overhead variance decomposition, EVA, FIFO/weighted-average equivalent units, service-department allocation, joint-cost allocation methods, EPS, bond measurement, lease reporting, IFRS comparisons, fraud schemes, SDLC, and EDI.
 - New rule identification and application may share a broad skill, but must require different knowledge or reasoning. Weighted-average and FIFO equivalent units use the same physical inputs but measure different period work; both remain.
 - All 76 have reviewed explanations and explicit skills; 27 have executable arithmetic checks, including direction checks. New keys are balanced 19 each A/B/C/D. Existing mastery/history and choice order are preserved.
-- Source headings are not authoritative CMA mappings. CVP questions and financial-analysis ratios/EPS are assigned to Part 2; IT controls are assigned to Internal Controls. No change to the Part 2 simulation coverage restriction: Corporate Finance and Ethics are still insufficient.
+- Source headings are not authoritative CMA mappings. CVP questions, financial-analysis ratios/EPS, and discounted bond valuation are assigned to Part 2; IT controls are assigned to Internal Controls. No change to the Part 2 simulation coverage restriction: Corporate Finance and Ethics are still insufficient.
 - Twelve open-ended essay prompts were **not imported** into the automatically graded engine, which supports MCQs and short cases with MCQ items. They remain in the supplied guide. No fabricated multiple-choice conversions or essay grades were introduced.
 
 `data/audit/study_guide_import.json` records the source hash, every original MCQ, every decision, duplicate canonical IDs, and edited status. `content_review.json` covers all active questions. The earlier content-trust report describes its original audit snapshot; this document records the subsequent import.
@@ -25,7 +25,7 @@ Source: user-supplied `CMA Part 1 study guide.md`. Comparison base: `544c9e91302
 | D-12 | Original explanation conflated relative NRV with constant gross-margin NRV. Supply final sales and separable costs; correct allocated joint cost is **$28,000**, versus $30,000 under relative NRV |
 | D-6 / D-9 / D-18 | Specify accounting method and throughput/constraint assumptions rather than universal claims |
 | A-1 / A-2 / A-4 | Standalone EPS/bond inputs and measurement assumptions; diluted EPS is $2.445652 before rounding |
-| A-3 | Exact discount factors reconcile the displayed bond price; rounded factors in the guide did not match displayed intermediate values |
+| A-3 | Map discounted bond valuation to Part 2 Corporate Finance, as specified by the IMA LOS. Exact discount factors reconcile the displayed bond price; rounded factors in the guide did not match displayed intermediate values |
 | A-10 / A-17 | State U.S. GAAP and lease prepayment/incentive/cost/amortization assumptions |
 | A-11 / A-15 / A-19 | Present obligation, all development recognition criteria, and revaluation exceptions clarified |
 | E-3 | SOX 404(b) exemptions acknowledged rather than implying all accelerated issuers require attestation |

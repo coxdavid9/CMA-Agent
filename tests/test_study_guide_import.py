@@ -74,8 +74,10 @@ class StudyGuideImportTests(unittest.TestCase):
         self.assertEqual(coso['choices'][coso['answer']], 'Control activities')
 
     def test_part_mapping_and_missing_skills_are_not_inherited_from_guide_titles(self):
-        for qid in ('GUIDE-B-15','GUIDE-B-16','GUIDE-B-17','GUIDE-A-01','GUIDE-A-06'):
+        for qid in ('GUIDE-B-15','GUIDE-B-16','GUIDE-B-17','GUIDE-A-01','GUIDE-A-03','GUIDE-A-06'):
             self.assertEqual(self.by_id[qid]['part'], 'Part 2')
+        self.assertEqual(self.by_id['GUIDE-A-03']['skills'], ['Security valuation'])
+        self.assertEqual(self.by_id['GUIDE-A-01']['skills'], ['Financial ratios'])
         for qid, skill in [('GUIDE-B-09','Learning curve applications'),
                           ('GUIDE-C-07','Advanced variance decomposition'),
                           ('GUIDE-D-03','Equivalent unit calculations'),

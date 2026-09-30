@@ -13319,10 +13319,10 @@
       "numeric_check": {
         "expression": "100*.8**2",
         "choice_values": {
-          "A": 80.0,
-          "B": 72.0,
+          "A": 80,
+          "B": 72,
           "C": 51.2,
-          "D": 64.0
+          "D": 64
         },
         "tolerance": 0.5
       },
@@ -13349,10 +13349,10 @@
       "numeric_check": {
         "expression": "10000-2000+1500",
         "choice_values": {
-          "A": 9500.0,
-          "B": 10000.0,
-          "C": 10500.0,
-          "D": 11500.0
+          "A": 9500,
+          "B": 10000,
+          "C": 10500,
+          "D": 11500
         },
         "tolerance": 0.5
       },
@@ -13430,10 +13430,10 @@
       "numeric_check": {
         "expression": "32000/(10*.6+25*.4)",
         "choice_values": {
-          "A": 3400.0,
-          "B": 1280.0,
-          "C": 2429.0,
-          "D": 2000.0
+          "A": 3400,
+          "B": 1280,
+          "C": 2429,
+          "D": 2000
         },
         "tolerance": 0.5
       },
@@ -13460,10 +13460,10 @@
       "numeric_check": {
         "expression": "(18.5-18)*950",
         "choice_values": {
-          "A": 475.0,
-          "B": 450.0,
-          "C": 475.0,
-          "D": 900.0
+          "A": 475,
+          "B": 450,
+          "C": 475,
+          "D": 900
         },
         "tolerance": 0.5,
         "absolute": true,
@@ -13499,10 +13499,10 @@
       "numeric_check": {
         "expression": "10000-6*1600",
         "choice_values": {
-          "A": 400.0,
-          "B": 400.0,
-          "C": 600.0,
-          "D": 1000.0
+          "A": 400,
+          "B": 400,
+          "C": 600,
+          "D": 1000
         },
         "tolerance": 0.5,
         "absolute": true,
@@ -13538,10 +13538,10 @@
       "numeric_check": {
         "expression": "60000-9000*(60000/10000)",
         "choice_values": {
-          "A": 2000.0,
-          "B": 6000.0,
-          "C": 6000.0,
-          "D": 8000.0
+          "A": 2000,
+          "B": 6000,
+          "C": 6000,
+          "D": 8000
         },
         "tolerance": 0.5,
         "absolute": true,
@@ -13577,10 +13577,10 @@
       "numeric_check": {
         "expression": "72000-69600",
         "choice_values": {
-          "A": 600.0,
-          "B": 3000.0,
-          "C": 9000.0,
-          "D": 2400.0
+          "A": 600,
+          "B": 3000,
+          "C": 9000,
+          "D": 2400
         },
         "tolerance": 0.5,
         "absolute": true,
@@ -13616,10 +13616,10 @@
       "numeric_check": {
         "expression": "200000-.1*1500000",
         "choice_values": {
-          "A": 50000.0,
-          "B": 200000.0,
-          "C": -50000.0,
-          "D": 350000.0
+          "A": 50000,
+          "B": 200000,
+          "C": -50000,
+          "D": 350000
         },
         "tolerance": 0.5
       },
@@ -13730,10 +13730,10 @@
       "numeric_check": {
         "expression": "2000+10000-3000+3000*.3",
         "choice_values": {
-          "A": 9100.0,
-          "B": 9900.0,
-          "C": 9000.0,
-          "D": 12100.0
+          "A": 9100,
+          "B": 9900,
+          "C": 9000,
+          "D": 12100
         },
         "tolerance": 0.5
       },
@@ -13760,10 +13760,10 @@
       "numeric_check": {
         "expression": "2000+10000-3000+3000*.3-2000*.4",
         "choice_values": {
-          "A": 9900.0,
-          "B": 8300.0,
-          "C": 9100.0,
-          "D": 9000.0
+          "A": 9900,
+          "B": 8300,
+          "C": 9100,
+          "D": 9000
         },
         "tolerance": 0.5
       },
@@ -13790,10 +13790,10 @@
       "numeric_check": {
         "expression": "120000/400*150/5000",
         "choice_values": {
-          "A": 24.0,
+          "A": 24,
           "B": 0.6,
-          "C": 300.0,
-          "D": 9.0
+          "C": 300,
+          "D": 9
         },
         "tolerance": 0.005
       },
@@ -13820,10 +13820,10 @@
       "numeric_check": {
         "expression": "100000*(10000*(6-1))/(10000*(6-1)+5000*(8-.5))",
         "choice_values": {
-          "A": 57143.0,
-          "B": 60000.0,
-          "C": 50000.0,
-          "D": 62500.0
+          "A": 57143,
+          "B": 60000,
+          "C": 50000,
+          "D": 62500
         },
         "tolerance": 0.5
       },
@@ -13871,10 +13871,10 @@
       "numeric_check": {
         "expression": "30000*.6+(20000+30000*.4)*.25",
         "choice_values": {
-          "A": 18000.0,
-          "B": 24000.0,
-          "C": 26000.0,
-          "D": 32000.0
+          "A": 18000,
+          "B": 24000,
+          "C": 26000,
+          "D": 32000
         },
         "tolerance": 0.5
       },
@@ -13952,10 +13952,10 @@
       "numeric_check": {
         "expression": "63000-15*4000",
         "choice_values": {
-          "A": 3000.0,
-          "B": 3000.0,
-          "C": 60000.0,
-          "D": 63000.0
+          "A": 3000,
+          "B": 3000,
+          "C": 60000,
+          "D": 63000
         },
         "tolerance": 0.5,
         "absolute": true,
@@ -13991,10 +13991,10 @@
       "numeric_check": {
         "expression": "80000*(80000+20000+20000)/(120000+80000)-20000",
         "choice_values": {
-          "A": 48000.0,
-          "B": 40000.0,
-          "C": 28000.0,
-          "D": 30000.0
+          "A": 48000,
+          "B": 40000,
+          "C": 28000,
+          "D": 30000
         },
         "tolerance": 0.5
       },
@@ -14086,7 +14086,7 @@
         "choice_values": {
           "A": 4.2,
           "B": 4.67,
-          "C": 5.0,
+          "C": 5,
           "D": 5.25
         },
         "tolerance": 0.005
@@ -14151,7 +14151,7 @@
       "explanation": "Basic EPS = (net income - current-period cumulative preferred dividends) / weighted-average common shares = ($500,000 - $50,000)/180,000 = $2.50.",
       "calculation": "(500000-50000)/180000",
       "skills": [
-        "Profitability analysis"
+        "Financial ratios"
       ],
       "numeric_check": {
         "expression": "(500000-50000)/180000",
@@ -14181,7 +14181,7 @@
       "explanation": "Treasury stock method: proceeds = 20,000 × $20 = $400,000; shares repurchased = $400,000 ÷ $25 = 16,000; incremental shares = 4,000. Diluted shares = 184,000. $450,000 ÷ 184,000 = $2.4457 ≈ $2.45. Options are dilutive because $20 < $25.",
       "calculation": "(500000-50000)/(180000+20000-20000*20/25)",
       "skills": [
-        "Profitability analysis"
+        "Financial ratios"
       ],
       "numeric_check": {
         "expression": "(500000-50000)/(180000+20000-20000*20/25)",
@@ -14197,8 +14197,8 @@
     },
     "GUIDE-A-03": {
       "id": "GUIDE-A-03",
-      "part": "Part 1",
-      "domain": "External Financial Reporting Decisions",
+      "part": "Part 2",
+      "domain": "Corporate Finance",
       "difficulty": "Medium",
       "question": "A 5-year, $1,000,000 face, 8% annual-coupon bond is issued when the market rate is 10%. The issue price is approximately:",
       "choices": {
@@ -14211,15 +14211,15 @@
       "explanation": "Discount all five $80,000 year-end coupons and the $1,000,000 maturity payment at the 10% market yield. Exact discount factors give coupon PV of $303,262.94 and principal PV of $620,921.32, totaling $924,184.26. The bond is issued at a discount because its coupon rate is below the market yield.",
       "calculation": "80000*(1-1.1**-5)/.1+1000000/1.1**5",
       "skills": [
-        "Liability valuation"
+        "Security valuation"
       ],
       "numeric_check": {
         "expression": "80000*(1-1.1**-5)/.1+1000000/1.1**5",
         "choice_values": {
-          "A": 1000000.0,
-          "B": 920000.0,
-          "C": 1075816.0,
-          "D": 924184.0
+          "A": 1000000,
+          "B": 920000,
+          "C": 1075816,
+          "D": 924184
         },
         "tolerance": 0.5
       },
@@ -14246,10 +14246,10 @@
       "numeric_check": {
         "expression": "924184*.1",
         "choice_values": {
-          "A": 92418.0,
-          "B": 80000.0,
-          "C": 75836.0,
-          "D": 100000.0
+          "A": 92418,
+          "B": 80000,
+          "C": 75836,
+          "D": 100000
         },
         "tolerance": 0.5
       },
@@ -14276,10 +14276,10 @@
       "numeric_check": {
         "expression": "200000+30000-15000+10000",
         "choice_values": {
-          "A": 255000.0,
-          "B": 225000.0,
-          "C": 195000.0,
-          "D": 245000.0
+          "A": 255000,
+          "B": 225000,
+          "C": 195000,
+          "D": 245000
         },
         "tolerance": 0.5
       },
@@ -14306,7 +14306,7 @@
       "numeric_check": {
         "expression": "(300000+50000)/(150000+50000)",
         "choice_values": {
-          "A": 2.0,
+          "A": 2,
           "B": 2.33,
           "C": 1.75,
           "D": 1.5
@@ -14471,10 +14471,10 @@
       "numeric_check": {
         "expression": "365/(730000/100000)",
         "choice_values": {
-          "A": 73.0,
-          "B": 50.0,
+          "A": 73,
+          "B": 50,
           "C": 36.5,
-          "D": 100.0
+          "D": 100
         },
         "tolerance": 0.5
       },
