@@ -5,6 +5,7 @@ import random
 from pathlib import Path
 import cma_agent.engine as engine
 import cma_agent.adaptive as adaptive
+import cma_agent.skills as skills
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -300,7 +301,7 @@ def question(question_id: str):
 @app.post("/api/question")
 def question_choose(request: QuestionRequest):
     exclude = list(dict.fromkeys((request.exclude or []) + _recent_question_ids(15)))
-    q = adaptive.choose_question(request.part, request.domain, request.difficulty, exclude=exclude)
+    q = skills.choose_question(request.part, request.domain, request.difficulty, exclude=exclude)
     save_resume_question(q["id"])
     return clean_question(q)
 
@@ -322,6 +323,10 @@ def grade_question(request: GradeRequest):
     ok, graded = grade(request.question_id, request.selected, request.confidence, request.session_id)
     adaptive.record_result(request.question_id, ok, request.confidence)
     feedback = learning_feedback(request.question_id, request.selected, request.confidence)
+    skill_feedback = skills.record_attempt(q, ok, request.confidence)
+    feedback["skills"] = skill_feedback["skills"]
+    feedback["mistake_type"] = skill_feedback["mistake_type"]
+    feedback["coaching"] = skill_feedback["coaching"]
     sid = request.session_id or get_or_start_session()
     return {"correct": bool(ok), "question": clean_question(graded), "feedback": feedback, "session": session_stats(sid)}
 
@@ -389,7 +394,7 @@ def summary():
 
 @app.get("/api/dashboard")
 def dashboard():
-    return {"stats": stats(), "snapshot": learning_snapshot(), "adaptive": adaptive.snapshot()}
+    return {"stats": stats(), "snapshot": learning_snapshot(), "adaptive": adaptive.snapshot(), "skills": skills.snapshot()}
 
 
 @app.get("/api/study-plan")
