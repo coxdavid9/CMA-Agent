@@ -13234,6 +13234,1890 @@
       },
       "content_revision": "2026-09-30",
       "scenario": "A company has unused production capacity. A customer offers to buy 4,000 units for $42 each. Variable manufacturing cost is $27 per unit, and the special order would add $3 per unit of shipping cost. No fixed costs would change, and accepting the order would not reduce normal sales."
+    },
+    "GUIDE-B-02": {
+      "id": "GUIDE-B-02",
+      "part": "Part 1",
+      "domain": "Planning, Budgeting, and Forecasting",
+      "difficulty": "Easy",
+      "question": "Which behavior directly creates budgetary slack when managers help set their own targets?",
+      "choices": {
+        "A": "Managers understate expected revenue or overstate expected costs",
+        "B": "Managers reconcile departmental plans to company objectives",
+        "C": "Managers distinguish fixed costs from variable costs",
+        "D": "Managers involve operational staff in estimating resource requirements"
+      },
+      "answer": "A",
+      "explanation": "Participative budgeting can create budgetary slack: managers may understate expected revenue or overstate expected costs to make targets easier to meet. Participation can also improve commitment and information quality.",
+      "calculation": null,
+      "skills": [
+        "Budgeting concepts"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-B-06": {
+      "id": "GUIDE-B-06",
+      "part": "Part 1",
+      "domain": "Planning, Budgeting, and Forecasting",
+      "difficulty": "Easy",
+      "question": "In exponential smoothing, increasing the smoothing constant (α) causes the forecast to:",
+      "choices": {
+        "A": "Give more weight to older observations",
+        "B": "Give more weight to the most recent actual observation",
+        "C": "Become equal to the moving average",
+        "D": "Ignore seasonal variation entirely"
+      },
+      "answer": "B",
+      "explanation": "Higher α = faster reaction to the latest actual. α near 0 barely updates the old forecast; α near 1 chases the latest data point.",
+      "calculation": null,
+      "skills": [
+        "Forecasting techniques"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-B-08": {
+      "id": "GUIDE-B-08",
+      "part": "Part 1",
+      "domain": "Planning, Budgeting, and Forecasting",
+      "difficulty": "Easy",
+      "question": "The Delphi forecasting technique is characterized by:",
+      "choices": {
+        "A": "Face-to-face debate among executives",
+        "B": "Statistical analysis of historical sales data",
+        "C": "Anonymous expert questionnaires with iterative feedback rounds",
+        "D": "Combining individual sales representatives' estimates"
+      },
+      "answer": "C",
+      "explanation": "The Delphi method uses anonymous expert questionnaires and repeated feedback rounds to reduce the influence of dominant individuals. Sales force composite instead combines sales representatives' estimates.",
+      "calculation": null,
+      "skills": [
+        "Forecasting techniques"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-B-09": {
+      "id": "GUIDE-B-09",
+      "part": "Part 1",
+      "domain": "Planning, Budgeting, and Forecasting",
+      "difficulty": "Medium",
+      "question": "Under the cumulative-average-time model, a company has an 80% learning curve. The first unit requires 100 labor hours. What is the cumulative average time per unit for the first four units?",
+      "choices": {
+        "A": "80 hours",
+        "B": "72 hours",
+        "C": "51.2 hours",
+        "D": "64 hours"
+      },
+      "answer": "D",
+      "explanation": "Each doubling cuts the cumulative average by 20%: 1 unit = 100 hrs avg; 2 units = 80 hrs avg; 4 units = 64 hrs avg. (51.2 would be the average for 8 units.)",
+      "calculation": "100*.8**2",
+      "skills": [
+        "Learning curve applications"
+      ],
+      "numeric_check": {
+        "expression": "100*.8**2",
+        "choice_values": {
+          "A": 80,
+          "B": 72,
+          "C": 51.2,
+          "D": 64
+        },
+        "tolerance": 0.5
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-B-10": {
+      "id": "GUIDE-B-10",
+      "part": "Part 1",
+      "domain": "Planning, Budgeting, and Forecasting",
+      "difficulty": "Medium",
+      "question": "The production budget calls for 10,000 units to be produced. Desired ending finished goods are 2,000 units and beginning finished goods are 1,500 units. Budgeted unit sales are:",
+      "choices": {
+        "A": "9,500",
+        "B": "10,000",
+        "C": "10,500",
+        "D": "11,500"
+      },
+      "answer": "A",
+      "explanation": "Production = sales + desired ending − beginning → 10,000 = sales + 2,000 − 1,500 → sales = 9,500. Rearranging the formula is the tested skill.",
+      "calculation": "10000-2000+1500",
+      "skills": [
+        "Master budgeting"
+      ],
+      "numeric_check": {
+        "expression": "10000-2000+1500",
+        "choice_values": {
+          "A": 9500,
+          "B": 10000,
+          "C": 10500,
+          "D": 11500
+        },
+        "tolerance": 0.5
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-B-15": {
+      "id": "GUIDE-B-15",
+      "part": "Part 2",
+      "domain": "Business Decision Analysis",
+      "difficulty": "Medium",
+      "question": "At the current sales level, a company has a degree of operating leverage of 4. Assuming unchanged prices, variable cost per unit, fixed costs, and sales mix within the relevant range, a 10% sales increase would increase operating income by approximately:",
+      "choices": {
+        "A": "4%",
+        "B": "40%",
+        "C": "10%",
+        "D": "2.5%"
+      },
+      "answer": "B",
+      "explanation": "%Δ operating income = DOL × %Δ sales = 4 × 10% = 40%. High DOL means profits are highly sensitive to volume — upside and downside.",
+      "calculation": "4*.10",
+      "skills": [
+        "Cost-volume-profit"
+      ],
+      "numeric_check": {
+        "expression": "4*.10",
+        "choice_values": {
+          "A": 0.04,
+          "B": 0.4,
+          "C": 0.1,
+          "D": 0.025
+        },
+        "tolerance": 0.005
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-B-16": {
+      "id": "GUIDE-B-16",
+      "part": "Part 2",
+      "domain": "Business Decision Analysis",
+      "difficulty": "Easy",
+      "question": "Which of the following is NOT an assumption of CVP analysis?",
+      "choices": {
+        "A": "Selling price remains constant",
+        "B": "The sales mix remains constant",
+        "C": "Fixed costs change proportionally with volume",
+        "D": "Costs behave linearly within the relevant range"
+      },
+      "answer": "C",
+      "explanation": "Fixed costs are constant in total within the relevant range — that's the assumption. \"Change proportionally with volume\" describes variable costs.",
+      "calculation": null,
+      "skills": [
+        "Cost-volume-profit"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-B-17": {
+      "id": "GUIDE-B-17",
+      "part": "Part 2",
+      "domain": "Business Decision Analysis",
+      "difficulty": "Medium",
+      "question": "A company sells Product A with a $10 contribution margin per unit and Product B with a $25 contribution margin per unit. The constant unit sales mix is 60% A and 40% B. Fixed costs are $32,000. What is break-even volume in total units?",
+      "choices": {
+        "A": "3,400",
+        "B": "1,280",
+        "C": "2,429",
+        "D": "2,000"
+      },
+      "answer": "D",
+      "explanation": "Weighted-average CM = ($10 × 0.6) + ($25 × 0.4) = $6 + $10 = $16. $32,000 ÷ $16 = 2,000 total units — that's 1,200 of A and 800 of B at the budgeted mix. If the actual mix shifts toward the lower-margin product, breakeven rises.",
+      "calculation": "32000/(10*.6+25*.4)",
+      "skills": [
+        "Cost-volume-profit"
+      ],
+      "numeric_check": {
+        "expression": "32000/(10*.6+25*.4)",
+        "choice_values": {
+          "A": 3400,
+          "B": 1280,
+          "C": 2429,
+          "D": 2000
+        },
+        "tolerance": 0.5
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-C-03": {
+      "id": "GUIDE-C-03",
+      "part": "Part 1",
+      "domain": "Performance Management",
+      "difficulty": "Medium",
+      "question": "Standard labor rate is $18.00 per hour. Actual: 950 hours worked at $18.50 per hour. The direct labor rate variance is:",
+      "choices": {
+        "A": "$475 unfavorable",
+        "B": "$450 unfavorable",
+        "C": "$475 favorable",
+        "D": "$900 unfavorable"
+      },
+      "answer": "A",
+      "explanation": "($18.50 − $18.00) × 950 = $475 U.",
+      "calculation": "(18.5-18)*950",
+      "skills": [
+        "Standard cost and variances"
+      ],
+      "numeric_check": {
+        "expression": "(18.5-18)*950",
+        "choice_values": {
+          "A": 475,
+          "B": 450,
+          "C": 475,
+          "D": 900
+        },
+        "tolerance": 0.5,
+        "absolute": true,
+        "positive_label": "unfavorable",
+        "negative_label": "favorable",
+        "choice_directions": {
+          "A": "unfavorable",
+          "B": "unfavorable",
+          "C": "favorable",
+          "D": "unfavorable"
+        }
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-C-05": {
+      "id": "GUIDE-C-05",
+      "part": "Part 1",
+      "domain": "Performance Management",
+      "difficulty": "Medium",
+      "question": "The standard variable overhead rate is $6.00 per direct labor hour. Actual: 1,600 hours worked, actual VOH $10,000, standard hours allowed 1,500. The variable overhead spending variance is:",
+      "choices": {
+        "A": "$400 favorable",
+        "B": "$400 unfavorable",
+        "C": "$600 unfavorable",
+        "D": "$1,000 unfavorable"
+      },
+      "answer": "B",
+      "explanation": "Spending variance = $10,000 - $6 × 1,600 = $400 unfavorable. The $600 efficiency variance and $1,000 total variable-overhead variance are different measures.",
+      "calculation": "10000-6*1600",
+      "skills": [
+        "Standard cost and variances"
+      ],
+      "numeric_check": {
+        "expression": "10000-6*1600",
+        "choice_values": {
+          "A": 400,
+          "B": 400,
+          "C": 600,
+          "D": 1000
+        },
+        "tolerance": 0.5,
+        "absolute": true,
+        "positive_label": "unfavorable",
+        "negative_label": "favorable",
+        "choice_directions": {
+          "A": "favorable",
+          "B": "unfavorable",
+          "C": "unfavorable",
+          "D": "unfavorable"
+        }
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-C-06": {
+      "id": "GUIDE-C-06",
+      "part": "Part 1",
+      "domain": "Performance Management",
+      "difficulty": "Medium",
+      "question": "Budgeted fixed overhead is $60,000 at a denominator of 10,000 direct labor hours. Actual FOH was $62,000 and standard hours allowed were 9,000. The fixed overhead volume variance is:",
+      "choices": {
+        "A": "$2,000 unfavorable",
+        "B": "$6,000 favorable",
+        "C": "$6,000 unfavorable",
+        "D": "$8,000 unfavorable"
+      },
+      "answer": "C",
+      "explanation": "The fixed-overhead rate is $60,000 / 10,000 = $6 per standard hour. Applied overhead is 9,000 × $6 = $54,000. Budgeted minus applied overhead is $6,000 unfavorable. Actual overhead spending affects the budget variance, not this volume variance.",
+      "calculation": "60000-9000*(60000/10000)",
+      "skills": [
+        "Standard cost and variances"
+      ],
+      "numeric_check": {
+        "expression": "60000-9000*(60000/10000)",
+        "choice_values": {
+          "A": 2000,
+          "B": 6000,
+          "C": 6000,
+          "D": 8000
+        },
+        "tolerance": 0.5,
+        "absolute": true,
+        "positive_label": "unfavorable",
+        "negative_label": "favorable",
+        "choice_directions": {
+          "A": "unfavorable",
+          "B": "favorable",
+          "C": "unfavorable",
+          "D": "unfavorable"
+        }
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-C-07": {
+      "id": "GUIDE-C-07",
+      "part": "Part 1",
+      "domain": "Performance Management",
+      "difficulty": "Medium",
+      "question": "In a 3-way overhead analysis, actual total overhead was $72,000, the flexible budget at actual hours was $69,600, the flexible budget at standard hours allowed was $69,000, and applied overhead was $63,000. The 3-way spending variance is:",
+      "choices": {
+        "A": "$600 unfavorable",
+        "B": "$3,000 unfavorable",
+        "C": "$9,000 unfavorable",
+        "D": "$2,400 unfavorable"
+      },
+      "answer": "D",
+      "explanation": "Three-way spending variance = actual total overhead minus the flexible budget at actual hours: $72,000 - $69,600 = $2,400 unfavorable. Efficiency is $600 unfavorable and volume is $6,000 unfavorable; total is $9,000 unfavorable.",
+      "calculation": "72000-69600",
+      "skills": [
+        "Advanced variance decomposition"
+      ],
+      "numeric_check": {
+        "expression": "72000-69600",
+        "choice_values": {
+          "A": 600,
+          "B": 3000,
+          "C": 9000,
+          "D": 2400
+        },
+        "tolerance": 0.5,
+        "absolute": true,
+        "positive_label": "unfavorable",
+        "negative_label": "favorable",
+        "choice_directions": {
+          "A": "unfavorable",
+          "B": "unfavorable",
+          "C": "unfavorable",
+          "D": "unfavorable"
+        }
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-C-10": {
+      "id": "GUIDE-C-10",
+      "part": "Part 1",
+      "domain": "Performance Management",
+      "difficulty": "Medium",
+      "question": "A company has adjusted net operating profit after tax (NOPAT) of $200,000, WACC of 10%, and an adjusted invested-capital base of $1,500,000. Using EVA = NOPAT minus the capital charge, what is EVA?",
+      "choices": {
+        "A": "$50,000",
+        "B": "$200,000",
+        "C": "-$50,000",
+        "D": "$350,000"
+      },
+      "answer": "A",
+      "explanation": "$200,000 − (0.10 × $1,500,000) = $200,000 − $150,000 = $50,000. Positive EVA = value created above the cost of capital.",
+      "calculation": "200000-.1*1500000",
+      "skills": [
+        "ROI and residual income"
+      ],
+      "numeric_check": {
+        "expression": "200000-.1*1500000",
+        "choice_values": {
+          "A": 50000,
+          "B": 200000,
+          "C": -50000,
+          "D": 350000
+        },
+        "tolerance": 0.5
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-C-11": {
+      "id": "GUIDE-C-11",
+      "part": "Part 1",
+      "domain": "Performance Management",
+      "difficulty": "Easy",
+      "question": "In a balanced scorecard, \"customer retention rate\" belongs to which perspective?",
+      "choices": {
+        "A": "Financial",
+        "B": "Customer",
+        "C": "Internal business process",
+        "D": "Learning and growth"
+      },
+      "answer": "B",
+      "explanation": "Customer perspective measures include satisfaction, retention, market share, and acquisition. Training hours would be learning & growth; defect rates, internal process.",
+      "calculation": null,
+      "skills": [
+        "Balanced scorecard"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-C-12": {
+      "id": "GUIDE-C-12",
+      "part": "Part 1",
+      "domain": "Performance Management",
+      "difficulty": "Easy",
+      "question": "Goal congruence exists when:",
+      "choices": {
+        "A": "Every division earns the same ROI",
+        "B": "Budgets are set by top management",
+        "C": "Managers' personal incentives align with the organization's goals",
+        "D": "All variances are investigated"
+      },
+      "answer": "C",
+      "explanation": "Goal congruence exists when incentives encourage managers to pursue organizational objectives. No single performance measure guarantees it; poorly designed short-term targets can undermine it.",
+      "calculation": null,
+      "skills": [
+        "Responsibility centers"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-C-13": {
+      "id": "GUIDE-C-13",
+      "part": "Part 1",
+      "domain": "Performance Management",
+      "difficulty": "Easy",
+      "question": "A division manager cancels a promising R&D project to protect this year's ROI target. This is an example of:",
+      "choices": {
+        "A": "Goal congruence",
+        "B": "Benchmarking",
+        "C": "Flexible budgeting",
+        "D": "Myopic behavior"
+      },
+      "answer": "D",
+      "explanation": "Myopia = sacrificing long-term value for short-term metric performance. Single-period financial targets invite exactly this.",
+      "calculation": null,
+      "skills": [
+        "Segment performance"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-C-18": {
+      "id": "GUIDE-C-18",
+      "part": "Part 1",
+      "domain": "Cost Management",
+      "difficulty": "Easy",
+      "question": "A hospital studies airline check-in procedures to improve its patient intake process. This is:",
+      "choices": {
+        "A": "Functional (generic) benchmarking",
+        "B": "Competitive benchmarking",
+        "C": "Internal benchmarking",
+        "D": "Reverse engineering"
+      },
+      "answer": "A",
+      "explanation": "Functional or generic benchmarking compares a process with strong practices in other industries. Comparing with another hospital would be competitive benchmarking.",
+      "calculation": null,
+      "skills": [
+        "Process and quality improvement"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-D-02": {
+      "id": "GUIDE-D-02",
+      "part": "Part 1",
+      "domain": "Cost Management",
+      "difficulty": "Medium",
+      "question": "Beginning work in process contains 2,000 units, 40% complete for conversion. During the period 10,000 units are started; ending WIP contains 3,000 units, 30% complete for conversion. There is no spoilage. Under weighted-average process costing, equivalent units for conversion are:",
+      "choices": {
+        "A": "9,100",
+        "B": "9,900",
+        "C": "9,000",
+        "D": "12,100"
+      },
+      "answer": "B",
+      "explanation": "Units completed = 2,000 + 10,000 − 3,000 = 9,000. WA EU = 9,000 + (3,000 × 0.30) = 9,900. Weighted-average includes prior-period work — BWIP's 40% is irrelevant here.",
+      "calculation": "2000+10000-3000+3000*.3",
+      "skills": [
+        "Equivalent unit calculations"
+      ],
+      "numeric_check": {
+        "expression": "2000+10000-3000+3000*.3",
+        "choice_values": {
+          "A": 9100,
+          "B": 9900,
+          "C": 9000,
+          "D": 12100
+        },
+        "tolerance": 0.5
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-D-03": {
+      "id": "GUIDE-D-03",
+      "part": "Part 1",
+      "domain": "Cost Management",
+      "difficulty": "Medium",
+      "question": "Beginning work in process contains 2,000 units, 40% complete for conversion. During the period 10,000 units are started; ending WIP contains 3,000 units, 30% complete for conversion. All beginning WIP is completed first and there is no spoilage. Under FIFO process costing, equivalent units for conversion are:",
+      "choices": {
+        "A": "9,900",
+        "B": "8,300",
+        "C": "9,100",
+        "D": "9,000"
+      },
+      "answer": "C",
+      "explanation": "FIFO counts only this period's work: 9,000 completed + 900 EWIP − (2,000 × 0.40 = 800 BWIP prior work) = 9,100.",
+      "calculation": "2000+10000-3000+3000*.3-2000*.4",
+      "skills": [
+        "Equivalent unit calculations"
+      ],
+      "numeric_check": {
+        "expression": "2000+10000-3000+3000*.3-2000*.4",
+        "choice_values": {
+          "A": 9900,
+          "B": 8300,
+          "C": 9100,
+          "D": 9000
+        },
+        "tolerance": 0.5
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-D-04": {
+      "id": "GUIDE-D-04",
+      "part": "Part 1",
+      "domain": "Cost Management",
+      "difficulty": "Medium",
+      "question": "The setup cost pool totals $120,000 for 400 setups. Product X requires 150 setups and 5,000 units are produced. Setup cost per unit of X is:",
+      "choices": {
+        "A": "$24.00",
+        "B": "$0.60",
+        "C": "$300.00",
+        "D": "$9.00"
+      },
+      "answer": "D",
+      "explanation": "Activity rate = $120,000 ÷ 400 = $300/setup. Assigned = 150 × $300 = $45,000. Per unit = $45,000 ÷ 5,000 = $9.00.",
+      "calculation": "120000/400*150/5000",
+      "skills": [
+        "Activity-based costing"
+      ],
+      "numeric_check": {
+        "expression": "120000/400*150/5000",
+        "choice_values": {
+          "A": 24,
+          "B": 0.6,
+          "C": 300,
+          "D": 9
+        },
+        "tolerance": 0.005
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-D-05": {
+      "id": "GUIDE-D-05",
+      "part": "Part 1",
+      "domain": "Cost Management",
+      "difficulty": "Medium",
+      "question": "Joint costs are $100,000. Product A has 10,000 units with a final selling price after processing of $6 per unit and separable processing costs of $1 per unit. Product B has 5,000 units with a final selling price of $8 per unit and separable costs of $0.50 per unit. Using relative net realizable value, joint cost allocated to A is approximately:",
+      "choices": {
+        "A": "$57,143",
+        "B": "$60,000",
+        "C": "$50,000",
+        "D": "$62,500"
+      },
+      "answer": "A",
+      "explanation": "NRV-A = (10,000 × $6) − (10,000 × $1) = $50,000. NRV-B = (5,000 × $8) − (5,000 × $0.50) = $37,500. Total $87,500. A gets $100,000 × ($50,000 ÷ $87,500) = $57,142.86 ≈ $57,143.",
+      "calculation": "100000*(10000*(6-1))/(10000*(6-1)+5000*(8-.5))",
+      "skills": [
+        "Joint and by-product costing"
+      ],
+      "numeric_check": {
+        "expression": "100000*(10000*(6-1))/(10000*(6-1)+5000*(8-.5))",
+        "choice_values": {
+          "A": 57143,
+          "B": 60000,
+          "C": 50000,
+          "D": 62500
+        },
+        "tolerance": 0.5
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-D-06": {
+      "id": "GUIDE-D-06",
+      "part": "Part 1",
+      "domain": "Cost Management",
+      "difficulty": "Easy",
+      "question": "A company recognizes a minor by-product at production using the method that credits its net realizable value against the joint-process cost. Under this method, the by-product NRV is used to:",
+      "choices": {
+        "A": "Allocate a proportionate share of joint costs to the by-product",
+        "B": "Reduce the joint cost allocated to the main products",
+        "C": "Increase the sales value of the main products",
+        "D": "Compute separable costs of further processing"
+      },
+      "answer": "B",
+      "explanation": "Under this specified by-product accounting method, the NRV reduces the joint costs assigned to the main products. Other by-product accounting methods exist; this treatment is not a universal rule.",
+      "calculation": null,
+      "skills": [
+        "Joint and by-product costing"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-D-07": {
+      "id": "GUIDE-D-07",
+      "part": "Part 1",
+      "domain": "Cost Management",
+      "difficulty": "Medium",
+      "question": "S1 costs $30,000; S2 costs $20,000. S1 serves S2 (40%) and P1 (60%). S2 serves P1 (25%) and P2 (75%). Using the step-down method with S1 first, total service cost allocated to P1 is:",
+      "choices": {
+        "A": "$18,000",
+        "B": "$24,000",
+        "C": "$26,000",
+        "D": "$32,000"
+      },
+      "answer": "C",
+      "explanation": "S1: S2 gets $30,000 × 0.40 = $12,000; P1 gets $18,000. S2 now totals $32,000: P1 gets $32,000 × 0.25 = $8,000; P2 gets $24,000. P1 total = $18,000 + $8,000 = $26,000. No costs flow back to S1 once closed — that's the step-down rule.",
+      "calculation": "30000*.6+(20000+30000*.4)*.25",
+      "skills": [
+        "Service department allocation"
+      ],
+      "numeric_check": {
+        "expression": "30000*.6+(20000+30000*.4)*.25",
+        "choice_values": {
+          "A": 18000,
+          "B": 24000,
+          "C": 26000,
+          "D": 32000
+        },
+        "tolerance": 0.5
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-D-09": {
+      "id": "GUIDE-D-09",
+      "part": "Part 1",
+      "domain": "Cost Management",
+      "difficulty": "Medium",
+      "question": "A single bottleneck has 1,000 available hours. Product A sells for $100, uses $30 of direct materials, and requires 2 bottleneck hours per unit. Product B sells for $80, uses $20 of direct materials, and requires 1 bottleneck hour. Treat direct materials as the only truly variable cost; both products have sufficient demand and no other differential effects. To maximize throughput, prioritize:",
+      "choices": {
+        "A": "A first — higher price",
+        "B": "A first — higher throughput per unit ($70 vs $60)",
+        "C": "Equal quantities of both",
+        "D": "B first — higher throughput per bottleneck hour"
+      },
+      "answer": "D",
+      "explanation": "Throughput per bottleneck hour is ($100 - $30)/2 = $35 for A and ($80 - $20)/1 = $60 for B. B earns $25 more per scarce hour and should be prioritized while its demand remains unmet. Ranking by price or throughput per unit ignores the binding constraint.",
+      "calculation": "(80-20)/1-(100-30)/2",
+      "skills": [
+        "Operational efficiency"
+      ],
+      "numeric_check": {
+        "expression": "(80-20)/1-(100-30)/2",
+        "choice_values": {
+          "A": -25,
+          "B": -25,
+          "C": 0,
+          "D": 25
+        },
+        "tolerance": 0.005
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-D-10": {
+      "id": "GUIDE-D-10",
+      "part": "Part 1",
+      "domain": "Cost Management",
+      "difficulty": "Easy",
+      "question": "In the ABC cost hierarchy, machine setup costs are:",
+      "choices": {
+        "A": "Batch-level",
+        "B": "Unit-level",
+        "C": "Product-level",
+        "D": "Facility-level"
+      },
+      "answer": "A",
+      "explanation": "A setup is performed for a batch regardless of the number of units in it, so it is batch-level. Product design is product-level; factory rent is facility-level.",
+      "calculation": null,
+      "skills": [
+        "Activity-based costing"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-D-11": {
+      "id": "GUIDE-D-11",
+      "part": "Part 1",
+      "domain": "Cost Management",
+      "difficulty": "Medium",
+      "question": "A job-order costing system applies overhead at $15 per actual direct labor hour. Actual hours are 4,000 and actual overhead is $63,000. Manufacturing overhead is:",
+      "choices": {
+        "A": "$3,000 overapplied",
+        "B": "$3,000 underapplied",
+        "C": "$60,000 underapplied",
+        "D": "$63,000 underapplied"
+      },
+      "answer": "B",
+      "explanation": "Applied overhead is 4,000 × $15 = $60,000. Actual overhead of $63,000 exceeds applied overhead by $3,000, so overhead is underapplied.",
+      "calculation": "63000-15*4000",
+      "skills": [
+        "Overhead allocation"
+      ],
+      "numeric_check": {
+        "expression": "63000-15*4000",
+        "choice_values": {
+          "A": 3000,
+          "B": 3000,
+          "C": 60000,
+          "D": 63000
+        },
+        "tolerance": 0.5,
+        "absolute": true,
+        "positive_label": "underapplied",
+        "negative_label": "overapplied",
+        "choice_directions": {
+          "A": "overapplied",
+          "B": "underapplied",
+          "C": "underapplied",
+          "D": "underapplied"
+        }
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-D-12": {
+      "id": "GUIDE-D-12",
+      "part": "Part 1",
+      "domain": "Cost Management",
+      "difficulty": "Medium",
+      "question": "Joint costs are $80,000. Product A has final sales value of $120,000 and separable processing costs of $20,000. Product B has final sales value of $80,000 and separable costs of $20,000. Using the constant gross-margin percentage NRV method, how much joint cost is allocated to B?",
+      "choices": {
+        "A": "$48,000",
+        "B": "$40,000",
+        "C": "$28,000",
+        "D": "$30,000"
+      },
+      "answer": "C",
+      "explanation": "Total final sales are $200,000 and total costs are $80,000 joint plus $40,000 separable. The common gross-margin percentage is 40%. B must carry total cost of 60% × $80,000 = $48,000. Deduct its $20,000 separable cost to obtain $28,000 joint cost. Relative NRV allocation would instead give $30,000; that is a different method.",
+      "calculation": "80000*(80000+20000+20000)/(120000+80000)-20000",
+      "skills": [
+        "Joint and by-product costing"
+      ],
+      "numeric_check": {
+        "expression": "80000*(80000+20000+20000)/(120000+80000)-20000",
+        "choice_values": {
+          "A": 48000,
+          "B": 40000,
+          "C": 28000,
+          "D": 30000
+        },
+        "tolerance": 0.5
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-D-13": {
+      "id": "GUIDE-D-13",
+      "part": "Part 1",
+      "domain": "Cost Management",
+      "difficulty": "Easy",
+      "question": "Which service-department allocation method fully recognizes reciprocal (mutual) services between service departments?",
+      "choices": {
+        "A": "Direct method",
+        "B": "Step-down method",
+        "C": "Dual-rate method",
+        "D": "Reciprocal method"
+      },
+      "answer": "D",
+      "explanation": "The reciprocal method recognizes mutual service-department services using simultaneous equations. Step-down recognizes service-department services only in one allocation direction.",
+      "calculation": null,
+      "skills": [
+        "Service department allocation"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-D-14": {
+      "id": "GUIDE-D-14",
+      "part": "Part 1",
+      "domain": "Cost Management",
+      "difficulty": "Easy",
+      "question": "The main criticism of the direct method of service-department allocation is that it:",
+      "choices": {
+        "A": "Ignores services that service departments provide to each other",
+        "B": "Is too complex to implement",
+        "C": "Requires simultaneous equations",
+        "D": "Cannot be used with more than two service departments"
+      },
+      "answer": "A",
+      "explanation": "The direct method ignores service-department services to one another and allocates each service pool directly to production. It is simpler than the reciprocal method but omits those interdepartmental relationships.",
+      "calculation": null,
+      "skills": [
+        "Service department allocation"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-D-16": {
+      "id": "GUIDE-D-16",
+      "part": "Part 1",
+      "domain": "Cost Management",
+      "difficulty": "Easy",
+      "question": "Product redesign costs for a specific model are classified in the ABC hierarchy as:",
+      "choices": {
+        "A": "Unit-level",
+        "B": "Product-level",
+        "C": "Batch-level",
+        "D": "Facility-level"
+      },
+      "answer": "B",
+      "explanation": "Redesign sustains the product line regardless of units or batches produced — product-sustaining (product-level).",
+      "calculation": null,
+      "skills": [
+        "Activity-based costing"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-D-17": {
+      "id": "GUIDE-D-17",
+      "part": "Part 1",
+      "domain": "Cost Management",
+      "difficulty": "Medium",
+      "question": "Materials are added at the start of a process. Beginning WIP has 1,000 units, fully complete for materials; 9,000 units are started and ending WIP has 2,000 units, also fully complete for materials. There is no spoilage. Beginning WIP materials cost is $8,000 and materials added this period cost $42,000. Under weighted-average process costing, material cost per equivalent unit is:",
+      "choices": {
+        "A": "$4.20",
+        "B": "$4.67",
+        "C": "$5.00",
+        "D": "$5.25"
+      },
+      "answer": "C",
+      "explanation": "EU-WA for materials = (1,000 + 9,000 − 2,000) + 2,000 = 10,000 (materials at start = 100% in both BWIP and EWIP). Cost = ($8,000 + $42,000) ÷ 10,000 = $5.00.",
+      "calculation": "(8000+42000)/(1000+9000)",
+      "skills": [
+        "Equivalent unit calculations"
+      ],
+      "numeric_check": {
+        "expression": "(8000+42000)/(1000+9000)",
+        "choice_values": {
+          "A": 4.2,
+          "B": 4.67,
+          "C": 5,
+          "D": 5.25
+        },
+        "tolerance": 0.005
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-D-18": {
+      "id": "GUIDE-D-18",
+      "part": "Part 1",
+      "domain": "Cost Management",
+      "difficulty": "Easy",
+      "question": "A production system has a single unchanged binding bottleneck. Improving local speed at a non-bottleneck workstation, without changing bottleneck capacity, demand, quality, or material availability, will:",
+      "choices": {
+        "A": "Increase system throughput automatically",
+        "B": "Increase bottleneck capacity automatically",
+        "C": "Eliminate the bottleneck",
+        "D": "Not increase total system throughput"
+      },
+      "answer": "D",
+      "explanation": "The binding bottleneck still limits system output. Local speed improvements elsewhere do not increase throughput under the stated assumptions; they may create idle time or excess WIP.",
+      "calculation": null,
+      "skills": [
+        "Operational efficiency"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-D-19": {
+      "id": "GUIDE-D-19",
+      "part": "Part 1",
+      "domain": "Cost Management",
+      "difficulty": "Easy",
+      "question": "Compared with regression using all relevant observations, a limitation of high-low cost estimation is that it:",
+      "choices": {
+        "A": "Uses only two data points, so outliers distort the estimate",
+        "B": "Requires regression software",
+        "C": "Cannot handle mixed costs",
+        "D": "Assumes costs are fixed"
+      },
+      "answer": "A",
+      "explanation": "High-low uses the highest and lowest activity observations only. An unusual cost at either selected observation can distort the estimated variable rate and fixed cost; other observations do not influence the estimate.",
+      "calculation": null,
+      "skills": [
+        "Cost behavior and cost objects"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-01": {
+      "id": "GUIDE-A-01",
+      "part": "Part 2",
+      "domain": "Financial Statement Analysis",
+      "difficulty": "Medium",
+      "question": "A company reports net income of $500,000, current-period cumulative preferred dividends of $50,000, and 180,000 weighted-average common shares. There are no other numerator adjustments. Basic EPS is:",
+      "choices": {
+        "A": "$2.78",
+        "B": "$2.50",
+        "C": "$2.22",
+        "D": "$3.06"
+      },
+      "answer": "B",
+      "explanation": "Basic EPS = (net income - current-period cumulative preferred dividends) / weighted-average common shares = ($500,000 - $50,000)/180,000 = $2.50.",
+      "calculation": "(500000-50000)/180000",
+      "skills": [
+        "Financial ratios"
+      ],
+      "numeric_check": {
+        "expression": "(500000-50000)/180000",
+        "choice_values": {
+          "A": 2.78,
+          "B": 2.5,
+          "C": 2.22,
+          "D": 3.06
+        },
+        "tolerance": 0.005
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-02": {
+      "id": "GUIDE-A-02",
+      "part": "Part 2",
+      "domain": "Financial Statement Analysis",
+      "difficulty": "Medium",
+      "question": "Net income is $500,000, current-period cumulative preferred dividends are $50,000, and weighted-average common shares are 180,000. There are also 20,000 vested options outstanding for the full year with exercise price of $20 and average market price of $25. There are no other potentially dilutive securities or compensation adjustments. Under the treasury-stock method, diluted EPS is approximately:",
+      "choices": {
+        "A": "$2.50",
+        "B": "$2.25",
+        "C": "$2.45",
+        "D": "$2.14"
+      },
+      "answer": "C",
+      "explanation": "Treasury stock method: proceeds = 20,000 × $20 = $400,000; shares repurchased = $400,000 ÷ $25 = 16,000; incremental shares = 4,000. Diluted shares = 184,000. $450,000 ÷ 184,000 = $2.4457 ≈ $2.45. Options are dilutive because $20 < $25.",
+      "calculation": "(500000-50000)/(180000+20000-20000*20/25)",
+      "skills": [
+        "Financial ratios"
+      ],
+      "numeric_check": {
+        "expression": "(500000-50000)/(180000+20000-20000*20/25)",
+        "choice_values": {
+          "A": 2.5,
+          "B": 2.25,
+          "C": 2.45,
+          "D": 2.14
+        },
+        "tolerance": 0.005
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-03": {
+      "id": "GUIDE-A-03",
+      "part": "Part 2",
+      "domain": "Corporate Finance",
+      "difficulty": "Medium",
+      "question": "A 5-year, $1,000,000 face, 8% annual-coupon bond is issued when the market rate is 10%. The issue price is approximately:",
+      "choices": {
+        "A": "$1,000,000",
+        "B": "$920,000",
+        "C": "$1,075,816",
+        "D": "$924,184"
+      },
+      "answer": "D",
+      "explanation": "Discount all five $80,000 year-end coupons and the $1,000,000 maturity payment at the 10% market yield. Exact discount factors give coupon PV of $303,262.94 and principal PV of $620,921.32, totaling $924,184.26. The bond is issued at a discount because its coupon rate is below the market yield.",
+      "calculation": "80000*(1-1.1**-5)/.1+1000000/1.1**5",
+      "skills": [
+        "Security valuation"
+      ],
+      "numeric_check": {
+        "expression": "80000*(1-1.1**-5)/.1+1000000/1.1**5",
+        "choice_values": {
+          "A": 1000000,
+          "B": 920000,
+          "C": 1075816,
+          "D": 924184
+        },
+        "tolerance": 0.5
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-04": {
+      "id": "GUIDE-A-04",
+      "part": "Part 1",
+      "domain": "External Financial Reporting Decisions",
+      "difficulty": "Medium",
+      "question": "A five-year, $1,000,000 face-value bond pays an 8% coupon annually at year-end. It was issued at $924,184 when the effective annual yield was 10%, with no issuance costs. First-year interest expense under the effective-interest method is approximately:",
+      "choices": {
+        "A": "$92,418",
+        "B": "$80,000",
+        "C": "$75,836",
+        "D": "$100,000"
+      },
+      "answer": "A",
+      "explanation": "Interest expense equals beginning carrying value times the effective yield: $924,184 × 10% = approximately $92,418. The $80,000 coupon is the cash payment. Approximately $12,418 amortizes the discount.",
+      "calculation": "924184*.1",
+      "skills": [
+        "Liability valuation"
+      ],
+      "numeric_check": {
+        "expression": "924184*.1",
+        "choice_values": {
+          "A": 92418,
+          "B": 80000,
+          "C": 75836,
+          "D": 100000
+        },
+        "tolerance": 0.5
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-05": {
+      "id": "GUIDE-A-05",
+      "part": "Part 1",
+      "domain": "External Financial Reporting Decisions",
+      "difficulty": "Medium",
+      "question": "Net income is $200,000, depreciation is $30,000, operating accounts receivable increased $15,000, and operating accounts payable increased $10,000. There are no other indirect-method adjustments. Operating cash flow is:",
+      "choices": {
+        "A": "$255,000",
+        "B": "$225,000",
+        "C": "$195,000",
+        "D": "$245,000"
+      },
+      "answer": "B",
+      "explanation": "$200,000 + $30,000 − $15,000 + $10,000 = $225,000. AR up = cash tied up (subtract); AP up = cash conserved (add).",
+      "calculation": "200000+30000-15000+10000",
+      "skills": [
+        "Financial statements"
+      ],
+      "numeric_check": {
+        "expression": "200000+30000-15000+10000",
+        "choice_values": {
+          "A": 255000,
+          "B": 225000,
+          "C": 195000,
+          "D": 245000
+        },
+        "tolerance": 0.5
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-06": {
+      "id": "GUIDE-A-06",
+      "part": "Part 2",
+      "domain": "Financial Statement Analysis",
+      "difficulty": "Medium",
+      "question": "Current assets $300,000, current liabilities $150,000. The company buys $50,000 of inventory on account. The new current ratio is:",
+      "choices": {
+        "A": "2.00",
+        "B": "2.33",
+        "C": "1.75",
+        "D": "1.50"
+      },
+      "answer": "C",
+      "explanation": "($300,000 + $50,000) ÷ ($150,000 + $50,000) = $350,000 ÷ $200,000 = 1.75. Adding equal amounts to numerator and denominator pulls a ratio above 1.0 downward — the tested intuition.",
+      "calculation": "(300000+50000)/(150000+50000)",
+      "skills": [
+        "Financial statement effects"
+      ],
+      "numeric_check": {
+        "expression": "(300000+50000)/(150000+50000)",
+        "choice_values": {
+          "A": 2,
+          "B": 2.33,
+          "C": 1.75,
+          "D": 1.5
+        },
+        "tolerance": 0.005
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-07": {
+      "id": "GUIDE-A-07",
+      "part": "Part 1",
+      "domain": "External Financial Reporting Decisions",
+      "difficulty": "Easy",
+      "question": "Under ASC 606, allocating the transaction price to performance obligations is step:",
+      "choices": {
+        "A": "2",
+        "B": "3",
+        "C": "5",
+        "D": "4"
+      },
+      "answer": "D",
+      "explanation": "The five steps: (1) identify contract, (2) identify obligations, (3) determine price, (4) allocate price, (5) recognize as satisfied.",
+      "calculation": null,
+      "skills": [
+        "Revenue recognition"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-08": {
+      "id": "GUIDE-A-08",
+      "part": "Part 1",
+      "domain": "External Financial Reporting Decisions",
+      "difficulty": "Easy",
+      "question": "Which inventory costing method is prohibited under IFRS?",
+      "choices": {
+        "A": "LIFO",
+        "B": "Weighted average",
+        "C": "FIFO",
+        "D": "Specific identification"
+      },
+      "answer": "A",
+      "explanation": "IAS 2 permits specific identification for appropriate noninterchangeable items and FIFO or weighted average for interchangeable inventories. LIFO is not permitted under IFRS.",
+      "calculation": null,
+      "skills": [
+        "GAAP vs. IFRS"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-09": {
+      "id": "GUIDE-A-09",
+      "part": "Part 1",
+      "domain": "External Financial Reporting Decisions",
+      "difficulty": "Easy",
+      "question": "Inventory was written down by $40,000 last year under IFRS. This year its net realizable value increases by $25,000 because the conditions causing the write-down have improved. The inventory remains on hand and NRV remains below original cost. The company should:",
+      "choices": {
+        "A": "Do nothing — reversals are prohibited",
+        "B": "Reverse $25,000 of the write-down through profit",
+        "C": "Reverse the full $40,000",
+        "D": "Credit other comprehensive income"
+      },
+      "answer": "B",
+      "explanation": "IAS 2 reverses the write-down when NRV recovers, limited to the original write-down and without exceeding original cost. Here the $25,000 reversal reduces inventory expense through profit or loss. U.S. GAAP generally does not reverse an inventory write-down.",
+      "calculation": null,
+      "skills": [
+        "GAAP vs. IFRS"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-10": {
+      "id": "GUIDE-A-10",
+      "part": "Part 1",
+      "domain": "External Financial Reporting Decisions",
+      "difficulty": "Easy",
+      "question": "Under U.S. GAAP, a lessee commences a finance lease. All payments are fixed and payable after commencement, with no prepaid rent, lease incentives, or initial direct costs. At commencement it recognizes:",
+      "choices": {
+        "A": "Only a lease liability; the asset is recorded over time",
+        "B": "Rent expense for the full lease term",
+        "C": "A right-of-use asset and a lease liability at the present value of payments",
+        "D": "Nothing until the first payment"
+      },
+      "answer": "C",
+      "explanation": "Under ASC 842, the lessee recognizes a lease liability at the present value of unpaid lease payments and a right-of-use asset. With no prepayments, incentives, or initial direct costs, the initial asset equals that liability. Those adjustments can otherwise make the asset and liability differ.",
+      "calculation": null,
+      "skills": [
+        "Deferred tax and lease measurement"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-11": {
+      "id": "GUIDE-A-11",
+      "part": "Part 1",
+      "domain": "External Financial Reporting Decisions",
+      "difficulty": "Easy",
+      "question": "A lawsuit arising from a past event creates a present obligation. An outflow is more likely than not and a reliable estimate of the settlement can be made. Under IAS 37, the entity should:",
+      "choices": {
+        "A": "Accrue only if the amount is certain",
+        "B": "Disclose only in the notes",
+        "C": "Ignore it until settlement",
+        "D": "Accrue the liability"
+      },
+      "answer": "D",
+      "explanation": "IAS 37 requires a provision for a present obligation from a past event when an outflow is probable (more likely than not) and can be reliably estimated. The recognition threshold differs from the U.S. GAAP use of probable.",
+      "calculation": null,
+      "skills": [
+        "GAAP vs. IFRS"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-12": {
+      "id": "GUIDE-A-12",
+      "part": "Part 2",
+      "domain": "Financial Statement Analysis",
+      "difficulty": "Medium",
+      "question": "Total liabilities $600,000, total equity $400,000. The debt-to-equity ratio is:",
+      "choices": {
+        "A": "1.50",
+        "B": "0.67",
+        "C": "0.60",
+        "D": "2.50"
+      },
+      "answer": "A",
+      "explanation": "$600,000 ÷ $400,000 = 1.50.",
+      "calculation": "600000/400000",
+      "skills": [
+        "Financial ratios"
+      ],
+      "numeric_check": {
+        "expression": "600000/400000",
+        "choice_values": {
+          "A": 1.5,
+          "B": 0.67,
+          "C": 0.6,
+          "D": 2.5
+        },
+        "tolerance": 0.005
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-13": {
+      "id": "GUIDE-A-13",
+      "part": "Part 2",
+      "domain": "Financial Statement Analysis",
+      "difficulty": "Medium",
+      "question": "Annual COGS is $730,000 and average inventory is $100,000. Using a 365-day year, days sales in inventory is approximately:",
+      "choices": {
+        "A": "73 days",
+        "B": "50 days",
+        "C": "36.5 days",
+        "D": "100 days"
+      },
+      "answer": "B",
+      "explanation": "Turnover = $730,000 ÷ $100,000 = 7.3×; days = 365 ÷ 7.3 = 50 days.",
+      "calculation": "365/(730000/100000)",
+      "skills": [
+        "Activity ratios"
+      ],
+      "numeric_check": {
+        "expression": "365/(730000/100000)",
+        "choice_values": {
+          "A": 73,
+          "B": 50,
+          "C": 36.5,
+          "D": 100
+        },
+        "tolerance": 0.5
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-14": {
+      "id": "GUIDE-A-14",
+      "part": "Part 1",
+      "domain": "External Financial Reporting Decisions",
+      "difficulty": "Easy",
+      "question": "Under U.S. GAAP, the results of a component that qualifies as a discontinued operation are presented:",
+      "choices": {
+        "A": "Within operating income, before tax",
+        "B": "In other comprehensive income",
+        "C": "Net of tax, below income from continuing operations",
+        "D": "As an extraordinary item"
+      },
+      "answer": "C",
+      "explanation": "Qualifying discontinued-operation results are reported net of tax separately from income from continuing operations. They are not an extraordinary item or other comprehensive income.",
+      "calculation": null,
+      "skills": [
+        "Income measurement"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-15": {
+      "id": "GUIDE-A-15",
+      "part": "Part 1",
+      "domain": "External Financial Reporting Decisions",
+      "difficulty": "Easy",
+      "question": "Under IFRS, development costs are:",
+      "choices": {
+        "A": "Always expensed as incurred",
+        "B": "Treated identically to US GAAP",
+        "C": "Amortized over 40 years",
+        "D": "Capitalized only when all IAS 38 development recognition criteria are demonstrated"
+      },
+      "answer": "D",
+      "explanation": "Under IAS 38, development expenditure is capitalized only when all specified criteria are demonstrated, including technical feasibility, intent and ability to complete and use or sell, probable future benefits, resources, and reliable cost measurement. Research expenditure is expensed. U.S. GAAP generally expenses R&D, with specific exceptions such as certain software costs.",
+      "calculation": null,
+      "skills": [
+        "GAAP vs. IFRS"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-16": {
+      "id": "GUIDE-A-16",
+      "part": "Part 2",
+      "domain": "Financial Statement Analysis",
+      "difficulty": "Medium",
+      "question": "Net profit margin 8%, asset turnover 1.5, financial leverage (assets/equity) 2.0. ROE is:",
+      "choices": {
+        "A": "24%",
+        "B": "12%",
+        "C": "6%",
+        "D": "11.5%"
+      },
+      "answer": "A",
+      "explanation": "DuPont: 0.08 × 1.5 × 2.0 = 0.24 = 24%.",
+      "calculation": ".08*1.5*2",
+      "skills": [
+        "Profitability analysis"
+      ],
+      "numeric_check": {
+        "expression": ".08*1.5*2",
+        "choice_values": {
+          "A": 0.24,
+          "B": 0.12,
+          "C": 0.06,
+          "D": 0.115
+        },
+        "tolerance": 0.005
+      },
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-17": {
+      "id": "GUIDE-A-17",
+      "part": "Part 1",
+      "domain": "External Financial Reporting Decisions",
+      "difficulty": "Easy",
+      "question": "Under U.S. GAAP, compare a finance lease and an operating lease with identical level annual payments, the same positive discount rate and term, no incentives or initial direct costs, and no impairment. The finance-lease asset is amortized straight-line over the lease term. Compared with the operating lease, the finance lease generally has:",
+      "choices": {
+        "A": "Lower total expense over the lease life",
+        "B": "Higher expense in the early years (front-loaded)",
+        "C": "Identical expense each period",
+        "D": "No balance sheet recognition"
+      },
+      "answer": "B",
+      "explanation": "Finance-lease cost consists of straight-line asset amortization plus interest on a declining liability, producing higher total lease expense early in the term. The comparable operating lease has a single straight-line lease cost. Aggregate expense over the identical term is the same under these assumptions.",
+      "calculation": null,
+      "skills": [
+        "Deferred tax and lease measurement"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-18": {
+      "id": "GUIDE-A-18",
+      "part": "Part 1",
+      "domain": "External Financial Reporting Decisions",
+      "difficulty": "Easy",
+      "question": "Under U.S. GAAP, cash paid for ordinary interest that is not capitalized is classified as:",
+      "choices": {
+        "A": "An investing activity",
+        "B": "A financing activity",
+        "C": "An operating activity",
+        "D": "Not shown on the cash flow statement"
+      },
+      "answer": "C",
+      "explanation": "Cash paid for ordinary interest is an operating cash outflow under U.S. GAAP. This question excludes capitalized interest and other special situations.",
+      "calculation": null,
+      "skills": [
+        "Financial statements"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-A-19": {
+      "id": "GUIDE-A-19",
+      "part": "Part 1",
+      "domain": "External Financial Reporting Decisions",
+      "difficulty": "Easy",
+      "question": "Which statement is true regarding PPE revaluation?",
+      "choices": {
+        "A": "Both US GAAP and IFRS permit upward revaluation",
+        "B": "Neither permits revaluation",
+        "C": "US GAAP permits revaluation; IFRS does not",
+        "D": "IFRS permits the revaluation model; US GAAP does not"
+      },
+      "answer": "D",
+      "explanation": "IAS 16 permits the revaluation model for a class of PPE when fair value can be measured reliably. U.S. GAAP generally does not permit upward PPE revaluation. IFRS revaluation increases generally go to OCI, except to the extent they reverse a prior decrease recognized in profit or loss.",
+      "calculation": null,
+      "skills": [
+        "GAAP vs. IFRS"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-E-03": {
+      "id": "GUIDE-E-03",
+      "part": "Part 1",
+      "domain": "Internal Controls",
+      "difficulty": "Easy",
+      "question": "For an established SEC reporting company subject to both SOX 404(a) and 404(b), with no applicable transition or exemption, the annual ICFR reporting requirements include:",
+      "choices": {
+        "A": "Management assesses ICFR effectiveness and the external auditor issues an ICFR attestation report",
+        "B": "Only the external auditor evaluates ICFR",
+        "C": "Only quarterly CEO/CFO certification is required",
+        "D": "Every control deficiency must be disclosed publicly in real time"
+      },
+      "answer": "A",
+      "explanation": "Section 404(a) requires management's annual ICFR assessment; section 404(b) adds the independent auditor's ICFR report for companies subject to it. Certain issuers, including qualifying emerging growth companies and non-accelerated filers, are exempt from 404(b). Section 302 addresses certifications.",
+      "calculation": null,
+      "skills": [
+        "Fraud and compliance"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-E-04": {
+      "id": "GUIDE-E-04",
+      "part": "Part 1",
+      "domain": "Internal Controls",
+      "difficulty": "Easy",
+      "question": "A material weakness is best defined as a deficiency such that there is:",
+      "choices": {
+        "A": "Any possibility of an immaterial error",
+        "B": "A reasonable possibility that a material misstatement will not be prevented or detected timely",
+        "C": "Absolute certainty of fraud",
+        "D": "A minor design flaw with no financial impact"
+      },
+      "answer": "B",
+      "explanation": "A material weakness involves a reasonable possibility that a material financial-statement misstatement will not be prevented or detected timely. A significant deficiency is less severe but important enough for governance oversight; the classification depends on likelihood and magnitude.",
+      "calculation": null,
+      "skills": [
+        "Internal audit"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-E-05": {
+      "id": "GUIDE-E-05",
+      "part": "Part 1",
+      "domain": "Internal Controls",
+      "difficulty": "Easy",
+      "question": "The three elements of the fraud triangle are:",
+      "choices": {
+        "A": "Theft, concealment, conversion",
+        "B": "Skimming, larceny, billing schemes",
+        "C": "Incentive/pressure, opportunity, rationalization",
+        "D": "Prevention, detection, correction"
+      },
+      "answer": "C",
+      "explanation": "The fraud triangle comprises incentive or pressure, opportunity, and rationalization. Weak controls can create opportunity; different fraud schemes are not its components.",
+      "calculation": null,
+      "skills": [
+        "Fraud and compliance"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-E-07": {
+      "id": "GUIDE-E-07",
+      "part": "Part 1",
+      "domain": "Internal Controls",
+      "difficulty": "Easy",
+      "question": "To preserve independence, the chief audit executive should report functionally to:",
+      "choices": {
+        "A": "The chief financial officer",
+        "B": "The controller",
+        "C": "The external audit partner",
+        "D": "The audit committee of the board"
+      },
+      "answer": "D",
+      "explanation": "Functional reporting to the board or audit committee supports internal audit's independence from the activities it evaluates. Administrative reporting to management can coexist with functional board oversight.",
+      "calculation": null,
+      "skills": [
+        "Internal audit"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-E-09": {
+      "id": "GUIDE-E-09",
+      "part": "Part 1",
+      "domain": "Internal Controls",
+      "difficulty": "Easy",
+      "question": "Restoring operations from backup tapes after a server failure is a:",
+      "choices": {
+        "A": "Corrective control",
+        "B": "Detective control",
+        "C": "Preventive control",
+        "D": "Compensating control"
+      },
+      "answer": "A",
+      "explanation": "Restoring data and operations after a server failure is corrective. Backups support recovery, but making a backup does not itself prevent the server failure.",
+      "calculation": null,
+      "skills": [
+        "Business continuity and recovery"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-E-11": {
+      "id": "GUIDE-E-11",
+      "part": "Part 1",
+      "domain": "Internal Controls",
+      "difficulty": "Easy",
+      "question": "An employee pockets cash from a customer before recording the sale. This scheme is:",
+      "choices": {
+        "A": "Cash larceny",
+        "B": "Skimming",
+        "C": "A billing scheme",
+        "D": "Check tampering"
+      },
+      "answer": "B",
+      "explanation": "Skimming is theft of receipts before they are recorded. Cash larceny involves cash already recorded in the books.",
+      "calculation": null,
+      "skills": [
+        "Fraud and compliance"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-E-12": {
+      "id": "GUIDE-E-12",
+      "part": "Part 1",
+      "domain": "Internal Controls",
+      "difficulty": "Easy",
+      "question": "A department head compares actual spending with budget and investigates exceptions as a review of operating performance. The review is not assessing whether other controls are operating effectively. Which COSO component most directly includes this review?",
+      "choices": {
+        "A": "Information and communication",
+        "B": "Monitoring activities",
+        "C": "Control activities",
+        "D": "Risk assessment"
+      },
+      "answer": "C",
+      "explanation": "A review of operating performance and investigation of budget exceptions is a control activity. Monitoring evaluates whether internal controls themselves remain effective. The original guide keyed monitoring despite describing a performance-review control; the clarified wording distinguishes the two.",
+      "calculation": null,
+      "skills": [
+        "Control activities"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-E-14": {
+      "id": "GUIDE-E-14",
+      "part": "Part 1",
+      "domain": "Internal Controls",
+      "difficulty": "Easy",
+      "question": "In assessing internal control over financial reporting, control risk is the risk that a material misstatement:",
+      "choices": {
+        "A": "Is not detected by the auditor's substantive procedures",
+        "B": "Arises solely from industry conditions before considering controls",
+        "C": "Always arises from intentional management fraud",
+        "D": "Is not prevented, or detected and corrected timely, by the entity's controls"
+      },
+      "answer": "D",
+      "explanation": "Control risk concerns a misstatement escaping the entity's controls. Detection risk concerns the auditor's procedures; inherent risk is susceptibility before considering controls.",
+      "calculation": null,
+      "skills": [
+        "Risk assessment"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-E-16": {
+      "id": "GUIDE-E-16",
+      "part": "Part 1",
+      "domain": "Internal Controls",
+      "difficulty": "Easy",
+      "question": "An employee intercepts a vendor check, alters the payee to himself, and cashes it. This is:",
+      "choices": {
+        "A": "Check tampering",
+        "B": "A billing scheme",
+        "C": "Skimming",
+        "D": "A payroll scheme"
+      },
+      "answer": "A",
+      "explanation": "Altering a legitimate vendor check to divert payment is check tampering. A billing scheme instead uses a fraudulent invoice or vendor to generate payment.",
+      "calculation": null,
+      "skills": [
+        "Fraud and compliance"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-E-17": {
+      "id": "GUIDE-E-17",
+      "part": "Part 1",
+      "domain": "Internal Controls",
+      "difficulty": "Easy",
+      "question": "Requiring multi-factor authentication to access the accounting system is a:",
+      "choices": {
+        "A": "Detective application control",
+        "B": "Preventive general control",
+        "C": "Corrective control",
+        "D": "Compensating control"
+      },
+      "answer": "B",
+      "explanation": "Access security is a general IT control, and authentication prevents unauthorized access before it happens.",
+      "calculation": null,
+      "skills": [
+        "IT general controls"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-E-18": {
+      "id": "GUIDE-E-18",
+      "part": "Part 1",
+      "domain": "Internal Controls",
+      "difficulty": "Easy",
+      "question": "The severity of a control deficiency is judged primarily on:",
+      "choices": {
+        "A": "The job title of the person who caused it",
+        "B": "Whether it was found by internal or external audit",
+        "C": "The likelihood and magnitude of a potential misstatement",
+        "D": "The cost of remediating it"
+      },
+      "answer": "C",
+      "explanation": "Severity depends on the likelihood and potential magnitude of a misstatement escaping controls. It does not depend on who discovered the deficiency or require an actual misstatement.",
+      "calculation": null,
+      "skills": [
+        "Internal audit"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-E-19": {
+      "id": "GUIDE-E-19",
+      "part": "Part 1",
+      "domain": "Internal Controls",
+      "difficulty": "Easy",
+      "question": "The COSO Internal Control—Integrated Framework contains:",
+      "choices": {
+        "A": "3 components and 12 principles",
+        "B": "4 components and 10 principles",
+        "C": "7 components and 20 principles",
+        "D": "5 components and 17 principles"
+      },
+      "answer": "D",
+      "explanation": "The COSO Internal Control—Integrated Framework has five components and seventeen principles. The components are control environment, risk assessment, control activities, information and communication, and monitoring.",
+      "calculation": null,
+      "skills": [
+        "COSO and control environment"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-E-20": {
+      "id": "GUIDE-E-20",
+      "part": "Part 1",
+      "domain": "Internal Controls",
+      "difficulty": "Easy",
+      "question": "An anonymous whistleblower hotline administered under audit committee procedures is primarily a:",
+      "choices": {
+        "A": "Detective control — it surfaces fraud and control failures",
+        "B": "Preventive control — it stops fraud before it starts",
+        "C": "Corrective control — it punishes offenders",
+        "D": "General IT control"
+      },
+      "answer": "A",
+      "explanation": "A reporting hotline helps surface suspected misconduct and control failures, so its primary function here is detective. Its existence can also deter misconduct; it does not guarantee prevention.",
+      "calculation": null,
+      "skills": [
+        "Fraud and compliance"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-F-02": {
+      "id": "GUIDE-F-02",
+      "part": "Part 1",
+      "domain": "Technology and Analytics",
+      "difficulty": "Easy",
+      "question": "In a conventional five-phase systems development life cycle using planning, analysis, design, implementation, and maintenance, which ordering is correct?",
+      "choices": {
+        "A": "Design, planning, analysis, implementation, maintenance",
+        "B": "Planning, analysis, design, implementation, maintenance",
+        "C": "Analysis, design, planning, maintenance, implementation",
+        "D": "Planning, design, analysis, maintenance, implementation"
+      },
+      "answer": "B",
+      "explanation": "In this specified five-phase model, feasibility planning precedes requirements analysis, then design, implementation, and maintenance. Other SDLC models may divide the phases differently.",
+      "calculation": null,
+      "skills": [
+        "Information systems and ERP"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-F-04": {
+      "id": "GUIDE-F-04",
+      "part": "Part 1",
+      "domain": "Technology and Analytics",
+      "difficulty": "Easy",
+      "question": "A data lake differs from a data warehouse in that a data lake stores:",
+      "choices": {
+        "A": "Only cleansed, structured historical data",
+        "B": "Only financial reporting data",
+        "C": "Raw data in native format, including unstructured data",
+        "D": "Data with a fixed schema applied before storage"
+      },
+      "answer": "C",
+      "explanation": "A data lake can store structured, semi-structured, and unstructured data in native formats for exploration. A conventional warehouse organizes integrated data for reporting. Data lakes still need governance and can also contain curated data.",
+      "calculation": null,
+      "skills": [
+        "Data governance and management"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-F-05": {
+      "id": "GUIDE-F-05",
+      "part": "Part 1",
+      "domain": "Technology and Analytics",
+      "difficulty": "Easy",
+      "question": "RPA is best suited for tasks that are:",
+      "choices": {
+        "A": "Highly judgmental and unstructured",
+        "B": "Requiring creative problem-solving",
+        "C": "Performed once a year",
+        "D": "High-volume, rule-based, and repetitive"
+      },
+      "answer": "D",
+      "explanation": "Traditional rules-based RPA is suited to repeatable tasks with clear rules and stable inputs. Judgment-heavy or creative tasks generally need human decisions or other tools; RPA itself does not learn patterns.",
+      "calculation": null,
+      "skills": [
+        "Finance automation and interfaces"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-F-08": {
+      "id": "GUIDE-F-08",
+      "part": "Part 1",
+      "domain": "Technology and Analytics",
+      "difficulty": "Easy",
+      "question": "Data governance is primarily concerned with:",
+      "choices": {
+        "A": "Policies, roles, and processes that keep data trustworthy, usable, and protected",
+        "B": "Writing SQL queries",
+        "C": "Building dashboards",
+        "D": "Increasing data storage capacity"
+      },
+      "answer": "A",
+      "explanation": "Data governance establishes ownership, definitions, access, quality standards, retention, and accountability so data remains trustworthy and usable. It governs how tools are used rather than being a query or dashboard itself.",
+      "calculation": null,
+      "skills": [
+        "Data governance and management"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-F-09": {
+      "id": "GUIDE-F-09",
+      "part": "Part 1",
+      "domain": "Technology and Analytics",
+      "difficulty": "Easy",
+      "question": "EDI (electronic data interchange) is best described as:",
+      "choices": {
+        "A": "Emailing PDF invoices to customers",
+        "B": "Computer-to-computer exchange of business documents in standardized formats",
+        "C": "A type of data visualization",
+        "D": "Manual entry of online orders"
+      },
+      "answer": "B",
+      "explanation": "EDI exchanges standardized business documents directly between systems, reducing manual re-entry. Emailing a PDF alone is not this standardized system-to-system exchange.",
+      "calculation": null,
+      "skills": [
+        "Finance automation and interfaces"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-F-11": {
+      "id": "GUIDE-F-11",
+      "part": "Part 1",
+      "domain": "Technology and Analytics",
+      "difficulty": "Easy",
+      "question": "Sales fell 12% last quarter. Drilling into regional and product data to determine the cause is:",
+      "choices": {
+        "A": "Descriptive analytics",
+        "B": "Predictive analytics",
+        "C": "Diagnostic analytics",
+        "D": "Prescriptive analytics"
+      },
+      "answer": "C",
+      "explanation": "Investigating why sales fell is diagnostic analytics. Merely reporting the fall is descriptive; forecasting future sales is predictive; recommending an action is prescriptive.",
+      "calculation": null,
+      "skills": [
+        "Diagnostic analytics"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-F-13": {
+      "id": "GUIDE-F-13",
+      "part": "Part 1",
+      "domain": "Technology and Analytics",
+      "difficulty": "Easy",
+      "question": "A company runs its old and new payroll systems simultaneously for three months before switching. This conversion approach is:",
+      "choices": {
+        "A": "Direct cutover",
+        "B": "Pilot conversion",
+        "C": "Phased conversion",
+        "D": "Parallel conversion"
+      },
+      "answer": "D",
+      "explanation": "Parallel conversion runs the old and new systems together before retiring the old system. It permits comparison and fallback but adds operating effort. Phased conversion introduces modules in stages; pilot conversion begins at a limited site.",
+      "calculation": null,
+      "skills": [
+        "Information systems and ERP"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-F-14": {
+      "id": "GUIDE-F-14",
+      "part": "Part 1",
+      "domain": "Internal Controls",
+      "difficulty": "Easy",
+      "question": "Encrypting customer data stored in a database primarily protects:",
+      "choices": {
+        "A": "Data at rest from unauthorized reading without the decryption key",
+        "B": "Data completeness when records are missing",
+        "C": "Availability during a server outage",
+        "D": "Accuracy of manually entered customer values"
+      },
+      "answer": "A",
+      "explanation": "Encryption at rest primarily protects confidentiality of stored data. It does not by itself ensure completeness, availability, or accuracy.",
+      "calculation": null,
+      "skills": [
+        "IT general controls"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-F-16": {
+      "id": "GUIDE-F-16",
+      "part": "Part 1",
+      "domain": "Technology and Analytics",
+      "difficulty": "Easy",
+      "question": "Which of the following is an output of an AIS?",
+      "choices": {
+        "A": "Source sales-order data entered into the system",
+        "B": "The monthly financial statements produced by the system",
+        "C": "A password used to log in",
+        "D": "Raw transaction data"
+      },
+      "answer": "B",
+      "explanation": "Financial statements generated by an accounting information system are outputs. Source sales-order and raw transaction data are inputs; a login password supports access control.",
+      "calculation": null,
+      "skills": [
+        "Information systems and ERP"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-F-17": {
+      "id": "GUIDE-F-17",
+      "part": "Part 1",
+      "domain": "Internal Controls",
+      "difficulty": "Easy",
+      "question": "Developers can make unapproved changes directly to the live accounting application and can deploy their own work without independent testing or approval. This primarily violates:",
+      "choices": {
+        "A": "Data visualization best practices",
+        "B": "The revenue recognition principle",
+        "C": "IT segregation of duties — a general control",
+        "D": "EDI standards"
+      },
+      "answer": "C",
+      "explanation": "Uncontrolled developer changes bypass segregation, independent testing, and authorization in change management. These are IT general controls. Carefully governed emergency access differs from unrestricted unapproved production changes.",
+      "calculation": null,
+      "skills": [
+        "IT general controls"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
+    },
+    "GUIDE-F-20": {
+      "id": "GUIDE-F-20",
+      "part": "Part 1",
+      "domain": "Technology and Analytics",
+      "difficulty": "Easy",
+      "question": "The accountant's primary role in an SDLC implementation is:",
+      "choices": {
+        "A": "Personally writing all application source code",
+        "B": "Replacing user-acceptance testing with vendor assurances",
+        "C": "Designing all network hardware personally",
+        "D": "Defining financial requirements, helping design controls, testing, and reviewing implementation outcomes"
+      },
+      "answer": "D",
+      "explanation": "Accountants contribute financial and reporting requirements, control design, user-acceptance testing, and post-implementation review. Technical development remains a separate role, even when accountants have programming skills.",
+      "calculation": null,
+      "skills": [
+        "Information systems and ERP"
+      ],
+      "numeric_check": null,
+      "content_revision": "2026-09-30"
     }
   }
 }

@@ -1,0 +1,2133 @@
+{
+  "source_name": "CMA Part 1 study guide.md",
+  "source_sha256": "b0601ad7f27e50d9744e239e5344b1ddd0ad7dc59de107c7ab08afc3de69fbef",
+  "base_commit": "544c9e91302b98592344f0390a6d0e763804dfce",
+  "revision": "2026-09-30",
+  "original_mcqs": [
+    {
+      "source_id": "B-1",
+      "question": "The first budget prepared in the master budget process is the:",
+      "choices": {
+        "A": "Production budget",
+        "B": "Cash budget",
+        "C": "Sales budget",
+        "D": "Budgeted income statement"
+      },
+      "answer": "C",
+      "explanation": "Everything flows from the sales forecast — production, materials, labor, and eventually the budgeted income statement all depend on budgeted sales."
+    },
+    {
+      "source_id": "B-2",
+      "question": "The primary disadvantage of participative (bottom-up) budgeting is:",
+      "choices": {
+        "A": "It takes too long to prepare",
+        "B": "It may introduce budgetary slack",
+        "C": "Lower-level managers lack budget knowledge",
+        "D": "It reduces coordination across departments"
+      },
+      "answer": "B",
+      "explanation": "When managers set their own targets, they pad them — understating revenues and overstating costs — to make the targets easier to hit. That's budgetary slack."
+    },
+    {
+      "source_id": "B-3",
+      "question": "A flexible budget is best described as a budget that:",
+      "choices": {
+        "A": "Is updated every month on a rolling basis",
+        "B": "Adjusts budgeted costs to the actual level of activity",
+        "C": "Allows managers to exceed spending limits when justified",
+        "D": "Is prepared from zero each period"
+      },
+      "answer": "B",
+      "explanation": "Flexible budget = (variable cost per unit × actual units) + fixed costs. It's the only valid benchmark for performance evaluation when actual volume differs from budgeted volume. A is a rolling budget; D is zero-based."
+    },
+    {
+      "source_id": "B-4",
+      "question": "Which budgeting approach explicitly builds expected cost reductions into the budget each period?",
+      "choices": {
+        "A": "Incremental budgeting",
+        "B": "Zero-based budgeting",
+        "C": "Kaizen budgeting",
+        "D": "Activity-based budgeting"
+      },
+      "answer": "C",
+      "explanation": "Kaizen = continuous improvement. The budget itself assumes costs will fall period over period as processes improve."
+    },
+    {
+      "source_id": "B-5",
+      "question": "Under zero-based budgeting, managers must:",
+      "choices": {
+        "A": "Adjust last year's budget for inflation only",
+        "B": "Justify every budgeted cost from zero each period",
+        "C": "Budget only variable costs",
+        "D": "Obtain approval for any increase over the prior year"
+      },
+      "answer": "B",
+      "explanation": "ZBB starts from a clean sheet — no cost is assumed to continue. Powerful against entrenched spending, but very time-consuming."
+    },
+    {
+      "source_id": "B-6",
+      "question": "In exponential smoothing, increasing the smoothing constant (α) causes the forecast to:",
+      "choices": {
+        "A": "Give more weight to older observations",
+        "B": "Give more weight to the most recent actual observation",
+        "C": "Become equal to the moving average",
+        "D": "Ignore seasonal variation entirely"
+      },
+      "answer": "B",
+      "explanation": "Higher α = faster reaction to the latest actual. α near 0 barely updates the old forecast; α near 1 chases the latest data point."
+    },
+    {
+      "source_id": "B-7",
+      "question": "A regression analysis yields an R-squared of 0.94. This means:",
+      "choices": {
+        "A": "94% of predictions will be exactly correct",
+        "B": "94% of the variation in the dependent variable is explained by the model",
+        "C": "The correlation coefficient is 0.94",
+        "D": "The relationship is proven to be causal"
+      },
+      "answer": "B",
+      "explanation": "R² measures explanatory power, not accuracy or causation. (And r = √0.94 ≈ 0.97, not 0.94 — a common distractor.)"
+    },
+    {
+      "source_id": "B-8",
+      "question": "The Delphi forecasting technique is characterized by:",
+      "choices": {
+        "A": "Face-to-face debate among executives",
+        "B": "Anonymous expert questionnaires with iterative feedback rounds",
+        "C": "Statistical analysis of historical sales data",
+        "D": "Combining individual sales representatives' estimates"
+      },
+      "answer": "B",
+      "explanation": "Anonymity across rounds is the whole point — it eliminates dominant personalities and groupthink. D is sales force composite."
+    },
+    {
+      "source_id": "B-9",
+      "question": "A company has an 80% learning curve. The first unit required 100 labor hours. The average time per unit for the first 4 units is:",
+      "choices": {
+        "A": "80 hours",
+        "B": "72 hours",
+        "C": "64 hours",
+        "D": "51.2 hours"
+      },
+      "answer": "C",
+      "explanation": "Each doubling cuts the cumulative average by 20%: 1 unit = 100 hrs avg; 2 units = 80 hrs avg; 4 units = 64 hrs avg. (51.2 would be the average for 8 units.)"
+    },
+    {
+      "source_id": "B-10",
+      "question": "The production budget calls for 10,000 units to be produced. Desired ending finished goods are 2,000 units and beginning finished goods are 1,500 units. Budgeted unit sales are:",
+      "choices": {
+        "A": "9,500",
+        "B": "10,000",
+        "C": "10,500",
+        "D": "11,500"
+      },
+      "answer": "A",
+      "explanation": "Production = sales + desired ending − beginning → 10,000 = sales + 2,000 − 1,500 → sales = 9,500. Rearranging the formula is the tested skill."
+    },
+    {
+      "source_id": "B-11",
+      "question": "Fixed costs are $120,000, unit selling price is $50, and unit variable cost is $30. Breakeven in units is:",
+      "choices": {
+        "A": "2,400",
+        "B": "4,000",
+        "C": "6,000",
+        "D": "3,000"
+      },
+      "answer": "C",
+      "explanation": "CM per unit = $50 − $30 = $20. $120,000 ÷ $20 = 6,000 units."
+    },
+    {
+      "source_id": "B-12",
+      "question": "Using the data in B-11, how many units must be sold to earn a target profit of $60,000?",
+      "choices": {
+        "A": "6,000",
+        "B": "9,000",
+        "C": "12,000",
+        "D": "3,000"
+      },
+      "answer": "B",
+      "explanation": "($120,000 + $60,000) ÷ $20 = 9,000 units."
+    },
+    {
+      "source_id": "B-13",
+      "question": "A company has a contribution margin ratio of 40% and fixed costs of $200,000. Breakeven sales dollars are:",
+      "choices": {
+        "A": "$80,000",
+        "B": "$280,000",
+        "C": "$500,000",
+        "D": "$333,333"
+      },
+      "answer": "C",
+      "explanation": "$200,000 ÷ 0.40 = $500,000."
+    },
+    {
+      "source_id": "B-14",
+      "question": "Budgeted sales are $800,000 and breakeven sales are $500,000. The margin of safety ratio is:",
+      "choices": {
+        "A": "62.5%",
+        "B": "37.5%",
+        "C": "160%",
+        "D": "60%"
+      },
+      "answer": "B",
+      "explanation": "MOS = $800,000 − $500,000 = $300,000. MOS ratio = $300,000 ÷ $800,000 = 37.5%. Sales can fall 37.5% before losses begin."
+    },
+    {
+      "source_id": "B-15",
+      "question": "A company's degree of operating leverage is 4. If sales increase by 10%, operating income will increase by approximately:",
+      "choices": {
+        "A": "4%",
+        "B": "10%",
+        "C": "40%",
+        "D": "2.5%"
+      },
+      "answer": "C",
+      "explanation": "%Δ operating income = DOL × %Δ sales = 4 × 10% = 40%. High DOL means profits are highly sensitive to volume — upside and downside."
+    },
+    {
+      "source_id": "B-16",
+      "question": "Which of the following is NOT an assumption of CVP analysis?",
+      "choices": {
+        "A": "Selling price remains constant",
+        "B": "The sales mix remains constant",
+        "C": "Fixed costs change proportionally with volume",
+        "D": "Costs behave linearly within the relevant range"
+      },
+      "answer": "C",
+      "explanation": "Fixed costs are constant in total within the relevant range — that's the assumption. \"Change proportionally with volume\" describes variable costs."
+    },
+    {
+      "source_id": "B-17",
+      "question": "A company sells two products: A (CM $10, 60% of sales mix) and B (CM $25, 40% of sales mix). Fixed costs are $32,000. The breakeven point in total units is:",
+      "choices": {
+        "A": "3,400",
+        "B": "2,000",
+        "C": "2,429",
+        "D": "1,280"
+      },
+      "answer": "B",
+      "explanation": "Weighted-average CM = ($10 × 0.6) + ($25 × 0.4) = $6 + $10 = $16. $32,000 ÷ $16 = 2,000 total units — that's 1,200 of A and 800 of B at the budgeted mix. If the actual mix shifts toward the lower-margin product, breakeven rises."
+    },
+    {
+      "source_id": "B-18",
+      "question": "The cash budget is primarily used to:",
+      "choices": {
+        "A": "Determine the budgeted net income for the period",
+        "B": "Plan for cash receipts, disbursements, and short-term borrowing needs",
+        "C": "Calculate the cost of goods sold",
+        "D": "Set selling prices for the budget period"
+      },
+      "answer": "B",
+      "explanation": "The cash budget answers one question: will we have enough cash, and when must we borrow? Budgeted net income comes from the budgeted income statement (A)."
+    },
+    {
+      "source_id": "B-19",
+      "question": "Correlation analysis shows r = −0.91 between advertising spend and customer complaints. This indicates:",
+      "choices": {
+        "A": "Advertising causes fewer complaints",
+        "B": "A strong negative linear relationship between the two variables",
+        "C": "A weak relationship, since the value is negative",
+        "D": "Complaints will fall 91% if advertising doubles"
+      },
+      "answer": "B",
+      "explanation": "|r| near 1 = strong linear relationship; the sign only gives direction. Correlation never proves causation (A), and r is not a percentage effect (D)."
+    },
+    {
+      "source_id": "B-20",
+      "question": "A rolling (continuous) budget differs from a static annual budget in that it:",
+      "choices": {
+        "A": "Is never revised once approved",
+        "B": "Always covers a fixed 12-month future horizon",
+        "C": "Adjusts for actual activity levels",
+        "D": "Is prepared using zero-based techniques"
+      },
+      "answer": "B",
+      "explanation": "As each month passes, it's dropped and a new month is added — management always sees 12 months ahead. C describes a flexible budget."
+    },
+    {
+      "source_id": "C-1",
+      "question": "Standard price is $4.00 per pound. The company purchased 5,000 pounds at $4.20 per pound. The direct materials price variance is:",
+      "choices": {
+        "A": "$1,000 F",
+        "B": "$1,000 U",
+        "C": "$800 U",
+        "D": "$1,200 U"
+      },
+      "answer": "B",
+      "explanation": "($4.20 − $4.00) × 5,000 = $1,000 U. Actual price exceeded standard, so unfavorable. Price variance uses quantity purchased — the tested trap."
+    },
+    {
+      "source_id": "C-2",
+      "question": "Standard is 2 pounds per unit at $4.00 per pound. The company produced 1,000 units and used 2,200 pounds. The direct materials quantity variance is:",
+      "choices": {
+        "A": "$800 F",
+        "B": "$800 U",
+        "C": "$1,000 U",
+        "D": "$4,800 U"
+      },
+      "answer": "B",
+      "explanation": "Standard quantity allowed = 1,000 × 2 = 2,000 lbs. (2,200 − 2,000) × $4.00 = $800 U. Quantity variance uses quantity used (not purchased) at standard price. D prices the variance at actual price — wrong."
+    },
+    {
+      "source_id": "C-3",
+      "question": "Standard labor rate is $18.00 per hour. Actual: 950 hours worked at $18.50 per hour. The direct labor rate variance is:",
+      "choices": {
+        "A": "$450 U",
+        "B": "$475 U",
+        "C": "$475 F",
+        "D": "$900 U"
+      },
+      "answer": "B",
+      "explanation": "($18.50 − $18.00) × 950 = $475 U."
+    },
+    {
+      "source_id": "C-4",
+      "question": "Standard is 1.5 hours per unit at $18.00 per hour. Actual production was 1,000 units using 1,600 hours. The direct labor efficiency variance is:",
+      "choices": {
+        "A": "$1,800 F",
+        "B": "$900 U",
+        "C": "$1,800 U",
+        "D": "$1,710 U"
+      },
+      "answer": "C",
+      "explanation": "Standard hours allowed = 1,000 × 1.5 = 1,500. (1,600 − 1,500) × $18 = $1,800 U."
+    },
+    {
+      "source_id": "C-5",
+      "question": "The standard variable overhead rate is $6.00 per direct labor hour. Actual: 1,600 hours worked, actual VOH $10,000, standard hours allowed 1,500. The variable overhead spending variance is:",
+      "choices": {
+        "A": "$400 F",
+        "B": "$400 U",
+        "C": "$600 U",
+        "D": "$1,000 U"
+      },
+      "answer": "B",
+      "explanation": "$10,000 − ($6 × 1,600) = $10,000 − $9,600 = $400 U. (The $600 U in C is the VOH efficiency variance: (1,600 − 1,500) × $6. D is the total VOH variance.)"
+    },
+    {
+      "source_id": "C-6",
+      "question": "Budgeted fixed overhead is $60,000 at a denominator of 10,000 direct labor hours. Actual FOH was $62,000 and standard hours allowed were 9,000. The fixed overhead volume variance is:",
+      "choices": {
+        "A": "$2,000 U",
+        "B": "$6,000 U",
+        "C": "$6,000 F",
+        "D": "$8,000 U"
+      },
+      "answer": "B",
+      "explanation": "Application rate = $60,000 ÷ 10,000 = $6/hr. Applied = 9,000 × $6 = $54,000. Volume variance = $60,000 − $54,000 = $6,000 U (produced below denominator → underapplied). A is the FOH budget variance ($62,000 − $60,000)."
+    },
+    {
+      "source_id": "C-7",
+      "question": "In a 3-way overhead analysis, actual total overhead was $72,000, the flexible budget at actual hours was $69,600, the flexible budget at standard hours allowed was $69,000, and applied overhead was $63,000. The 3-way spending variance is:",
+      "choices": {
+        "A": "$2,400 U",
+        "B": "$3,000 U",
+        "C": "$9,000 U",
+        "D": "$600 U"
+      },
+      "answer": "A",
+      "explanation": "3-way spending = actual total OH − flexible budget at actual hours = $72,000 − $69,600 = $2,400 U. (Efficiency = $69,600 − $69,000 = $600 U; volume = $69,000 − $63,000 = $6,000 U. C is the total variance.)"
+    },
+    {
+      "source_id": "C-8",
+      "question": "A division reports operating income of $150,000 and average operating assets of $1,000,000. Its ROI is:",
+      "choices": {
+        "A": "12%",
+        "B": "15%",
+        "C": "18%",
+        "D": "6.67%"
+      },
+      "answer": "B",
+      "explanation": "$150,000 ÷ $1,000,000 = 15%."
+    },
+    {
+      "source_id": "C-9",
+      "question": "Using the data in C-8, if the minimum required rate of return is 12%, residual income is:",
+      "choices": {
+        "A": "$30,000",
+        "B": "$150,000",
+        "C": "$18,000",
+        "D": "$270,000"
+      },
+      "answer": "A",
+      "explanation": "$150,000 − (0.12 × $1,000,000) = $150,000 − $120,000 = $30,000."
+    },
+    {
+      "source_id": "C-10",
+      "question": "A company has NOPAT of $200,000, a WACC of 10%, and total capital employed of $1,500,000. EVA is:",
+      "choices": {
+        "A": "$50,000",
+        "B": "$200,000",
+        "C": "−$50,000",
+        "D": "$350,000"
+      },
+      "answer": "A",
+      "explanation": "$200,000 − (0.10 × $1,500,000) = $200,000 − $150,000 = $50,000. Positive EVA = value created above the cost of capital."
+    },
+    {
+      "source_id": "C-11",
+      "question": "In a balanced scorecard, \"customer retention rate\" belongs to which perspective?",
+      "choices": {
+        "A": "Financial",
+        "B": "Internal business process",
+        "C": "Customer",
+        "D": "Learning and growth"
+      },
+      "answer": "C",
+      "explanation": "Customer perspective measures include satisfaction, retention, market share, and acquisition. Training hours would be learning & growth; defect rates, internal process."
+    },
+    {
+      "source_id": "C-12",
+      "question": "Goal congruence exists when:",
+      "choices": {
+        "A": "Every division earns the same ROI",
+        "B": "Managers' personal incentives align with the organization's goals",
+        "C": "Budgets are set by top management",
+        "D": "All variances are investigated"
+      },
+      "answer": "B",
+      "explanation": "Goal congruence = the control system makes doing the right thing for the company also the right thing for the manager. Residual income and balanced scorecards promote it; single-metric ROI evaluation undermines it."
+    },
+    {
+      "source_id": "C-13",
+      "question": "A division manager cancels a promising R&D project to protect this year's ROI target. This is an example of:",
+      "choices": {
+        "A": "Goal congruence",
+        "B": "Benchmarking",
+        "C": "Myopic behavior",
+        "D": "Flexible budgeting"
+      },
+      "answer": "C",
+      "explanation": "Myopia = sacrificing long-term value for short-term metric performance. Single-period financial targets invite exactly this."
+    },
+    {
+      "source_id": "C-14",
+      "question": "A regional manager controls both costs and revenues for her territory but has no authority over asset investment. Her unit is a:",
+      "choices": {
+        "A": "Cost center",
+        "B": "Revenue center",
+        "C": "Profit center",
+        "D": "Investment center"
+      },
+      "answer": "C",
+      "explanation": "Costs + revenues without investment authority = profit center. Investment authority would make it an investment center (D)."
+    },
+    {
+      "source_id": "C-15",
+      "question": "Static budget: 10,000 units, budgeted CM $20/unit, budgeted fixed costs $150,000. Actual: 9,000 units sold, actual CM $21/unit, actual fixed costs $148,000. The sales volume variance for operating income is:",
+      "choices": {
+        "A": "$20,000 F",
+        "B": "$20,000 U",
+        "C": "$11,000 F",
+        "D": "$9,000 U"
+      },
+      "answer": "B",
+      "explanation": "Flexible-budget operating income at 9,000 units = (9,000 × $20) − $150,000 = $30,000. Static-budget operating income = (10,000 × $20) − $150,000 = $50,000. Sales volume variance = $30,000 − $50,000 = $20,000 U. (C is the flexible-budget variance: actual OI $41,000 − $30,000 = $11,000 F — cost control was actually good.)"
+    },
+    {
+      "source_id": "C-16",
+      "question": "An unfavorable fixed overhead volume variance indicates that:",
+      "choices": {
+        "A": "Actual fixed overhead spending exceeded budget",
+        "B": "Actual production was below the denominator level",
+        "C": "Variable overhead was inefficiently used",
+        "D": "The flexible budget was set too low"
+      },
+      "answer": "B",
+      "explanation": "The volume variance is purely a capacity effect: producing below denominator leaves fixed overhead underapplied. A describes the FOH budget variance."
+    },
+    {
+      "source_id": "C-17",
+      "question": "A division earns 18% ROI. The hurdle rate is 10%. A proposed project requires $500,000 investment and would generate $70,000 operating income. If the manager is evaluated on ROI, she will most likely:",
+      "choices": {
+        "A": "Accept, because 14% exceeds the 10% hurdle rate",
+        "B": "Reject, because 14% is below her current 18% ROI",
+        "C": "Accept, because residual income is positive",
+        "D": "Reject, because the payback period is too long"
+      },
+      "answer": "B",
+      "explanation": "Project ROI = $70,000 ÷ $500,000 = 14% < 18% — it would drag her average down, so the ROI-evaluated manager rejects a project that clears the hurdle rate. That's the goal-congruence failure: under residual income, RI = $70,000 − $50,000 = $20,000 > 0, so she'd accept (C describes the RI-evaluated manager)."
+    },
+    {
+      "source_id": "C-18",
+      "question": "A hospital studies airline check-in procedures to improve its patient intake process. This is:",
+      "choices": {
+        "A": "Internal benchmarking",
+        "B": "Competitive benchmarking",
+        "C": "Functional (generic) benchmarking",
+        "D": "Reverse engineering"
+      },
+      "answer": "C",
+      "explanation": "Functional benchmarking compares processes against world-class organizations outside the industry. Competitive (B) would be another hospital."
+    },
+    {
+      "source_id": "C-19",
+      "question": "The fixed overhead volume variance will be zero when:",
+      "choices": {
+        "A": "Actual fixed overhead equals budgeted fixed overhead",
+        "B": "Actual production equals the denominator level",
+        "C": "Actual hours equal standard hours allowed",
+        "D": "The budget variance is favorable"
+      },
+      "answer": "B",
+      "explanation": "Volume variance = (denominator hours − standard hours allowed) × rate. It vanishes only when production hits the denominator level. A zeroes the budget variance, not the volume variance."
+    },
+    {
+      "source_id": "C-20",
+      "question": "Which of the following is a leading indicator?",
+      "choices": {
+        "A": "Net income for the quarter",
+        "B": "ROI for the division",
+        "C": "Employee training hours completed",
+        "D": "Earnings per share"
+      },
+      "answer": "C",
+      "explanation": "Training hours drive future performance — a leading indicator. A, B, and D are lagging financial outcomes. The balanced scorecard exists precisely to add leading, nonfinancial measures like C."
+    },
+    {
+      "source_id": "D-1",
+      "question": "High activity: 8,000 machine hours, $42,000 total cost. Low activity: 5,000 hours, $30,000. Using high-low, the variable cost per hour is:",
+      "choices": {
+        "A": "$5.25",
+        "B": "$6.00",
+        "C": "$4.00",
+        "D": "$3.75"
+      },
+      "answer": "C",
+      "explanation": "($42,000 − $30,000) ÷ (8,000 − 5,000) = $12,000 ÷ 3,000 = $4.00/hr. Fixed = $42,000 − (8,000 × $4) = $10,000."
+    },
+    {
+      "source_id": "D-2",
+      "question": "Beginning WIP: 2,000 units, 40% complete for conversion. Units started: 10,000. Ending WIP: 3,000 units, 30% complete. Under weighted-average, equivalent units for conversion are:",
+      "choices": {
+        "A": "9,100",
+        "B": "9,900",
+        "C": "9,000",
+        "D": "12,100"
+      },
+      "answer": "B",
+      "explanation": "Units completed = 2,000 + 10,000 − 3,000 = 9,000. WA EU = 9,000 + (3,000 × 0.30) = 9,900. Weighted-average includes prior-period work — BWIP's 40% is irrelevant here."
+    },
+    {
+      "source_id": "D-3",
+      "question": "Using the data in D-2, equivalent units for conversion under FIFO are:",
+      "choices": {
+        "A": "9,900",
+        "B": "9,100",
+        "C": "8,300",
+        "D": "9,000"
+      },
+      "answer": "B",
+      "explanation": "FIFO counts only this period's work: 9,000 completed + 900 EWIP − (2,000 × 0.40 = 800 BWIP prior work) = 9,100."
+    },
+    {
+      "source_id": "D-4",
+      "question": "The setup cost pool totals $120,000 for 400 setups. Product X requires 150 setups and 5,000 units are produced. Setup cost per unit of X is:",
+      "choices": {
+        "A": "$24.00",
+        "B": "$9.00",
+        "C": "$300.00",
+        "D": "$0.60"
+      },
+      "answer": "B",
+      "explanation": "Activity rate = $120,000 ÷ 400 = $300/setup. Assigned = 150 × $300 = $45,000. Per unit = $45,000 ÷ 5,000 = $9.00."
+    },
+    {
+      "source_id": "D-5",
+      "question": "Joint costs are $100,000. Product A: 10,000 units, $6/unit at split-off, $1/unit separable cost. Product B: 5,000 units, $8/unit at split-off, $0.50/unit separable cost. Using NRV, joint cost allocated to A is:",
+      "choices": {
+        "A": "$60,000",
+        "B": "$57,143",
+        "C": "$50,000",
+        "D": "$62,500"
+      },
+      "answer": "B",
+      "explanation": "NRV-A = (10,000 × $6) − (10,000 × $1) = $50,000. NRV-B = (5,000 × $8) − (5,000 × $0.50) = $37,500. Total $87,500. A gets $100,000 × ($50,000 ÷ $87,500) = $57,142.86 ≈ $57,143."
+    },
+    {
+      "source_id": "D-6",
+      "question": "Under the NRV approach to by-products, the by-product's net realizable value is used to:",
+      "choices": {
+        "A": "Allocate a proportionate share of joint costs to the by-product",
+        "B": "Reduce the joint cost allocated to the main products",
+        "C": "Increase the sales value of the main products",
+        "D": "Compute separable costs of further processing"
+      },
+      "answer": "B",
+      "explanation": "By-products are too minor to carry joint cost — their NRV is credited against (reduces) the joint cost borne by the main products, typically at production."
+    },
+    {
+      "source_id": "D-7",
+      "question": "S1 costs $30,000; S2 costs $20,000. S1 serves S2 (40%) and P1 (60%). S2 serves P1 (25%) and P2 (75%). Using the step-down method with S1 first, total service cost allocated to P1 is:",
+      "choices": {
+        "A": "$18,000",
+        "B": "$24,000",
+        "C": "$26,000",
+        "D": "$32,000"
+      },
+      "answer": "C",
+      "explanation": "S1: S2 gets $30,000 × 0.40 = $12,000; P1 gets $18,000. S2 now totals $32,000: P1 gets $32,000 × 0.25 = $8,000; P2 gets $24,000. P1 total = $18,000 + $8,000 = $26,000. No costs flow back to S1 once closed — that's the step-down rule."
+    },
+    {
+      "source_id": "D-8",
+      "question": "Target selling price is $500 and the desired profit margin is 20% of price. Target cost is:",
+      "choices": {
+        "A": "$400",
+        "B": "$600",
+        "C": "$480",
+        "D": "$100"
+      },
+      "answer": "A",
+      "explanation": "$500 − (0.20 × $500) = $400. Target costing starts from the market price and works backward — price is given, cost is the residual."
+    },
+    {
+      "source_id": "D-9",
+      "question": "Bottleneck resource has 1,000 hours available. Product A: price $100, DM $30, 2 bottleneck hrs/unit. Product B: price $80, DM $20, 1 bottleneck hr/unit. To maximize throughput, produce:",
+      "choices": {
+        "A": "A first — higher price",
+        "B": "B first — higher throughput per bottleneck hour",
+        "C": "Equal quantities of both",
+        "D": "A first — higher throughput per unit ($70 vs $60)"
+      },
+      "answer": "B",
+      "explanation": "Throughput/hr: A = ($100 − $30) ÷ 2 = $35; B = ($80 − $20) ÷ 1 = $60. The bottleneck hour is the scarce resource, so rank by throughput per bottleneck hour. D's per-unit comparison ignores the constraint."
+    },
+    {
+      "source_id": "D-10",
+      "question": "In the ABC cost hierarchy, machine setup costs are:",
+      "choices": {
+        "A": "Unit-level",
+        "B": "Batch-level",
+        "C": "Product-level",
+        "D": "Facility-level"
+      },
+      "answer": "B",
+      "explanation": "Setups are performed per batch, not per unit. Product design would be product-level (C); factory rent, facility-level (D) — generally not allocated in ABC."
+    },
+    {
+      "source_id": "D-11",
+      "question": "Predetermined overhead rate is $15 per DLH. Actual DLH: 4,000. Actual overhead: $63,000. Overhead is:",
+      "choices": {
+        "A": "$3,000 overapplied",
+        "B": "$3,000 underapplied",
+        "C": "$60,000 underapplied",
+        "D": "Exactly applied"
+      },
+      "answer": "B",
+      "explanation": "Applied = 4,000 × $15 = $60,000. Actual $63,000 > applied → $3,000 underapplied."
+    },
+    {
+      "source_id": "D-12",
+      "question": "Joint cost $80,000. Product A NRV $100,000; Product B NRV $60,000. Using constant gross-margin percentage NRV, joint cost allocated to B is:",
+      "choices": {
+        "A": "$30,000",
+        "B": "$40,000",
+        "C": "$48,000",
+        "D": "$32,000"
+      },
+      "answer": "A",
+      "explanation": "Total NRV $160,000; gross margin = $160,000 − $80,000 = $80,000 → GM% = 50%. Each product keeps 50% margin: B's COGS = $60,000 × 50% = $30,000, so joint cost to B = $60,000 − $30,000 = $30,000."
+    },
+    {
+      "source_id": "D-13",
+      "question": "Which service-department allocation method fully recognizes reciprocal (mutual) services between service departments?",
+      "choices": {
+        "A": "Direct method",
+        "B": "Step-down method",
+        "C": "Reciprocal method",
+        "D": "Dual-rate method"
+      },
+      "answer": "C",
+      "explanation": "Only the reciprocal method uses simultaneous equations to capture services flowing both ways. Step-down (B) recognizes them partially, in one direction only."
+    },
+    {
+      "source_id": "D-14",
+      "question": "The main criticism of the direct method of service-department allocation is that it:",
+      "choices": {
+        "A": "Is too complex to implement",
+        "B": "Ignores services that service departments provide to each other",
+        "C": "Requires simultaneous equations",
+        "D": "Cannot be used with more than two service departments"
+      },
+      "answer": "B",
+      "explanation": "Direct allocation goes straight to production departments, pretending inter-service-department usage doesn't exist. Simplicity is its virtue, not its flaw (A is backwards)."
+    },
+    {
+      "source_id": "D-15",
+      "question": "Life-cycle costing differs from traditional product costing primarily because it:",
+      "choices": {
+        "A": "Uses only variable costs",
+        "B": "Includes upstream (R&D, design) and downstream (warranty, disposal) costs over the product's whole life",
+        "C": "Allocates joint costs at split-off",
+        "D": "Ignores the time value of money"
+      },
+      "answer": "B",
+      "explanation": "Life-cycle costing captures the full arc — a product can look profitable in its production years while losing money over its life once development and end-of-life costs count."
+    },
+    {
+      "source_id": "D-16",
+      "question": "Product redesign costs for a specific model are classified in the ABC hierarchy as:",
+      "choices": {
+        "A": "Unit-level",
+        "B": "Batch-level",
+        "C": "Product-level",
+        "D": "Facility-level"
+      },
+      "answer": "C",
+      "explanation": "Redesign sustains the product line regardless of units or batches produced — product-sustaining (product-level)."
+    },
+    {
+      "source_id": "D-17",
+      "question": "In a process-costing department, material cost per equivalent unit: materials added at start of process. Beginning WIP 1,000 units (100% materials), started 9,000, ending WIP 2,000 (100% materials). Material costs: BWIP $8,000 + added $42,000. Under weighted-average, material cost per EU is:",
+      "choices": {
+        "A": "$4.20",
+        "B": "$5.00",
+        "C": "$4.67",
+        "D": "$5.25"
+      },
+      "answer": "B",
+      "explanation": "EU-WA for materials = (1,000 + 9,000 − 2,000) + 2,000 = 10,000 (materials at start = 100% in both BWIP and EWIP). Cost = ($8,000 + $42,000) ÷ 10,000 = $5.00."
+    },
+    {
+      "source_id": "D-18",
+      "question": "According to the Theory of Constraints, improving efficiency at a non-bottleneck workstation will:",
+      "choices": {
+        "A": "Increase total throughput",
+        "B": "Increase throughput per bottleneck hour",
+        "C": "Not increase throughput — an hour saved at a non-bottleneck is a mirage",
+        "D": "Reduce the need for a buffer"
+      },
+      "answer": "C",
+      "explanation": "Throughput is capped by the bottleneck; non-bottleneck improvements just build idle time or WIP. Subordinate everything to the constraint."
+    },
+    {
+      "source_id": "D-19",
+      "question": "The principal weakness of the high-low method of cost estimation is that it:",
+      "choices": {
+        "A": "Requires regression software",
+        "B": "Uses only two data points, so outliers distort the estimate",
+        "C": "Cannot handle mixed costs",
+        "D": "Assumes costs are fixed"
+      },
+      "answer": "B",
+      "explanation": "Two points define the line — if either is abnormal, the whole estimate is wrong. That's why regression (all points) dominates it."
+    },
+    {
+      "source_id": "D-20",
+      "question": "Joint costs incurred *before* the split-off point are best described as:",
+      "choices": {
+        "A": "Relevant to the sell-or-process-further decision",
+        "B": "Sunk with respect to the sell-or-process-further decision",
+        "C": "Separable costs",
+        "D": "Always allocated by physical measure"
+      },
+      "answer": "B",
+      "explanation": "They're already spent regardless of what happens after split-off — only incremental revenue vs separable cost matters for the further-processing decision. A is the trap."
+    },
+    {
+      "source_id": "A-1",
+      "question": "Net income $500,000, preferred dividends $50,000, weighted-average common shares 180,000. Basic EPS is:",
+      "choices": {
+        "A": "$2.78",
+        "B": "$2.50",
+        "C": "$2.22",
+        "D": "$3.06"
+      },
+      "answer": "B",
+      "explanation": "($500,000 − $50,000) ÷ 180,000 = $2.50. Preferred dividends are subtracted because they belong to preferred holders. A forgets the subtraction."
+    },
+    {
+      "source_id": "A-2",
+      "question": "Using A-1's data, the company also has 20,000 options outstanding, exercise price $20, average market price $25. Diluted EPS is approximately:",
+      "choices": {
+        "A": "$2.50",
+        "B": "$2.25",
+        "C": "$2.45",
+        "D": "$2.14"
+      },
+      "answer": "C",
+      "explanation": "Treasury stock method: proceeds = 20,000 × $20 = $400,000; shares repurchased = $400,000 ÷ $25 = 16,000; incremental shares = 4,000. Diluted shares = 184,000. $450,000 ÷ 184,000 = $2.4457 ≈ $2.45. Options are dilutive because $20 < $25."
+    },
+    {
+      "source_id": "A-3",
+      "question": "A 5-year, $1,000,000 face, 8% annual-coupon bond is issued when the market rate is 10%. The issue price is approximately:",
+      "choices": {
+        "A": "$1,000,000",
+        "B": "$924,184",
+        "C": "$1,075,816",
+        "D": "$920,000"
+      },
+      "answer": "B",
+      "explanation": "Discount at the market rate: PV of coupons = $80,000 × 3.7908 = $303,263; PV of face = $1,000,000 × 0.6209 = $620,921; total $924,184. Market > stated means a discount — C would be a premium, impossible here."
+    },
+    {
+      "source_id": "A-4",
+      "question": "Using A-3's bond, first-year interest expense under the effective-interest method is:",
+      "choices": {
+        "A": "$80,000",
+        "B": "$92,418",
+        "C": "$75,836",
+        "D": "$100,000"
+      },
+      "answer": "B",
+      "explanation": "$924,184 × 10% = $92,418. Cash coupon is $80,000; the $12,418 difference amortizes the discount, raising carrying value. A is the cash paid, not the expense."
+    },
+    {
+      "source_id": "A-5",
+      "question": "Net income $200,000, depreciation $30,000, accounts receivable increased $15,000, accounts payable increased $10,000. Operating cash flow (indirect) is:",
+      "choices": {
+        "A": "$225,000",
+        "B": "$255,000",
+        "C": "$195,000",
+        "D": "$245,000"
+      },
+      "answer": "A",
+      "explanation": "$200,000 + $30,000 − $15,000 + $10,000 = $225,000. AR up = cash tied up (subtract); AP up = cash conserved (add)."
+    },
+    {
+      "source_id": "A-6",
+      "question": "Current assets $300,000, current liabilities $150,000. The company buys $50,000 of inventory on account. The new current ratio is:",
+      "choices": {
+        "A": "2.00",
+        "B": "1.75",
+        "C": "2.33",
+        "D": "1.50"
+      },
+      "answer": "B",
+      "explanation": "($300,000 + $50,000) ÷ ($150,000 + $50,000) = $350,000 ÷ $200,000 = 1.75. Adding equal amounts to numerator and denominator pulls a ratio above 1.0 downward — the tested intuition."
+    },
+    {
+      "source_id": "A-7",
+      "question": "Under ASC 606, allocating the transaction price to performance obligations is step:",
+      "choices": {
+        "A": "2",
+        "B": "3",
+        "C": "4",
+        "D": "5"
+      },
+      "answer": "C",
+      "explanation": "The five steps: (1) identify contract, (2) identify obligations, (3) determine price, (4) allocate price, (5) recognize as satisfied."
+    },
+    {
+      "source_id": "A-8",
+      "question": "Which inventory costing method is prohibited under IFRS?",
+      "choices": {
+        "A": "FIFO",
+        "B": "Weighted average",
+        "C": "LIFO",
+        "D": "Specific identification"
+      },
+      "answer": "C",
+      "explanation": "IFRS bans LIFO outright — the single highest-yield IFRS-vs-GAAP fact on the exam."
+    },
+    {
+      "source_id": "A-9",
+      "question": "A company wrote inventory down by $40,000 last year; this year its value recovers by $25,000. Under IFRS, the company may:",
+      "choices": {
+        "A": "Reverse $25,000 of the write-down through profit",
+        "B": "Do nothing — reversals are prohibited",
+        "C": "Reverse the full $40,000",
+        "D": "Credit other comprehensive income"
+      },
+      "answer": "A",
+      "explanation": "IFRS permits reversal of inventory write-downs up to the original amount, through profit or loss. US GAAP prohibits reversals (B)."
+    },
+    {
+      "source_id": "A-10",
+      "question": "A lessee signs a finance lease. On day one it records:",
+      "choices": {
+        "A": "Only a lease liability; the asset is recorded over time",
+        "B": "A right-of-use asset and a lease liability at the present value of payments",
+        "C": "Rent expense for the full lease term",
+        "D": "Nothing until the first payment"
+      },
+      "answer": "B",
+      "explanation": "Both finance and operating leases put an ROU asset and liability on the balance sheet at PV of payments. The difference is the subsequent expense pattern (front-loaded vs straight-line)."
+    },
+    {
+      "source_id": "A-11",
+      "question": "A lawsuit loss is judged \"more likely than not\" (>50%) but not \"probable\" in the GAAP sense, and the amount is estimable. Under IFRS, the company should:",
+      "choices": {
+        "A": "Accrue the liability",
+        "B": "Disclose only in the notes",
+        "C": "Ignore it until settlement",
+        "D": "Accrue only if the amount is certain"
+      },
+      "answer": "A",
+      "explanation": "IFRS accrues at \"more likely than not\" — a lower bar than GAAP's \"probable.\" The same facts that get disclosure-only treatment under GAAP require accrual under IFRS."
+    },
+    {
+      "source_id": "A-12",
+      "question": "Total liabilities $600,000, total equity $400,000. The debt-to-equity ratio is:",
+      "choices": {
+        "A": "0.67",
+        "B": "1.50",
+        "C": "0.60",
+        "D": "2.50"
+      },
+      "answer": "B",
+      "explanation": "$600,000 ÷ $400,000 = 1.50."
+    },
+    {
+      "source_id": "A-13",
+      "question": "COGS $730,000, average inventory $100,000. Days' sales in inventory is approximately:",
+      "choices": {
+        "A": "50 days",
+        "B": "73 days",
+        "C": "36.5 days",
+        "D": "100 days"
+      },
+      "answer": "A",
+      "explanation": "Turnover = $730,000 ÷ $100,000 = 7.3×; days = 365 ÷ 7.3 = 50 days."
+    },
+    {
+      "source_id": "A-14",
+      "question": "Results of discontinued operations are presented:",
+      "choices": {
+        "A": "Within operating income, before tax",
+        "B": "Net of tax, below income from continuing operations",
+        "C": "In other comprehensive income",
+        "D": "As an extraordinary item"
+      },
+      "answer": "B",
+      "explanation": "One net-of-tax line below continuing operations, capturing both operating results and disposal gain/loss. Extraordinary items (D) no longer exist under GAAP."
+    },
+    {
+      "source_id": "A-15",
+      "question": "Under IFRS, development costs are:",
+      "choices": {
+        "A": "Always expensed as incurred",
+        "B": "Capitalized when criteria such as technical feasibility and intent to complete are met",
+        "C": "Amortized over 40 years",
+        "D": "Treated identically to US GAAP"
+      },
+      "answer": "B",
+      "explanation": "IFRS capitalizes development (research is still expensed); US GAAP expenses development except narrow software exceptions. Another core IFRS-vs-GAAP split."
+    },
+    {
+      "source_id": "A-16",
+      "question": "Net profit margin 8%, asset turnover 1.5, financial leverage (assets/equity) 2.0. ROE is:",
+      "choices": {
+        "A": "12%",
+        "B": "24%",
+        "C": "6%",
+        "D": "11.5%"
+      },
+      "answer": "B",
+      "explanation": "DuPont: 0.08 × 1.5 × 2.0 = 0.24 = 24%."
+    },
+    {
+      "source_id": "A-17",
+      "question": "Compared with an operating lease, a finance lease for the same asset results in:",
+      "choices": {
+        "A": "Lower total expense over the lease life",
+        "B": "Higher expense in the early years (front-loaded)",
+        "C": "Identical expense each period",
+        "D": "No balance sheet recognition"
+      },
+      "answer": "B",
+      "explanation": "Finance lease = declining interest + straight-line amortization → front-loaded total expense. Total expense over the full term is the same (A is wrong); straight-line (C) describes the operating lease."
+    },
+    {
+      "source_id": "A-18",
+      "question": "Under US GAAP, cash paid for interest is classified as:",
+      "choices": {
+        "A": "An investing activity",
+        "B": "A financing activity",
+        "C": "An operating activity",
+        "D": "Not shown on the cash flow statement"
+      },
+      "answer": "C",
+      "explanation": "Interest paid (and received) = operating under US GAAP — the classic classification trap, since dividends paid are financing."
+    },
+    {
+      "source_id": "A-19",
+      "question": "Which statement is true regarding PPE revaluation?",
+      "choices": {
+        "A": "Both US GAAP and IFRS permit upward revaluation",
+        "B": "IFRS permits the revaluation model; US GAAP does not",
+        "C": "US GAAP permits revaluation; IFRS does not",
+        "D": "Neither permits revaluation"
+      },
+      "answer": "B",
+      "explanation": "IFRS allows fair-value revaluation of PPE (gains to OCI); US GAAP holds to historical cost."
+    },
+    {
+      "source_id": "A-20",
+      "question": "\"Identify the performance obligations in the contract\" is which step of the ASC 606 model?",
+      "choices": {
+        "A": "Step 1",
+        "B": "Step 2",
+        "C": "Step 3",
+        "D": "Step 4"
+      },
+      "answer": "B",
+      "explanation": "Step 2 — distinct goods/services promised. Distinctness (sold separately? separately identifiable benefit?) is where the judgment lives."
+    },
+    {
+      "source_id": "E-1",
+      "question": "A company's code of conduct, the board's independence, and management's operating style are elements of which COSO component?",
+      "choices": {
+        "A": "Risk assessment",
+        "B": "Control environment",
+        "C": "Control activities",
+        "D": "Monitoring"
+      },
+      "answer": "B",
+      "explanation": "The control environment is the \"tone at the top\" — ethics, oversight, structure, competence, accountability. Everything else rests on it."
+    },
+    {
+      "source_id": "E-2",
+      "question": "A monthly bank reconciliation is best classified as a:",
+      "choices": {
+        "A": "Preventive control",
+        "B": "Detective control",
+        "C": "Corrective control",
+        "D": "General IT control"
+      },
+      "answer": "B",
+      "explanation": "It detects errors or fraud after the fact. Preventive (A) would be segregation of duties stopping the problem; corrective (C) would be the backup restore after a failure."
+    },
+    {
+      "source_id": "E-3",
+      "question": "SOX Section 404 requires:",
+      "choices": {
+        "A": "Only the external auditor's assessment of ICFR",
+        "B": "Management's annual assessment of ICFR effectiveness, plus auditor attestation for accelerated filers",
+        "C": "Quarterly CEO/CFO certification of the financial statements",
+        "D": "Real-time disclosure of all control deficiencies"
+      },
+      "answer": "B",
+      "explanation": "Management assesses; the auditor attests (accelerated filers). C describes Section 302. D doesn't exist — only material weaknesses are publicly disclosed."
+    },
+    {
+      "source_id": "E-4",
+      "question": "A material weakness is best defined as a deficiency such that there is:",
+      "choices": {
+        "A": "Any possibility of an immaterial error",
+        "B": "A reasonable possibility that a material misstatement will not be prevented or detected timely",
+        "C": "Absolute certainty of fraud",
+        "D": "A minor design flaw with no financial impact"
+      },
+      "answer": "B",
+      "explanation": "The two operative phrases: \"reasonable possibility\" and \"material misstatement.\" Less than this is a significant deficiency or mere deficiency."
+    },
+    {
+      "source_id": "E-5",
+      "question": "The three elements of the fraud triangle are:",
+      "choices": {
+        "A": "Theft, concealment, conversion",
+        "B": "Incentive/pressure, opportunity, rationalization",
+        "C": "Skimming, larceny, billing schemes",
+        "D": "Prevention, detection, correction"
+      },
+      "answer": "B",
+      "explanation": "Cressey's triangle: motive, means (opportunity — the one weak controls create), and the story the fraudster tells themselves. A and C describe scheme mechanics, not the triangle."
+    },
+    {
+      "source_id": "E-6",
+      "question": "Which combination of duties represents the most serious segregation-of-duties violation?",
+      "choices": {
+        "A": "Approving purchase orders and receiving goods",
+        "B": "Handling cash receipts and reconciling the bank account",
+        "C": "Hiring employees and approving timecards",
+        "D": "Ordering inventory and counting inventory"
+      },
+      "answer": "B",
+      "explanation": "Custody (cash) + recordkeeping (reconciliation) lets someone steal and cover it up — the classic violation. All are imperfect, but B combines asset access with the record that would reveal its loss."
+    },
+    {
+      "source_id": "E-7",
+      "question": "To preserve independence, the chief audit executive should report functionally to:",
+      "choices": {
+        "A": "The chief financial officer",
+        "B": "The controller",
+        "C": "The audit committee of the board",
+        "D": "The external audit partner"
+      },
+      "answer": "C",
+      "explanation": "Functional reporting to the audit committee keeps internal audit independent of the management it audits. Reporting to the CFO (A) destroys independence."
+    },
+    {
+      "source_id": "E-8",
+      "question": "Program change controls (testing and approving software changes before implementation) are:",
+      "choices": {
+        "A": "Application controls",
+        "B": "General IT controls",
+        "C": "Detective controls only",
+        "D": "Manual controls"
+      },
+      "answer": "B",
+      "explanation": "Program development/change controls are general controls — they govern the whole IT environment. Edit checks within a payroll app would be application controls (A)."
+    },
+    {
+      "source_id": "E-9",
+      "question": "Restoring operations from backup tapes after a server failure is a:",
+      "choices": {
+        "A": "Preventive control",
+        "B": "Detective control",
+        "C": "Corrective control",
+        "D": "Compensating control"
+      },
+      "answer": "C",
+      "explanation": "Corrective controls fix damage and restore normal operations after an event. The backup itself is preventive preparation; the restore is corrective."
+    },
+    {
+      "source_id": "E-10",
+      "question": "A significant deficiency must be communicated to:",
+      "choices": {
+        "A": "The public in the annual report",
+        "B": "The audit committee and management",
+        "C": "Only the external auditor",
+        "D": "No one — it is too minor to report"
+      },
+      "answer": "B",
+      "explanation": "Significant deficiencies merit attention of those charged with governance — reported to the audit committee and management. Only material weaknesses trigger public disclosure (A)."
+    },
+    {
+      "source_id": "E-11",
+      "question": "An employee pockets cash from a customer before recording the sale. This scheme is:",
+      "choices": {
+        "A": "Cash larceny",
+        "B": "Skimming",
+        "C": "A billing scheme",
+        "D": "Check tampering"
+      },
+      "answer": "B",
+      "explanation": "Skimming = off-book, before recording — hardest to detect because no record exists. Larceny (A) steals after the sale is recorded."
+    },
+    {
+      "source_id": "E-12",
+      "question": "Ongoing comparison of actual performance to budgets by department heads is an example of which COSO component?",
+      "choices": {
+        "A": "Control activities",
+        "B": "Monitoring activities",
+        "C": "Information and communication",
+        "D": "Risk assessment"
+      },
+      "answer": "B",
+      "explanation": "Monitoring = assessing whether controls keep working over time, through ongoing activities and separate evaluations. The budget comparison itself is a control activity (A); management's review of whether the system works is monitoring."
+    },
+    {
+      "source_id": "E-13",
+      "question": "Pre-numbered receiving documents with a sequence check are:",
+      "choices": {
+        "A": "Output controls",
+        "B": "Input controls",
+        "C": "General controls",
+        "D": "Corrective controls"
+      },
+      "answer": "B",
+      "explanation": "Input controls ensure data entering the system is complete and valid — pre-numbering plus sequence checks catch missing documents. They're also preventive."
+    },
+    {
+      "source_id": "E-14",
+      "question": "In assessing ICFR, \"control risk\" refers to the risk that:",
+      "choices": {
+        "A": "The auditor fails to detect a misstatement",
+        "B": "The client's controls fail to prevent or detect a material misstatement",
+        "C": "Management intentionally commits fraud",
+        "D": "Inherent industry conditions cause errors"
+      },
+      "answer": "B",
+      "explanation": "Control risk = controls don't catch it. A is detection risk (auditor's); D is inherent risk. IMA tests that control risk is assessed, never assumed zero without testing."
+    },
+    {
+      "source_id": "E-15",
+      "question": "A three-person company cannot fully segregate duties. The most appropriate response is to:",
+      "choices": {
+        "A": "Abandon internal controls as impractical",
+        "B": "Implement compensating controls, such as owner review of all disbursements",
+        "C": "Require all employees to be bonded and stop there",
+        "D": "Outsource all accounting and accept the risk"
+      },
+      "answer": "B",
+      "explanation": "Compensating (detective) controls — typically direct owner/manager review — substitute where segregation is impossible. Small size explains the design; it doesn't excuse having no controls."
+    },
+    {
+      "source_id": "E-16",
+      "question": "An employee intercepts a vendor check, alters the payee to himself, and cashes it. This is:",
+      "choices": {
+        "A": "Skimming",
+        "B": "A billing scheme",
+        "C": "Check tampering",
+        "D": "A payroll scheme"
+      },
+      "answer": "C",
+      "explanation": "Check tampering = manipulating a legitimate check (forged endorsement, altered payee). Billing schemes (B) create fraudulent disbursements to fake vendors instead."
+    },
+    {
+      "source_id": "E-17",
+      "question": "Requiring multi-factor authentication to access the accounting system is a:",
+      "choices": {
+        "A": "Detective application control",
+        "B": "Preventive general control",
+        "C": "Corrective control",
+        "D": "Compensating control"
+      },
+      "answer": "B",
+      "explanation": "Access security is a general IT control, and authentication prevents unauthorized access before it happens."
+    },
+    {
+      "source_id": "E-18",
+      "question": "The severity of a control deficiency is judged primarily on:",
+      "choices": {
+        "A": "The job title of the person who caused it",
+        "B": "The likelihood and magnitude of a potential misstatement",
+        "C": "Whether it was found by internal or external audit",
+        "D": "The cost of remediating it"
+      },
+      "answer": "B",
+      "explanation": "Likelihood × magnitude drives the deficiency → significant deficiency → material weakness ranking. Who found it (C) is irrelevant to severity."
+    },
+    {
+      "source_id": "E-19",
+      "question": "The COSO framework contains:",
+      "choices": {
+        "A": "3 components and 12 principles",
+        "B": "5 components and 17 principles",
+        "C": "7 components and 20 principles",
+        "D": "4 components and 10 principles"
+      },
+      "answer": "B",
+      "explanation": "Five components (control environment, risk assessment, control activities, information & communication, monitoring), seventeen principles. Straight memorization — free points."
+    },
+    {
+      "source_id": "E-20",
+      "question": "An anonymous whistleblower hotline administered under audit committee procedures is primarily a:",
+      "choices": {
+        "A": "Preventive control — it stops fraud before it starts",
+        "B": "Detective control — it surfaces fraud and control failures",
+        "C": "Corrective control — it punishes offenders",
+        "D": "General IT control"
+      },
+      "answer": "B",
+      "explanation": "Hotlines detect (and deter, but IMA classifies them as detective). SOX Section 301 requires the audit committee to establish these procedures — the section number is bonus knowledge."
+    },
+    {
+      "source_id": "F-1",
+      "question": "The defining characteristic of an ERP system is:",
+      "choices": {
+        "A": "It is hosted in the cloud",
+        "B": "Integrated modules sharing a single central database",
+        "C": "It includes artificial intelligence",
+        "D": "It replaces the need for internal controls"
+      },
+      "answer": "B",
+      "explanation": "One database, many modules — enter data once, use it everywhere. That's what kills conflicting spreadsheets. Cloud (A) is a deployment choice, not the definition."
+    },
+    {
+      "source_id": "F-2",
+      "question": "The correct order of SDLC phases is:",
+      "choices": {
+        "A": "Design, planning, analysis, implementation, maintenance",
+        "B": "Planning, analysis, design, implementation, maintenance",
+        "C": "Analysis, design, planning, maintenance, implementation",
+        "D": "Planning, design, analysis, maintenance, implementation"
+      },
+      "answer": "B",
+      "explanation": "Plan (feasibility) → analyze (requirements) → design (specs) → implement (build, test, convert, train) → maintain. Requirements come before design — A and D scramble that."
+    },
+    {
+      "source_id": "F-3",
+      "question": "\"Forecasting next quarter's sales using historical patterns\" is which type of analytics?",
+      "choices": {
+        "A": "Descriptive",
+        "B": "Diagnostic",
+        "C": "Predictive",
+        "D": "Prescriptive"
+      },
+      "answer": "C",
+      "explanation": "Predicting the future from historical data = predictive. Diagnostic (B) would ask why last quarter's sales fell; prescriptive (D) would recommend what to do about it."
+    },
+    {
+      "source_id": "F-4",
+      "question": "A data lake differs from a data warehouse in that a data lake stores:",
+      "choices": {
+        "A": "Only cleansed, structured historical data",
+        "B": "Raw data in native format, including unstructured data",
+        "C": "Only financial reporting data",
+        "D": "Data with a fixed schema applied before storage"
+      },
+      "answer": "B",
+      "explanation": "Lake = raw and mixed (emails, images, sensor feeds), schema-on-read, built for exploration and ML. A and D describe the warehouse."
+    },
+    {
+      "source_id": "F-5",
+      "question": "RPA is best suited for tasks that are:",
+      "choices": {
+        "A": "Highly judgmental and unstructured",
+        "B": "High-volume, rule-based, and repetitive",
+        "C": "Performed once a year",
+        "D": "Requiring creative problem-solving"
+      },
+      "answer": "B",
+      "explanation": "Bots follow deterministic rules on structured data — invoice entry, reconciliations, report distribution. Judgment and creativity (A, D) are exactly what RPA can't do."
+    },
+    {
+      "source_id": "F-6",
+      "question": "In a relational database, a primary key is used to:",
+      "choices": {
+        "A": "Link two tables together",
+        "B": "Uniquely identify each row in a table",
+        "C": "Encrypt sensitive data",
+        "D": "Sort query results"
+      },
+      "answer": "B",
+      "explanation": "Uniqueness per row is the primary key's job. Linking tables (A) is the foreign key's job — IMA pairs these two definitions."
+    },
+    {
+      "source_id": "F-7",
+      "question": "Which visualization choice is most appropriate for showing a company's monthly revenue trend over three years?",
+      "choices": {
+        "A": "Pie chart",
+        "B": "3D bar chart",
+        "C": "Line chart",
+        "D": "Scatter plot of unrelated variables"
+      },
+      "answer": "C",
+      "explanation": "Trends over time = line chart. Pie (A) shows composition at a point in time; 3D (B) distorts perception — an IMA anti-pattern."
+    },
+    {
+      "source_id": "F-8",
+      "question": "Data governance is primarily concerned with:",
+      "choices": {
+        "A": "Writing SQL queries",
+        "B": "Policies, roles, and processes that keep data trustworthy, usable, and protected",
+        "C": "Building dashboards",
+        "D": "Increasing data storage capacity"
+      },
+      "answer": "B",
+      "explanation": "Governance = who owns data, who can change it, quality standards, retention. It's the management layer above the tools in A and C."
+    },
+    {
+      "source_id": "F-9",
+      "question": "EDI (electronic data interchange) is best described as:",
+      "choices": {
+        "A": "Emailing PDF invoices to customers",
+        "B": "Computer-to-computer exchange of business documents in standardized formats",
+        "C": "A type of data visualization",
+        "D": "Manual entry of online orders"
+      },
+      "answer": "B",
+      "explanation": "Standardized, system-to-system, no re-keying — that's what delivers EDI's speed and accuracy benefits. Emailed PDFs (A) are still unstructured documents."
+    },
+    {
+      "source_id": "F-10",
+      "question": "A system that recommends the optimal production schedule to minimize cost is performing:",
+      "choices": {
+        "A": "Descriptive analytics",
+        "B": "Diagnostic analytics",
+        "C": "Predictive analytics",
+        "D": "Prescriptive analytics"
+      },
+      "answer": "D",
+      "explanation": "Recommending an action (\"what should we do\") via optimization = prescriptive — the top of the maturity ladder."
+    },
+    {
+      "source_id": "F-11",
+      "question": "Sales fell 12% last quarter. Drilling into regional and product data to determine the cause is:",
+      "choices": {
+        "A": "Descriptive analytics",
+        "B": "Diagnostic analytics",
+        "C": "Predictive analytics",
+        "D": "Prescriptive analytics"
+      },
+      "answer": "B",
+      "explanation": "Investigating why something happened = diagnostic. Reporting the 12% drop itself (A) would be descriptive."
+    },
+    {
+      "source_id": "F-12",
+      "question": "Requiring multi-factor authentication for accounting system access is a:",
+      "choices": {
+        "A": "Detective application control",
+        "B": "Preventive access control",
+        "C": "Corrective control",
+        "D": "Physical control"
+      },
+      "answer": "B",
+      "explanation": "Authentication blocks unauthorized access before it happens — preventive. (Ties to Section E: access security is also a general IT control.)"
+    },
+    {
+      "source_id": "F-13",
+      "question": "A company runs its old and new payroll systems simultaneously for three months before switching. This conversion approach is:",
+      "choices": {
+        "A": "Direct cutover",
+        "B": "Parallel conversion",
+        "C": "Phased conversion",
+        "D": "Pilot conversion"
+      },
+      "answer": "B",
+      "explanation": "Parallel = both systems live together; safest, most expensive. Direct (A) would flip the switch overnight; phased (C) converts module by module."
+    },
+    {
+      "source_id": "F-14",
+      "question": "Encrypting customer data stored in a database primarily protects:",
+      "choices": {
+        "A": "Data at rest from unauthorized reading",
+        "B": "The database from running slowly",
+        "C": "Users from forgetting passwords",
+        "D": "The network from congestion"
+      },
+      "answer": "A",
+      "explanation": "Encryption makes stored (at-rest) data unreadable without the key — a confidentiality control. It doesn't improve performance (B)."
+    },
+    {
+      "source_id": "F-15",
+      "question": "Emails, images, and social media posts are examples of:",
+      "choices": {
+        "A": "Structured data",
+        "B": "Unstructured data",
+        "C": "Data in a relational table",
+        "D": "Metadata"
+      },
+      "answer": "B",
+      "explanation": "No predefined rows-and-columns structure = unstructured — the kind of data that lives in data lakes, not warehouses."
+    },
+    {
+      "source_id": "F-16",
+      "question": "Which of the following is an output of an AIS?",
+      "choices": {
+        "A": "A sales invoice entered by a clerk",
+        "B": "The monthly financial statements",
+        "C": "A password used to log in",
+        "D": "Raw transaction data"
+      },
+      "answer": "B",
+      "explanation": "Outputs = reports and statements produced for users. A and D are inputs; C is a control."
+    },
+    {
+      "source_id": "F-17",
+      "question": "Allowing software developers direct access to modify the live (production) accounting system violates:",
+      "choices": {
+        "A": "Data visualization best practices",
+        "B": "IT segregation of duties — a general control",
+        "C": "The revenue recognition principle",
+        "D": "EDI standards"
+      },
+      "answer": "B",
+      "explanation": "Developers in production = failed segregation (change control), a general IT control weakness. Changes must go through testing and approval."
+    },
+    {
+      "source_id": "F-18",
+      "question": "In machine learning, supervised learning is distinguished by:",
+      "choices": {
+        "A": "Using labeled training data to predict outcomes",
+        "B": "Requiring no data at all",
+        "C": "Following fixed RPA scripts",
+        "D": "Only working on unstructured data"
+      },
+      "answer": "A",
+      "explanation": "Labeled examples (this loan defaulted / didn't) train the model to classify or predict. Unlabeled pattern-finding would be unsupervised; fixed scripts (C) describe RPA."
+    },
+    {
+      "source_id": "F-19",
+      "question": "Which data quality dimension is violated when two systems report different customer counts for the same date?",
+      "choices": {
+        "A": "Timeliness",
+        "B": "Completeness",
+        "C": "Consistency",
+        "D": "Accuracy"
+      },
+      "answer": "C",
+      "explanation": "Same concept, different answers across systems = inconsistency — typically a definition or integration failure. Accuracy (D) would be wrong values, not conflicting ones."
+    },
+    {
+      "source_id": "F-20",
+      "question": "The accountant's primary role in an SDLC implementation is:",
+      "choices": {
+        "A": "Writing the application code",
+        "B": "Defining requirements, designing controls, testing, and post-implementation review",
+        "C": "Selecting the vendor's stock price",
+        "D": "Operating the help desk"
+      },
+      "answer": "B",
+      "explanation": "Accountants own requirements, control design, testing, and review — not programming (A). IMA emphasizes controls designed in during the design phase, not bolted on later."
+    }
+  ],
+  "dispositions": {
+    "B-1": {
+      "status": "duplicate",
+      "canonical_id": "P1X-014",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "B-2": {
+      "status": "added",
+      "question_id": "GUIDE-B-02",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "B-3": {
+      "status": "duplicate",
+      "canonical_id": "P1X-029",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "B-4": {
+      "status": "duplicate",
+      "canonical_id": "P1Q-153",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "B-5": {
+      "status": "duplicate",
+      "canonical_id": "P1-004",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "B-6": {
+      "status": "added",
+      "question_id": "GUIDE-B-06",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": false
+    },
+    "B-7": {
+      "status": "duplicate",
+      "canonical_id": "P1Q-059",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "B-8": {
+      "status": "added",
+      "question_id": "GUIDE-B-08",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "B-9": {
+      "status": "added",
+      "question_id": "GUIDE-B-09",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "B-10": {
+      "status": "added",
+      "question_id": "GUIDE-B-10",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": false
+    },
+    "B-11": {
+      "status": "duplicate",
+      "canonical_id": "V3-EX-004",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "B-12": {
+      "status": "duplicate",
+      "canonical_id": "V3-EX-016",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "B-13": {
+      "status": "duplicate",
+      "canonical_id": "V3-1-02-004",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "B-14": {
+      "status": "duplicate",
+      "canonical_id": "P1Q-148",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "B-15": {
+      "status": "added",
+      "question_id": "GUIDE-B-15",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "B-16": {
+      "status": "added",
+      "question_id": "GUIDE-B-16",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": false
+    },
+    "B-17": {
+      "status": "added",
+      "question_id": "GUIDE-B-17",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "B-18": {
+      "status": "duplicate",
+      "canonical_id": "P1X-023",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "B-19": {
+      "status": "duplicate",
+      "canonical_id": "P1X-067",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "B-20": {
+      "status": "duplicate",
+      "canonical_id": "P1X-015",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "C-1": {
+      "status": "duplicate",
+      "canonical_id": "P1X-028",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "C-2": {
+      "status": "duplicate",
+      "canonical_id": "P1Q-106",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "C-3": {
+      "status": "added",
+      "question_id": "GUIDE-C-03",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "C-4": {
+      "status": "duplicate",
+      "canonical_id": "P1-009",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "C-5": {
+      "status": "added",
+      "question_id": "GUIDE-C-05",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "C-6": {
+      "status": "added",
+      "question_id": "GUIDE-C-06",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "C-7": {
+      "status": "added",
+      "question_id": "GUIDE-C-07",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "C-8": {
+      "status": "duplicate",
+      "canonical_id": "P1Q-094",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "C-9": {
+      "status": "duplicate",
+      "canonical_id": "P1X-032",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "C-10": {
+      "status": "added",
+      "question_id": "GUIDE-C-10",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "C-11": {
+      "status": "added",
+      "question_id": "GUIDE-C-11",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": false
+    },
+    "C-12": {
+      "status": "added",
+      "question_id": "GUIDE-C-12",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "C-13": {
+      "status": "added",
+      "question_id": "GUIDE-C-13",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": false
+    },
+    "C-14": {
+      "status": "duplicate",
+      "canonical_id": "P1-010",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "C-15": {
+      "status": "duplicate",
+      "canonical_id": "P1Q-104",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "C-16": {
+      "status": "duplicate",
+      "canonical_id": "GUIDE-C-06",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "C-17": {
+      "status": "duplicate",
+      "canonical_id": "P1X-036",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "C-18": {
+      "status": "added",
+      "question_id": "GUIDE-C-18",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "C-19": {
+      "status": "duplicate",
+      "canonical_id": "GUIDE-C-06",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "C-20": {
+      "status": "duplicate",
+      "canonical_id": "P1Q-214",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "D-1": {
+      "status": "duplicate",
+      "canonical_id": "P1Q-144",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "D-2": {
+      "status": "added",
+      "question_id": "GUIDE-D-02",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "D-3": {
+      "status": "added",
+      "question_id": "GUIDE-D-03",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "D-4": {
+      "status": "added",
+      "question_id": "GUIDE-D-04",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": false
+    },
+    "D-5": {
+      "status": "added",
+      "question_id": "GUIDE-D-05",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "D-6": {
+      "status": "added",
+      "question_id": "GUIDE-D-06",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "D-7": {
+      "status": "added",
+      "question_id": "GUIDE-D-07",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": false
+    },
+    "D-8": {
+      "status": "duplicate",
+      "canonical_id": "P1Q-152",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "D-9": {
+      "status": "added",
+      "question_id": "GUIDE-D-09",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "D-10": {
+      "status": "added",
+      "question_id": "GUIDE-D-10",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "D-11": {
+      "status": "added",
+      "question_id": "GUIDE-D-11",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "D-12": {
+      "status": "added",
+      "question_id": "GUIDE-D-12",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "D-13": {
+      "status": "added",
+      "question_id": "GUIDE-D-13",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "D-14": {
+      "status": "added",
+      "question_id": "GUIDE-D-14",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "D-15": {
+      "status": "duplicate",
+      "canonical_id": "P1Q-155",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "D-16": {
+      "status": "added",
+      "question_id": "GUIDE-D-16",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": false
+    },
+    "D-17": {
+      "status": "added",
+      "question_id": "GUIDE-D-17",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "D-18": {
+      "status": "added",
+      "question_id": "GUIDE-D-18",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "D-19": {
+      "status": "added",
+      "question_id": "GUIDE-D-19",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "D-20": {
+      "status": "duplicate",
+      "canonical_id": "P1Q-131",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "A-1": {
+      "status": "added",
+      "question_id": "GUIDE-A-01",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "A-2": {
+      "status": "added",
+      "question_id": "GUIDE-A-02",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "A-3": {
+      "status": "added",
+      "question_id": "GUIDE-A-03",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "A-4": {
+      "status": "added",
+      "question_id": "GUIDE-A-04",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "A-5": {
+      "status": "added",
+      "question_id": "GUIDE-A-05",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "A-6": {
+      "status": "added",
+      "question_id": "GUIDE-A-06",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": false
+    },
+    "A-7": {
+      "status": "added",
+      "question_id": "GUIDE-A-07",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": false
+    },
+    "A-8": {
+      "status": "added",
+      "question_id": "GUIDE-A-08",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "A-9": {
+      "status": "added",
+      "question_id": "GUIDE-A-09",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "A-10": {
+      "status": "added",
+      "question_id": "GUIDE-A-10",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "A-11": {
+      "status": "added",
+      "question_id": "GUIDE-A-11",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "A-12": {
+      "status": "added",
+      "question_id": "GUIDE-A-12",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": false
+    },
+    "A-13": {
+      "status": "added",
+      "question_id": "GUIDE-A-13",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "A-14": {
+      "status": "added",
+      "question_id": "GUIDE-A-14",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "A-15": {
+      "status": "added",
+      "question_id": "GUIDE-A-15",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "A-16": {
+      "status": "added",
+      "question_id": "GUIDE-A-16",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": false
+    },
+    "A-17": {
+      "status": "added",
+      "question_id": "GUIDE-A-17",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "A-18": {
+      "status": "added",
+      "question_id": "GUIDE-A-18",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "A-19": {
+      "status": "added",
+      "question_id": "GUIDE-A-19",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "A-20": {
+      "status": "duplicate",
+      "canonical_id": "GUIDE-A-07",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "E-1": {
+      "status": "duplicate",
+      "canonical_id": "V3-1-05-010",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "E-2": {
+      "status": "duplicate",
+      "canonical_id": "P1X-051",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "E-3": {
+      "status": "added",
+      "question_id": "GUIDE-E-03",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "E-4": {
+      "status": "added",
+      "question_id": "GUIDE-E-04",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "E-5": {
+      "status": "added",
+      "question_id": "GUIDE-E-05",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "E-6": {
+      "status": "duplicate",
+      "canonical_id": "P1-015",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "E-7": {
+      "status": "added",
+      "question_id": "GUIDE-E-07",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "E-8": {
+      "status": "duplicate",
+      "canonical_id": "P1X-054",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "E-9": {
+      "status": "added",
+      "question_id": "GUIDE-E-09",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "E-10": {
+      "status": "duplicate",
+      "canonical_id": "P1X-057",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "E-11": {
+      "status": "added",
+      "question_id": "GUIDE-E-11",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "E-12": {
+      "status": "added",
+      "question_id": "GUIDE-E-12",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "E-13": {
+      "status": "duplicate",
+      "canonical_id": "P1Q-174",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "E-14": {
+      "status": "added",
+      "question_id": "GUIDE-E-14",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "E-15": {
+      "status": "duplicate",
+      "canonical_id": "P1X-060",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "E-16": {
+      "status": "added",
+      "question_id": "GUIDE-E-16",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "E-17": {
+      "status": "added",
+      "question_id": "GUIDE-E-17",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": false
+    },
+    "E-18": {
+      "status": "added",
+      "question_id": "GUIDE-E-18",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "E-19": {
+      "status": "added",
+      "question_id": "GUIDE-E-19",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "E-20": {
+      "status": "added",
+      "question_id": "GUIDE-E-20",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "F-1": {
+      "status": "duplicate",
+      "canonical_id": "P1Q-198",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "F-2": {
+      "status": "added",
+      "question_id": "GUIDE-F-02",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "F-3": {
+      "status": "duplicate",
+      "canonical_id": "P1Q-202",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "F-4": {
+      "status": "added",
+      "question_id": "GUIDE-F-04",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "F-5": {
+      "status": "added",
+      "question_id": "GUIDE-F-05",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "F-6": {
+      "status": "duplicate",
+      "canonical_id": "P1Q-206",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "F-7": {
+      "status": "duplicate",
+      "canonical_id": "P1Q-210",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "F-8": {
+      "status": "added",
+      "question_id": "GUIDE-F-08",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "F-9": {
+      "status": "added",
+      "question_id": "GUIDE-F-09",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "F-10": {
+      "status": "duplicate",
+      "canonical_id": "P1Q-203",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "F-11": {
+      "status": "added",
+      "question_id": "GUIDE-F-11",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "F-12": {
+      "status": "duplicate",
+      "canonical_id": "GUIDE-E-17",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "F-13": {
+      "status": "added",
+      "question_id": "GUIDE-F-13",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "F-14": {
+      "status": "added",
+      "question_id": "GUIDE-F-14",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "F-15": {
+      "status": "duplicate",
+      "canonical_id": "GUIDE-F-04",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "F-16": {
+      "status": "added",
+      "question_id": "GUIDE-F-16",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "F-17": {
+      "status": "added",
+      "question_id": "GUIDE-F-17",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    },
+    "F-18": {
+      "status": "duplicate",
+      "canonical_id": "V3-1-06-028",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "F-19": {
+      "status": "duplicate",
+      "canonical_id": "P1Q-224",
+      "reason": "Same tested rule or calculation task already represented; different wording or inputs alone are not sufficient for this import."
+    },
+    "F-20": {
+      "status": "added",
+      "question_id": "GUIDE-F-20",
+      "reason": "Distinct tested task or application after editorial comparison with every active MCQ and case item.",
+      "edited": true
+    }
+  },
+  "added": 76,
+  "duplicates_skipped": 44,
+  "essay_prompts": {
+    "count": 12,
+    "status": "not_imported",
+    "reason": "Open-ended essay prompts are not supported by the current auto-graded MCQ/case engine. They are not silently converted into multiple-choice questions."
+  }
+}
