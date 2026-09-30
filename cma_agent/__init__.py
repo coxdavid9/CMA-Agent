@@ -166,6 +166,10 @@ def _install_concept_coverage():
         return rows
 
     adaptive.mastery_by_domain = mastery_with_coverage
+    # Expose the same named CMA skill map to the practice engine so question
+    # selection, feedback, and dashboard coverage all speak the same language.
+    adaptive.CMA_SKILL_TAXONOMY = taxonomy
+    adaptive.skill_labels_for_question = labels_for_question
 
 
 _install_concept_coverage()
