@@ -88,7 +88,7 @@ def _mastery_status(results):
 
 
 def _question_statuses(conn):
-    rows = conn.execute("SELECT question_id,correct,confidence FROM attempts ORDER BY id DESC").fetchall()
+    rows = conn.execute("SELECT question_id,correct,confidence FROM attempts WHERE bank_revision=? ORDER BY id DESC", (engine.REVISION,)).fetchall()
     recent = {}
     for row in rows:
         qid = row["question_id"]
@@ -121,13 +121,8 @@ def _concept_tokens(q):
 
 
 def _concept_labels(q):
-    """Return stable-ish concept labels used to measure breadth, not just volume."""
-    text = " ".join(str(q.get(k, "")) for k in ("question", "explanation", "calculation")).lower()
-    labels = {phrase for phrase in _HIGH_VALUE_PHRASES if phrase in text}
-    tokens = sorted(_concept_tokens(q))
-    if not labels and tokens:
-        labels.add("keywords:" + "|".join(tokens[:5]))
-    return labels
+    """Credit only explicitly reviewed skills, never incidental words."""
+    return set(q.get("skills", []))
 
 
 def _concept_similarity(source, candidate):
@@ -190,7 +185,7 @@ def mastery_by_domain(part="Both", domain="All"):
     allowed_domains = {q["domain"] for q in allowed_questions}
     question_map = {q["id"]: q for q in allowed_questions}
     conn = engine.db()
-    rows = conn.execute("SELECT question_id,domain,correct,confidence FROM attempts ORDER BY id DESC").fetchall()
+    rows = conn.execute("SELECT question_id,domain,correct,confidence FROM attempts WHERE bank_revision=? ORDER BY id DESC", (engine.REVISION,)).fetchall()
     conn.close()
 
     grouped = {d: [] for d in allowed_domains}
@@ -199,7 +194,7 @@ def mastery_by_domain(part="Both", domain="All"):
         d = row["domain"]
         if d in grouped and len(grouped[d]) < 50:
             q = question_map.get(row["question_id"]) or engine.get_question(row["question_id"])
-            if not q or q.get("is_case"):
+            if not q or q.get("is_case") or q.get("domain") != d:
                 continue
             grouped[d].append({"correct": int(row["correct"]), "confidence": int(row["confidence"] or 0), "question_id": row["question_id"]})
             concept_sets[d].update(_concept_labels(q))

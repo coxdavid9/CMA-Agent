@@ -30,6 +30,7 @@ def db():
         c.execute("CREATE INDEX IF NOT EXISTS idx_attempts_domain ON attempts(domain)")
         c.execute("CREATE INDEX IF NOT EXISTS idx_attempts_session ON attempts(session_id)")
         c.execute("CREATE INDEX IF NOT EXISTS idx_attempts_ts ON attempts(ts)")
+        c.execute("ALTER TABLE attempts ADD COLUMN IF NOT EXISTS bank_revision TEXT")
         c.commit()
         _schema_ready = True
     return c
@@ -37,17 +38,6 @@ def db():
 
 engine.db = db
 _data_dir = Path(__file__).resolve().parent / "data"
-_loaded_ids = {q.get("id") for q in engine.QUESTIONS}
-for _path in sorted(_data_dir.glob("questions_part1_*.json")):
-    try:
-        _items = json.loads(_path.read_text(encoding="utf-8"))
-        for _q in _items:
-            if _q.get("id") not in _loaded_ids:
-                engine.QUESTIONS.append(_q)
-                _loaded_ids.add(_q.get("id"))
-    except Exception:
-        continue
-
 _case_bank = []
 try:
     _cases = json.loads((_data_dir / "cases.json").read_text(encoding="utf-8"))
@@ -63,6 +53,9 @@ try:
                 "answer": _item["answer"],
                 "explanation": _item.get("explanation", ""),
                 "calculation": _item.get("calculation"),
+                "numeric_check": _item.get("numeric_check"),
+                "skills": _item["skills"],
+                "content_revision": _case["content_revision"],
                 "is_case": True,
                 "case_id": _case["id"],
                 "case_title": _case.get("title", "Case Practice"),
@@ -152,6 +145,8 @@ def clean_question(q):
     if not q:
         return q
     result = copy.deepcopy(q)
+    result.pop("numeric_check", None)
+    result.pop("content_revision", None)
     text = result.get("question")
     if isinstance(text, str):
         for tail in _CONTEXT_TAILS:
@@ -174,23 +169,6 @@ def _recent_question_ids(limit=15):
     ids = [r["question_id"] for r in rows]
     c.close()
     return ids
-
-
-def _clean_bank_duplicates():
-    rank = {"Easy": 1, "Medium": 2, "Hard": 3}
-    chosen = {}
-    for q in engine.QUESTIONS:
-        if q.get("is_case"):
-            continue
-        cleaned = clean_question(q)
-        key = (q.get("part"), q.get("domain"), cleaned.get("question", "").strip().lower())
-        current = chosen.get(key)
-        if current is None or rank.get(q.get("difficulty"), 0) > rank.get(current.get("difficulty"), 0):
-            chosen[key] = q
-    engine.QUESTIONS[:] = list(chosen.values()) + _case_bank
-
-
-_clean_bank_duplicates()
 
 
 def _choose_case(part="Both", domain="All", exclude_case_ids=None):
@@ -245,20 +223,20 @@ def _exam_questions(part):
         raise HTTPException(status_code=400, detail="Exam simulation requires Part 1 or Part 2")
     regular = [q for q in engine.QUESTIONS if q.get("part") == part and not q.get("is_case")]
     selected = []
-    used = set()
-    for domain, pct in weights.items():
-        pool = [q for q in regular if q.get("domain") == domain and q["id"] not in used]
-        target = round(pct)
-        random.shuffle(pool)
-        take = min(target, len(pool))
-        selected.extend(pool[:take])
-        used.update(q["id"] for q in pool[:take])
-    if len(selected) < 100:
-        remaining = [q for q in regular if q["id"] not in used]
-        random.shuffle(remaining)
-        selected.extend(remaining[:100 - len(selected)])
+    shortages = [(domain, len([q for q in regular if q["domain"] == domain]), count)
+                 for domain, count in weights.items()
+                 if len([q for q in regular if q["domain"] == domain]) < count]
+    if shortages:
+        details = "; ".join(f"{d}: {n} reviewed questions, {needed} required" for d, n, needed in shortages)
+        raise HTTPException(status_code=400, detail=(
+            "A 100-question set with the CMA domain proportions is not yet available. "
+            + details + ". Use mixed practice while these gaps are addressed."
+        ))
+    for domain, count in weights.items():
+        pool = [q for q in regular if q["domain"] == domain]
+        selected.extend(random.sample(pool, count))
     random.shuffle(selected)
-    return selected[:100]
+    return selected
 
 
 @app.get("/api/health")
@@ -350,6 +328,7 @@ def exam_start(request: ExamStartRequest):
         "mcq_count": len(questions),
         "mcq_time_minutes": 180,
         "case_time_minutes": 60,
+        "format_note": "Timed MCQ practice with short case exercises, not a complete replica of the CMA case section.",
         "mcq_questions": [_public_exam_question(q) for q in questions],
         "cases": [_public_case(c) for c in cases],
         "blueprint": _BLUEPRINT[request.part],

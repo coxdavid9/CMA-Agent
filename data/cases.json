@@ -1,36 +1,184 @@
 [
   {
     "id": "CASE-001",
-    "part": "Part 1",
-    "domain": "Performance Management",
+    "part": "Part 2",
+    "domain": "Business Decision Analysis",
     "title": "Capacity and Margin",
-    "scenario": "A manufacturer has idle capacity. Product X sells for $90, variable cost is $52, and requires 2 machine hours. Product Y sells for $120, variable cost is $72, and requires 3 machine hours. Machine time is constrained.",
+    "scenario": "A manufacturer sells Product X for $90 per unit; variable cost is $52 per unit and each unit requires 2 machine hours. Product Y sells for $120 per unit; variable cost is $72 and each unit requires 3 machine hours. Machine hours are the single binding constraint, with unmet demand for both products and no other differential effects.",
     "questions": [
-      {"q": "Which product has the higher contribution margin per unit?", "choices": {"A": "X", "B": "Y", "C": "Same", "D": "Cannot determine"}, "answer": "B", "explanation": "X contributes $38; Y contributes $48 per unit."},
-      {"q": "Which product has the higher contribution margin per machine hour?", "choices": {"A": "X", "B": "Y", "C": "Same", "D": "Neither"}, "answer": "A", "explanation": "X: $38/2=$19 per hour; Y: $48/3=$16 per hour."}
-    ]
+      {
+        "q": "Which product has the higher contribution margin per unit?",
+        "choices": {
+          "A": "Y",
+          "B": "X",
+          "C": "Same",
+          "D": "Cannot determine"
+        },
+        "answer": "A",
+        "explanation": "X contributes $38; Y contributes $48 per unit.",
+        "skills": [
+          "Cost-volume-profit"
+        ],
+        "calculation": "120-72=48",
+        "numeric_check": {
+          "expression": "120-72",
+          "choice_values": {
+            "A": 48,
+            "B": 38,
+            "C": 0,
+            "D": null
+          },
+          "tolerance": 0
+        }
+      },
+      {
+        "q": "Which product has the higher contribution margin per machine hour?",
+        "choices": {
+          "A": "Y",
+          "B": "X",
+          "C": "Both have the same contribution per machine hour",
+          "D": "Prioritize solely by contribution per unit, regardless of machine time"
+        },
+        "answer": "B",
+        "explanation": "X: $38/2=$19 per hour; Y: $48/3=$16 per hour.",
+        "skills": [
+          "Product mix and constraints"
+        ],
+        "calculation": "(90-52)/2=19; (120-72)/3=16",
+        "numeric_check": {
+          "expression": "(90-52)/2-(120-72)/3",
+          "choice_values": {
+            "A": -3,
+            "B": 3,
+            "C": 0,
+            "D": null
+          },
+          "tolerance": 0
+        }
+      }
+    ],
+    "content_revision": "2026-09-30",
+    "difficulty": "Medium"
   },
   {
     "id": "CASE-002",
     "part": "Part 2",
     "domain": "Capital Investment Decisions",
     "title": "Project Evaluation",
-    "scenario": "A company is evaluating a project requiring $200,000 initially. Expected annual after-tax cash inflows are $80,000 for three years. Required return is 10%. Ignore salvage value.",
+    "scenario": "A company is evaluating a project requiring $200,000 initially. Expected annual after-tax cash inflows are $80,000 for three years. Required return is 10%. Ignore salvage value. For fractional simple payback, assume the annual cash inflows are received uniformly within each year.",
     "questions": [
-      {"q": "Ignoring discounting, what is simple payback?", "choices": {"A": "2.0 years", "B": "2.5 years", "C": "3.0 years", "D": "3.5 years"}, "answer": "B", "explanation": "$200,000/$80,000=2.5 years."},
-      {"q": "Why is NPV preferred over simple payback for value-creation decisions?", "choices": {"A": "NPV ignores cash flows", "B": "NPV incorporates time value of money", "C": "NPV is always positive", "D": "NPV ignores required return"}, "answer": "B", "explanation": "NPV discounts future cash flows using the required return."}
-    ]
+      {
+        "q": "Ignoring discounting, what is simple payback?",
+        "choices": {
+          "A": "2.0 years",
+          "B": "3.0 years",
+          "C": "2.5 years",
+          "D": "3.5 years"
+        },
+        "answer": "C",
+        "explanation": "$200,000/$80,000=2.5 years.",
+        "skills": [
+          "Payback and discounted payback"
+        ],
+        "calculation": "200000/80000=2.5",
+        "numeric_check": {
+          "expression": "200000/80000",
+          "choice_values": {
+            "A": 2,
+            "B": 3,
+            "C": 2.5,
+            "D": 3.5
+          },
+          "tolerance": 0.05
+        }
+      },
+      {
+        "q": "Why is NPV preferred over simple payback for value-creation decisions?",
+        "choices": {
+          "A": "NPV excludes cash flows after the payback date",
+          "B": "NPV measures accounting income rather than cash flows",
+          "C": "NPV uses no required-return assumption",
+          "D": "NPV considers the time value of money and all modeled project cash flows"
+        },
+        "answer": "D",
+        "explanation": "NPV discounts all relevant project cash flows at an appropriate required return. Simple payback neither discounts cash flows nor measures benefits received after recovery of the initial investment.",
+        "skills": [
+          "Net present value"
+        ]
+      }
+    ],
+    "content_revision": "2026-09-30",
+    "difficulty": "Medium"
   },
   {
     "id": "CASE-003",
     "part": "Part 1",
-    "domain": "Planning, Budgeting, and Forecasting",
+    "domain": "Performance Management",
     "title": "Flexible Budget Review",
     "scenario": "A service company prepared a monthly static budget for 10,000 service hours. Budgeted variable operating costs are $18 per hour and budgeted fixed operating costs are $90,000. Actual activity was 12,000 hours and actual operating costs were $315,000.",
     "questions": [
-      {"q": "What is the flexible-budget operating cost for 12,000 hours?", "choices": {"A": "$270,000", "B": "$306,000", "C": "$315,000", "D": "$336,000"}, "answer": "B", "explanation": "Flexible budget = ($18 × 12,000) + $90,000 = $306,000."},
-      {"q": "Compared with the flexible budget, actual operating costs produced what variance?", "choices": {"A": "$9,000 favorable", "B": "$9,000 unfavorable", "C": "$36,000 favorable", "D": "$36,000 unfavorable"}, "answer": "B", "explanation": "Actual $315,000 minus flexible budget $306,000 equals a $9,000 unfavorable variance."}
-    ]
+      {
+        "q": "What is the flexible-budget operating cost for 12,000 hours?",
+        "choices": {
+          "A": "$270,000",
+          "B": "$306,000",
+          "C": "$315,000",
+          "D": "$336,000"
+        },
+        "answer": "B",
+        "explanation": "Flexible budget = ($18 × 12,000) + $90,000 = $306,000.",
+        "skills": [
+          "Flexible budget performance"
+        ],
+        "calculation": "18*12000+90000=306000",
+        "numeric_check": {
+          "expression": "18*12000+90000",
+          "choice_values": {
+            "A": 270000,
+            "B": 306000,
+            "C": 315000,
+            "D": 336000
+          },
+          "tolerance": 0.5
+        }
+      },
+      {
+        "q": "Compared with the flexible budget, actual operating costs produced what variance?",
+        "choices": {
+          "A": "$9,000 favorable",
+          "B": "$36,000 favorable",
+          "C": "$9,000 unfavorable",
+          "D": "$36,000 unfavorable"
+        },
+        "answer": "C",
+        "explanation": "Actual $315,000 minus flexible budget $306,000 equals a $9,000 unfavorable variance.",
+        "skills": [
+          "Flexible budget performance"
+        ],
+        "calculation": "315000-(18*12000+90000)=9000",
+        "numeric_check": {
+          "expression": "315000-(18*12000+90000)",
+          "choice_values": {
+            "A": 9000,
+            "B": 36000,
+            "C": 9000,
+            "D": 36000
+          },
+          "tolerance": 0.5,
+          "positive_label": "unfavorable",
+          "negative_label": "favorable",
+          "choice_directions": {
+            "A": "favorable",
+            "B": "favorable",
+            "C": "unfavorable",
+            "D": "unfavorable"
+          },
+          "absolute": true
+        }
+      }
+    ],
+    "content_revision": "2026-09-30",
+    "difficulty": "Medium"
   },
   {
     "id": "CASE-004",
@@ -39,8 +187,58 @@
     "title": "Special Order Decision",
     "scenario": "A company has unused production capacity. A customer offers to buy 4,000 units for $42 each. Variable manufacturing cost is $27 per unit, and the special order would add $3 per unit of shipping cost. No fixed costs would change, and accepting the order would not reduce normal sales.",
     "questions": [
-      {"q": "What is the incremental contribution per special-order unit?", "choices": {"A": "$9", "B": "$12", "C": "$15", "D": "$18"}, "answer": "B", "explanation": "Incremental revenue $42 less variable manufacturing $27 and shipping $3 equals $12 per unit."},
-      {"q": "What is the total incremental operating income from accepting the order?", "choices": {"A": "$36,000", "B": "$48,000", "C": "$60,000", "D": "$72,000"}, "answer": "B", "explanation": "$12 incremental contribution × 4,000 units = $48,000."}
-    ]
+      {
+        "q": "What is the incremental contribution per special-order unit?",
+        "choices": {
+          "A": "$9",
+          "B": "$15",
+          "C": "$12",
+          "D": "$18"
+        },
+        "answer": "C",
+        "explanation": "Incremental revenue $42 less variable manufacturing $27 and shipping $3 equals $12 per unit.",
+        "skills": [
+          "Special orders"
+        ],
+        "calculation": "42-27-3=12",
+        "numeric_check": {
+          "expression": "42-27-3",
+          "choice_values": {
+            "A": 9,
+            "B": 15,
+            "C": 12,
+            "D": 18
+          },
+          "tolerance": 0.5
+        }
+      },
+      {
+        "q": "What is the total incremental operating income from accepting the order?",
+        "choices": {
+          "A": "$36,000",
+          "B": "$60,000",
+          "C": "$72,000",
+          "D": "$48,000"
+        },
+        "answer": "D",
+        "explanation": "$12 incremental contribution × 4,000 units = $48,000.",
+        "skills": [
+          "Special orders"
+        ],
+        "calculation": "(42-27-3)*4000=48000",
+        "numeric_check": {
+          "expression": "(42-27-3)*4000",
+          "choice_values": {
+            "A": 36000,
+            "B": 60000,
+            "C": 72000,
+            "D": 48000
+          },
+          "tolerance": 0.5
+        }
+      }
+    ],
+    "content_revision": "2026-09-30",
+    "difficulty": "Medium"
   }
 ]

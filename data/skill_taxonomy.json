@@ -1,0 +1,139 @@
+{
+  "External Financial Reporting Decisions": [
+    "Financial statements",
+    "Consolidated statements",
+    "Integrated reporting",
+    "Asset valuation",
+    "Liability valuation",
+    "Revenue recognition",
+    "Income measurement",
+    "GAAP vs. IFRS",
+    "Equity transactions",
+    "Accounting information quality",
+    "Deferred tax and lease measurement"
+  ],
+  "Planning, Budgeting, and Forecasting": [
+    "Strategic planning",
+    "Budgeting concepts",
+    "Forecasting techniques",
+    "Master budgeting",
+    "Project budgeting",
+    "Flexible budgeting",
+    "Budget variance analysis",
+    "Pro forma and cash projections",
+    "Learning curve applications"
+  ],
+  "Performance Management": [
+    "Flexible budget performance",
+    "Standard cost and variances",
+    "Responsibility centers",
+    "Transfer pricing",
+    "Segment performance",
+    "ROI and residual income",
+    "Balanced scorecard",
+    "Management by exception",
+    "Advanced variance decomposition"
+  ],
+  "Cost Management": [
+    "Cost behavior and cost objects",
+    "Absorption and variable costing",
+    "Job and process costing",
+    "Activity-based costing",
+    "Overhead allocation",
+    "Joint and by-product costing",
+    "Operational efficiency",
+    "Process and quality improvement",
+    "Life-cycle costing",
+    "Equivalent unit calculations",
+    "Service department allocation"
+  ],
+  "Internal Controls": [
+    "COSO and control environment",
+    "Risk assessment",
+    "Control activities",
+    "Internal audit",
+    "IT general controls",
+    "Application and transaction controls",
+    "Business continuity and recovery",
+    "Fraud and compliance",
+    "Control monitoring"
+  ],
+  "Technology and Analytics": [
+    "Data governance and management",
+    "Information systems and ERP",
+    "Data visualization",
+    "Descriptive analytics",
+    "Diagnostic analytics",
+    "Predictive analytics",
+    "Prescriptive analytics",
+    "Technology risk and data ethics",
+    "Data preparation and ETL",
+    "Finance automation and interfaces",
+    "Model evaluation"
+  ],
+  "Financial Statement Analysis": [
+    "Financial ratios",
+    "Profitability analysis",
+    "Liquidity and solvency",
+    "Activity ratios",
+    "Common-size and trend analysis",
+    "Cash flow analysis",
+    "Earnings quality",
+    "Financial statement effects"
+  ],
+  "Corporate Finance": [
+    "Risk and return",
+    "Cost of capital",
+    "Capital structure",
+    "Working capital management",
+    "Dividend policy",
+    "Financing decisions",
+    "Foreign exchange",
+    "Financial markets",
+    "Security valuation",
+    "Credit and hedging decisions"
+  ],
+  "Business Decision Analysis": [
+    "Relevant costs and revenues",
+    "Sunk and opportunity costs",
+    "Special orders",
+    "Make-or-buy",
+    "Product mix and constraints",
+    "Keep-or-drop decisions",
+    "Cost-volume-profit",
+    "Pricing decisions"
+  ],
+  "Enterprise Risk Management": [
+    "ERM framework",
+    "Risk identification",
+    "Risk assessment and response",
+    "Strategic and operational risk",
+    "Financial risk",
+    "Reputation and compliance risk",
+    "Risk monitoring",
+    "Scenario and sensitivity analysis"
+  ],
+  "Capital Investment Decisions": [
+    "Time value of money",
+    "Net present value",
+    "Internal rate of return",
+    "Payback and discounted payback",
+    "Profitability index",
+    "Cash flow estimation",
+    "Capital rationing",
+    "Project risk and sensitivity",
+    "DCF project calculations"
+  ],
+  "Professional Ethics": [
+    "IMA ethical principles",
+    "Integrity and credibility",
+    "Conflict of interest",
+    "Confidentiality and data protection",
+    "Fraudulent or misleading reporting",
+    "Ethical decision resolution",
+    "Independence and objectivity",
+    "Legal and regulatory compliance",
+    "Professional competence",
+    "Ethical case resolution"
+  ]
+}
