@@ -40,7 +40,7 @@ def arithmetic(expression):
         raise ValueError("Only arithmetic literals are permitted")
     if not isinstance(expression, str) or len(expression) > 500:
         raise ValueError("Invalid expression")
-    value = visit(ast.parse(expression, mode="eval").body)
+    value = visit(ast.parse(expression.strip(), mode="eval").body)
     if isinstance(value, complex) or not math.isfinite(value):
         raise ValueError("Nonfinite arithmetic result")
     return value
@@ -115,7 +115,7 @@ def validate_question(q):
     choices = q.get("choices", {})
     require(set(choices) == set("ABCD"), "requires four labeled choices")
     require(all(isinstance(v, str) and v.strip() for v in choices.values()), "empty choice")
-    require(len({stem_key(str(v)) for v in choices.values()}) == 4, "duplicate choice text")
+    require(len({" ".join(str(v).lower().replace("−", "-").split()) for v in choices.values()}) == 4, "duplicate choice text")
     require(q.get("answer") in choices, "invalid answer key")
     skills = q.get("skills", [])
     require(bool(skills) and len(skills) == len(set(skills)), "missing/duplicate explicit skills")

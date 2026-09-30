@@ -50,6 +50,11 @@ class BankIntegrityTests(unittest.TestCase):
         q["calculation"] = "520000/400000=9"
         self.assertTrue(validate_question(q))
 
+    def test_operator_distinctions_and_whitespace_are_valid(self):
+        self.assertEqual(arithmetic(" 2 + 3 "), 5)
+        for qid in ("V3-2-08-022", "P1X-021"):
+            self.assertEqual(validate_question(self.by_id[qid]), [])
+
     def test_editorial_changes_require_a_fresh_review(self):
         changed = copy.deepcopy(self.questions)
         changed[0]["explanation"] += " Changed."
@@ -75,6 +80,8 @@ class BankIntegrityTests(unittest.TestCase):
         q["explanation"] += " Related topics include balanced scorecard and transfer pricing."
         self.assertEqual(adaptive.skill_labels_for_question(q), ["Standard cost and variances"])
         self.assertEqual(adaptive._concept_labels(q), {"Standard cost and variances"})
+        other = dict(q, skills=["Balanced scorecard"])
+        self.assertEqual(adaptive._concept_similarity(q, other), 0.0)
 
     def test_coverage_exposes_missing_skills_and_case_mapping_is_valid(self):
         rows = {r["domain"]: r for r in coverage(self.questions)}

@@ -205,7 +205,7 @@ def learning_feedback(question_id,selected,confidence):
 
 
 def learning_snapshot(domain="All"):
-    c=db(); where="" if domain=="All" else "WHERE domain=?"; args=() if domain=="All" else (domain,); rows=c.execute(f"SELECT question_id,correct,confidence,domain FROM attempts {where} ORDER BY id DESC LIMIT 50",args).fetchall(); weak=[]; fragile=[]
+    c=db(); where="WHERE bank_revision=?" if domain=="All" else "WHERE bank_revision=? AND domain=?"; args=(REVISION,) if domain=="All" else (REVISION,domain); rows=c.execute(f"SELECT question_id,correct,confidence,domain FROM attempts {where} ORDER BY id DESC LIMIT 50",args).fetchall(); weak=[]; fragile=[]
     for d in domains("Both"):
         drows=[r for r in rows if r["domain"]==d]
         if not drows:continue

@@ -126,8 +126,8 @@ def _concept_labels(q):
 
 
 def _concept_similarity(source, candidate):
-    a = _concept_tokens(source)
-    b = _concept_tokens(candidate)
+    a = _concept_labels(source)
+    b = _concept_labels(candidate)
     if not a or not b:
         return 0.0
     return len(a & b) / max(1, min(len(a), len(b)))
