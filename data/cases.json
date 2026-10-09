@@ -240,5 +240,565 @@
     ],
     "content_revision": "2026-09-30",
     "difficulty": "Medium"
+  },
+  {
+    "id": "PART1-B-1",
+    "part": "Part 1",
+    "domain": "Planning, Budgeting, and Forecasting",
+    "title": "Flexible budget vs. static budget",
+    "scenario": "A manufacturer budgeted 10,000 units but produced and sold 9,000. Static cost budget $500,000: $30 variable cost per unit plus $200,000 fixed. Actual total manufacturing cost was $460,000.",
+    "questions": [
+      {
+        "q": "What is the flexible cost budget at actual volume?",
+        "choices": {
+          "A": "$500,000",
+          "B": "$470,000",
+          "C": "$460,000",
+          "D": "$430,000"
+        },
+        "answer": "B",
+        "explanation": "$30 × 9,000 + $200,000 = $470,000.",
+        "skills": [
+          "Flexible budgeting"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      },
+      {
+        "q": "What is the flexible-budget cost variance?",
+        "choices": {
+          "A": "$40,000 favorable",
+          "B": "$30,000 favorable",
+          "C": "$10,000 unfavorable",
+          "D": "$10,000 favorable"
+        },
+        "answer": "D",
+        "explanation": "$470,000 flexible cost less $460,000 actual cost = $10,000 favorable.",
+        "skills": [
+          "Budget variance analysis"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      }
+    ],
+    "content_revision": "2026-09-30",
+    "source": "cma-part1-case-based-questions.md",
+    "difficulty": "Medium"
+  },
+  {
+    "id": "PART1-B-2",
+    "part": "Part 1",
+    "domain": "Planning, Budgeting, and Forecasting",
+    "title": "Master Budget and Sales Forecast",
+    "scenario": "A manufacturer plans to sell 12,000 units next quarter at $50 each. Beginning finished goods inventory is 1,500 units and management wants ending finished goods inventory of 2,000 units. Variable manufacturing cost is $28 per unit; quarterly fixed manufacturing costs are $90,000.",
+    "questions": [
+      {
+        "q": "What is budgeted production in units?",
+        "choices": {
+          "A": "11,500 units",
+          "B": "12,000 units",
+          "C": "12,500 units",
+          "D": "14,000 units"
+        },
+        "answer": "C",
+        "explanation": "Budgeted production = sales 12,000 + desired ending inventory 2,000 − beginning inventory 1,500 = 12,500 units.",
+        "skills": [
+          "Master budgeting"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      },
+      {
+        "q": "What is budgeted manufacturing cost for the quarter?",
+        "choices": {
+          "A": "$350,000",
+          "B": "$440,000",
+          "C": "$426,000",
+          "D": "$390,000"
+        },
+        "answer": "B",
+        "explanation": "Variable manufacturing cost is 12,500 units × $28 = $350,000. Add fixed manufacturing costs of $90,000 for $440,000 total.",
+        "skills": [
+          "Master budgeting"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      }
+    ],
+    "content_revision": "2026-09-30",
+    "source": "cma-part1-case-based-questions.md",
+    "difficulty": "Medium"
+  },
+  {
+    "id": "PART1-C-1",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "title": "Direct material and labor variances",
+    "scenario": "Standards: direct material 3 lb per unit at $5/lb; direct labor 2 hours per unit at $20/hour. Actual output 4,000 units; purchased 13,000 lb at $4.80; used 12,500 lb; labor 8,200 hours at $20.50.",
+    "questions": [
+      {
+        "q": "What is the materials purchase-price variance?",
+        "choices": {
+          "A": "$2,500 unfavorable",
+          "B": "$2,600 favorable",
+          "C": "$2,600 unfavorable",
+          "D": "$2,500 favorable"
+        },
+        "answer": "B",
+        "explanation": "($4.80 − $5) × 13,000 lb purchased = $2,600 favorable.",
+        "skills": [
+          "Standard cost and variances"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      },
+      {
+        "q": "What is the materials usage variance?",
+        "choices": {
+          "A": "$2,500 unfavorable",
+          "B": "$2,600 favorable",
+          "C": "$4,000 unfavorable",
+          "D": "$2,500 favorable"
+        },
+        "answer": "A",
+        "explanation": "(12,500 used − 4,000 × 3 allowed) × $5 = $2,500 unfavorable.",
+        "skills": [
+          "Standard cost and variances"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      },
+      {
+        "q": "What is the labor rate variance?",
+        "choices": {
+          "A": "$4,000 unfavorable",
+          "B": "$4,100 favorable",
+          "C": "$4,100 unfavorable",
+          "D": "$2,500 unfavorable"
+        },
+        "answer": "C",
+        "explanation": "($20.50 − $20) × 8,200 = $4,100 unfavorable.",
+        "skills": [
+          "Standard cost and variances"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      },
+      {
+        "q": "What is the labor efficiency variance?",
+        "choices": {
+          "A": "$4,000 unfavorable",
+          "B": "$4,100 unfavorable",
+          "C": "$4,000 favorable",
+          "D": "$2,500 unfavorable"
+        },
+        "answer": "A",
+        "explanation": "(8,200 − 8,000 allowed hours) × $20 = $4,000 unfavorable.",
+        "skills": [
+          "Standard cost and variances"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      }
+    ],
+    "content_revision": "2026-09-30",
+    "source": "cma-part1-case-based-questions.md",
+    "difficulty": "Medium"
+  },
+  {
+    "id": "PART1-C-2",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "title": "ROI vs. residual income",
+    "scenario": "Division X has operating income $900,000 and average operating assets $5,000,000. Hurdle rate 12%. A new project costs $1,000,000 and earns annual operating income $150,000.",
+    "questions": [
+      {
+        "q": "What are the division's current ROI and residual income?",
+        "choices": {
+          "A": "12% and $300,000",
+          "B": "18% and $300,000",
+          "C": "18% and $900,000",
+          "D": "15% and $150,000"
+        },
+        "answer": "B",
+        "explanation": "ROI $900,000/$5,000,000 = 18%; RI $900,000 − 12% × $5,000,000 = $300,000.",
+        "skills": [
+          "ROI and residual income"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      },
+      {
+        "q": "Which decision best aligns with corporate value creation?",
+        "choices": {
+          "A": "Reject because project ROI is below current divisional ROI",
+          "B": "Reject because residual income is negative",
+          "C": "Accept because project ROI exceeds 12% and adds $30,000 residual income",
+          "D": "Accept only if project ROI exceeds 18%"
+        },
+        "answer": "C",
+        "explanation": "Project ROI is 15% and project RI is $150,000 − 12% × $1,000,000 = $30,000. Accepting increases value.",
+        "skills": [
+          "ROI and residual income"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      }
+    ],
+    "content_revision": "2026-09-30",
+    "source": "cma-part1-case-based-questions.md",
+    "difficulty": "Medium"
+  },
+  {
+    "id": "PART1-D-1",
+    "part": "Part 1",
+    "domain": "Cost Management",
+    "title": "Traditional costing vs. ABC",
+    "scenario": "Total overhead $900,000 allocated traditionally over 50,000 direct labor hours: Product H uses 40,000, L uses 10,000. ABC pools: setups $300,000 (H 20, L 130); machining $400,000 (H 35,000 hours, L 5,000); engineering $200,000 (H 100 hours, L 900).",
+    "questions": [
+      {
+        "q": "How much traditional overhead is assigned to Product H?",
+        "choices": {
+          "A": "$410,000",
+          "B": "$490,000",
+          "C": "$720,000",
+          "D": "$180,000"
+        },
+        "answer": "C",
+        "explanation": "Rate $900,000/50,000 = $18/DLH; H = 40,000 × $18 = $720,000.",
+        "skills": [
+          "Overhead allocation"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      },
+      {
+        "q": "How much ABC overhead is assigned to Product H?",
+        "choices": {
+          "A": "$410,000",
+          "B": "$720,000",
+          "C": "$490,000",
+          "D": "$310,000"
+        },
+        "answer": "A",
+        "explanation": "Setups $40,000 + machining $350,000 + engineering $20,000 = $410,000.",
+        "skills": [
+          "Activity-based costing"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      }
+    ],
+    "content_revision": "2026-09-30",
+    "source": "cma-part1-case-based-questions.md",
+    "difficulty": "Medium"
+  },
+  {
+    "id": "PART1-D-2",
+    "part": "Part 1",
+    "domain": "Cost Management",
+    "title": "Joint costs and further processing",
+    "scenario": "Joint cost $240,000 produces X (8,000 units at $25 split-off price) and Y (4,000 units at $30 split-off price, or $45 after further processing at $8/unit).",
+    "questions": [
+      {
+        "q": "Using sales value at split-off, how much joint cost is allocated to X?",
+        "choices": {
+          "A": "$90,000",
+          "B": "$120,000",
+          "C": "$150,000",
+          "D": "$200,000"
+        },
+        "answer": "C",
+        "explanation": "X split-off sales $200,000 / total $320,000 × $240,000 = $150,000.",
+        "skills": [
+          "Joint and by-product costing"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      },
+      {
+        "q": "What is the incremental profit from further processing Y?",
+        "choices": {
+          "A": "$28,000",
+          "B": "$60,000",
+          "C": "$32,000",
+          "D": "$0"
+        },
+        "answer": "A",
+        "explanation": "4,000 × ($45 − $30 − $8) = $28,000. Joint costs are irrelevant to this decision.",
+        "skills": [
+          "Joint and by-product costing"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      }
+    ],
+    "content_revision": "2026-09-30",
+    "source": "cma-part1-case-based-questions.md",
+    "difficulty": "Medium"
+  },
+  {
+    "id": "PART1-A-1",
+    "part": "Part 1",
+    "domain": "External Financial Reporting Decisions",
+    "title": "US GAAP to IFRS conversion",
+    "scenario": "A US manufacturer is converting to IFRS. Its inventory uses LIFO with a $2 million LIFO reserve; a $3 million inventory write-down has recovered $1 million; $5 million development costs meet IFRS capitalization criteria.",
+    "questions": [
+      {
+        "q": "Which inventory method is prohibited under IFRS?",
+        "choices": {
+          "A": "FIFO",
+          "B": "Weighted average",
+          "C": "Specific identification",
+          "D": "LIFO"
+        },
+        "answer": "D",
+        "explanation": "IFRS prohibits LIFO. The LIFO reserve indicates the adjustment between LIFO and a non-LIFO basis, subject to conversion specifics.",
+        "skills": [
+          "GAAP vs. IFRS"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      },
+      {
+        "q": "What is the permitted IFRS treatment of a qualifying inventory write-down recovery?",
+        "choices": {
+          "A": "Never reverse a write-down",
+          "B": "Reverse the recovered amount up to the original write-down",
+          "C": "Recognize the recovery only upon sale",
+          "D": "Capitalize it as goodwill"
+        },
+        "answer": "B",
+        "explanation": "IAS 2 allows reversal when the reasons for a prior write-down no longer exist, limited to the original write-down.",
+        "skills": [
+          "Asset valuation"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      }
+    ],
+    "content_revision": "2026-09-30",
+    "source": "cma-part1-case-based-questions.md",
+    "difficulty": "Medium"
+  },
+  {
+    "id": "PART1-A-2",
+    "part": "Part 1",
+    "domain": "External Financial Reporting Decisions",
+    "title": "ASC 606 allocation",
+    "scenario": "Software contract price $1.2 million, including a distinct license delivered at signing and distinct implementation services over six months. Standalone prices: license $1,000,000; services $250,000. Cash received at signing.",
+    "questions": [
+      {
+        "q": "What transaction price is allocated to the license?",
+        "choices": {
+          "A": "$900,000",
+          "B": "$1,000,000",
+          "C": "$960,000",
+          "D": "$240,000"
+        },
+        "answer": "C",
+        "explanation": "$1.2 million × ($1 million/$1.25 million) = $960,000, assuming the distinct license transfers at signing.",
+        "skills": [
+          "Revenue recognition"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      },
+      {
+        "q": "How much service revenue is recognized per month over six months?",
+        "choices": {
+          "A": "$40,000",
+          "B": "$50,000",
+          "C": "$60,000",
+          "D": "$240,000"
+        },
+        "answer": "A",
+        "explanation": "Allocated services price $240,000 / 6 months = $40,000 monthly.",
+        "skills": [
+          "Revenue recognition"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      }
+    ],
+    "content_revision": "2026-09-30",
+    "source": "cma-part1-case-based-questions.md",
+    "difficulty": "Medium"
+  },
+  {
+    "id": "PART1-E-1",
+    "part": "Part 1",
+    "domain": "Internal Controls",
+    "title": "Control deficiencies at a manufacturer",
+    "scenario": "A 40-person manufacturer has one bookkeeper who signs checks under $5,000, posts to the ledger, and reconciles the bank. Warehouse staff count inventory without independent recount. Purchases below $5,000 receive no review.",
+    "questions": [
+      {
+        "q": "Which is the clearest segregation-of-duties deficiency?",
+        "choices": {
+          "A": "Warehouse counts are annual",
+          "B": "Bookkeeper signs checks, records transactions, and reconciles bank",
+          "C": "Owner approves purchases over $5,000",
+          "D": "Company has 40 employees"
+        },
+        "answer": "B",
+        "explanation": "Combining cash authorization/custody, recordkeeping, and reconciliation undermines independent control.",
+        "skills": [
+          "Control activities"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      },
+      {
+        "q": "Which improvement best addresses cash disbursement risk?",
+        "choices": {
+          "A": "Have the bookkeeper also approve all vendors",
+          "B": "Stop all purchases under $5,000",
+          "C": "Remove bank reconciliation entirely",
+          "D": "Have an independent person review reconciliations and approve disbursements"
+        },
+        "answer": "D",
+        "explanation": "Independent review and authorization compensate for limited staffing and separate incompatible duties.",
+        "skills": [
+          "Control activities"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      }
+    ],
+    "content_revision": "2026-09-30",
+    "source": "cma-part1-case-based-questions.md",
+    "difficulty": "Medium"
+  },
+  {
+    "id": "PART1-E-2",
+    "part": "Part 1",
+    "domain": "Internal Controls",
+    "title": "Cash-receipts controls",
+    "scenario": "A 200-employee company with a centralized accounting department wants stronger controls over incoming payments and receivables.",
+    "questions": [
+      {
+        "q": "Which is primarily a detective cash-receipts control?",
+        "choices": {
+          "A": "Independent bank reconciliation",
+          "B": "Restrictive endorsement immediately upon receipt",
+          "C": "Lockbox payment processing",
+          "D": "Separate cash custody from posting"
+        },
+        "answer": "A",
+        "explanation": "Independent reconciliation identifies errors or irregularities after processing; the other choices are preventive.",
+        "skills": [
+          "Control activities"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      },
+      {
+        "q": "Which duties should be separated?",
+        "choices": {
+          "A": "Cash custody and recordkeeping can always be combined",
+          "B": "Only authorization and inventory counting",
+          "C": "Cash custody, accounts receivable posting, and bank reconciliation",
+          "D": "No separation is needed if an ERP is installed"
+        },
+        "answer": "C",
+        "explanation": "Separating custody, recording, and reconciliation reduces opportunity to conceal diversion of receipts.",
+        "skills": [
+          "Control activities"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      }
+    ],
+    "content_revision": "2026-09-30",
+    "source": "cma-part1-case-based-questions.md",
+    "difficulty": "Medium"
+  },
+  {
+    "id": "PART1-F-1",
+    "part": "Part 1",
+    "domain": "Technology and Analytics",
+    "title": "ERP selection and implementation",
+    "scenario": "A distributor is replacing disconnected accounting, inventory, and sales systems with an ERP. Implementation quotes range from $800,000 to $1.5 million over 18 months.",
+    "questions": [
+      {
+        "q": "Which implementation approach reduces disruption by rolling out one module or site first?",
+        "choices": {
+          "A": "Big-bang cutover",
+          "B": "Phased or pilot conversion",
+          "C": "Uncontrolled parallel processing",
+          "D": "Skip user acceptance testing"
+        },
+        "answer": "B",
+        "explanation": "Phased rollout allows stabilization and learning before broader deployment, though the right approach depends on dependencies.",
+        "skills": [
+          "Information systems and ERP"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      },
+      {
+        "q": "What should the controller own during ERP implementation?",
+        "choices": {
+          "A": "Only writing software code",
+          "B": "Only hardware procurement",
+          "C": "Only vendor marketing",
+          "D": "Financial requirements, embedded controls, data quality, and user acceptance testing"
+        },
+        "answer": "D",
+        "explanation": "Finance owns the control and data-quality outcomes, not necessarily the software code.",
+        "skills": [
+          "Information systems and ERP"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      }
+    ],
+    "content_revision": "2026-09-30",
+    "source": "cma-part1-case-based-questions.md",
+    "difficulty": "Medium"
+  },
+  {
+    "id": "PART1-F-2",
+    "part": "Part 1",
+    "domain": "Technology and Analytics",
+    "title": "Building analytics maturity",
+    "scenario": "A retail chain has monthly descriptive sales reports and wants to reduce stockouts and markdowns through more advanced analytics.",
+    "questions": [
+      {
+        "q": "Which analytics type recommends reorder quantities to optimize costs?",
+        "choices": {
+          "A": "Descriptive",
+          "B": "Diagnostic",
+          "C": "Predictive",
+          "D": "Prescriptive"
+        },
+        "answer": "D",
+        "explanation": "Prescriptive analytics recommends decisions or actions subject to objectives and constraints.",
+        "skills": [
+          "Prescriptive analytics"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      },
+      {
+        "q": "Which analytics type forecasts SKU-store demand using history and seasonality?",
+        "choices": {
+          "A": "Predictive",
+          "B": "Prescriptive",
+          "C": "Diagnostic",
+          "D": "Descriptive"
+        },
+        "answer": "A",
+        "explanation": "Predictive analytics forecasts likely future outcomes.",
+        "skills": [
+          "Predictive analytics"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      }
+    ],
+    "content_revision": "2026-09-30",
+    "source": "cma-part1-case-based-questions.md",
+    "difficulty": "Medium"
   }
 ]
