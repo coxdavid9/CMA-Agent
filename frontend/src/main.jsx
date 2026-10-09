@@ -6,7 +6,7 @@ const p1=['External Financial Reporting Decisions','Planning, Budgeting, and For
 const p2=['Financial Statement Analysis','Corporate Finance','Business Decision Analysis','Enterprise Risk Management','Capital Investment Decisions','Professional Ethics'];
 const PREF_KEY='cma-coach-preferences-v2';
 const QUESTION_KEY='cma-coach-current-question-reviewed-2026-09-30';
-const api=(path,opts={})=>fetch(path,{headers:{'Content-Type':'application/json'},...opts}).then(async r=>{const d=await r.json();if(!r.ok)throw new Error(d.detail||'Request failed');return d});
+const api=(path,opts={})=>fetch(path,{headers:{'Content-Type':'application/json'},...opts}).then(async r=>{const body=await r.text();let d=null;try{d=body?JSON.parse(body):null;}catch{/* Handle non-JSON server errors. */}if(!r.ok)throw new Error((d&&typeof d.detail==='string'&&d.detail)||`Request failed (${r.status}) — please try again.`);return d;});
 const readLocal=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}};
 const writeLocal=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value))}catch{}};
 
