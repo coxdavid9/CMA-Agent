@@ -260,7 +260,9 @@
         "explanation": "$30 × 9,000 + $200,000 = $470,000.",
         "skills": [
           "Flexible budgeting"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       },
       {
         "q": "What is the flexible-budget cost variance?",
@@ -274,10 +276,12 @@
         "explanation": "$470,000 flexible cost less $460,000 actual cost = $10,000 favorable.",
         "skills": [
           "Budget variance analysis"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       }
     ],
-    "content_revision": "2026-10-08",
+    "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
     "difficulty": "Medium"
   },
@@ -285,25 +289,43 @@
     "id": "PART1-B-2",
     "part": "Part 1",
     "domain": "Planning, Budgeting, and Forecasting",
-    "title": "Special order with idle capacity",
-    "scenario": "A manufacturer has idle capacity and considers a special order for 2,000 units at $38 per unit. Normal price $55, variable cost $32 per unit. Fixed costs of $400,000 will not change.",
+    "title": "Master Budget and Sales Forecast",
+    "scenario": "A manufacturer plans to sell 12,000 units next quarter at $50 each. Beginning finished goods inventory is 1,500 units and management wants ending finished goods inventory of 2,000 units. Variable manufacturing cost is $28 per unit; quarterly fixed manufacturing costs are $90,000.",
     "questions": [
       {
-        "q": "What is the incremental contribution from the special order?",
+        "q": "What is budgeted production in units?",
         "choices": {
-          "A": "$12,000",
-          "B": "$46,000",
-          "C": "$76,000",
-          "D": "$0"
+          "A": "11,500 units",
+          "B": "12,000 units",
+          "C": "12,500 units",
+          "D": "14,000 units"
         },
-        "answer": "A",
-        "explanation": "($38 − $32) × 2,000 = $12,000 positive contribution. The fixed costs do not change.",
+        "answer": "C",
+        "explanation": "Budgeted production = sales 12,000 + desired ending inventory 2,000 − beginning inventory 1,500 = 12,500 units.",
         "skills": [
-          "Budgeting concepts"
-        ]
+          "Master budgeting"
+        ],
+        "calculation": null,
+        "numeric_check": null
+      },
+      {
+        "q": "What is budgeted manufacturing cost for the quarter?",
+        "choices": {
+          "A": "$350,000",
+          "B": "$440,000",
+          "C": "$426,000",
+          "D": "$390,000"
+        },
+        "answer": "B",
+        "explanation": "Variable manufacturing cost is 12,500 units × $28 = $350,000. Add fixed manufacturing costs of $90,000 for $440,000 total.",
+        "skills": [
+          "Master budgeting"
+        ],
+        "calculation": null,
+        "numeric_check": null
       }
     ],
-    "content_revision": "2026-10-08",
+    "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
     "difficulty": "Medium"
   },
@@ -326,7 +348,9 @@
         "explanation": "($4.80 − $5) × 13,000 lb purchased = $2,600 favorable.",
         "skills": [
           "Standard cost and variances"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       },
       {
         "q": "What is the materials usage variance?",
@@ -340,7 +364,9 @@
         "explanation": "(12,500 used − 4,000 × 3 allowed) × $5 = $2,500 unfavorable.",
         "skills": [
           "Standard cost and variances"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       },
       {
         "q": "What is the labor rate variance?",
@@ -354,7 +380,9 @@
         "explanation": "($20.50 − $20) × 8,200 = $4,100 unfavorable.",
         "skills": [
           "Standard cost and variances"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       },
       {
         "q": "What is the labor efficiency variance?",
@@ -368,10 +396,12 @@
         "explanation": "(8,200 − 8,000 allowed hours) × $20 = $4,000 unfavorable.",
         "skills": [
           "Standard cost and variances"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       }
     ],
-    "content_revision": "2026-10-08",
+    "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
     "difficulty": "Medium"
   },
@@ -394,7 +424,9 @@
         "explanation": "ROI $900,000/$5,000,000 = 18%; RI $900,000 − 12% × $5,000,000 = $300,000.",
         "skills": [
           "ROI and residual income"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       },
       {
         "q": "Which decision best aligns with corporate value creation?",
@@ -408,10 +440,12 @@
         "explanation": "Project ROI is 15% and project RI is $150,000 − 12% × $1,000,000 = $30,000. Accepting increases value.",
         "skills": [
           "ROI and residual income"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       }
     ],
-    "content_revision": "2026-10-08",
+    "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
     "difficulty": "Medium"
   },
@@ -434,7 +468,9 @@
         "explanation": "Rate $900,000/50,000 = $18/DLH; H = 40,000 × $18 = $720,000.",
         "skills": [
           "Overhead allocation"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       },
       {
         "q": "How much ABC overhead is assigned to Product H?",
@@ -448,10 +484,12 @@
         "explanation": "Setups $40,000 + machining $350,000 + engineering $20,000 = $410,000.",
         "skills": [
           "Activity-based costing"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       }
     ],
-    "content_revision": "2026-10-08",
+    "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
     "difficulty": "Medium"
   },
@@ -474,7 +512,9 @@
         "explanation": "X split-off sales $200,000 / total $320,000 × $240,000 = $150,000.",
         "skills": [
           "Joint and by-product costing"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       },
       {
         "q": "What is the incremental profit from further processing Y?",
@@ -488,10 +528,12 @@
         "explanation": "4,000 × ($45 − $30 − $8) = $28,000. Joint costs are irrelevant to this decision.",
         "skills": [
           "Joint and by-product costing"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       }
     ],
-    "content_revision": "2026-10-08",
+    "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
     "difficulty": "Medium"
   },
@@ -514,7 +556,9 @@
         "explanation": "IFRS prohibits LIFO. The LIFO reserve indicates the adjustment between LIFO and a non-LIFO basis, subject to conversion specifics.",
         "skills": [
           "GAAP vs. IFRS"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       },
       {
         "q": "What is the permitted IFRS treatment of a qualifying inventory write-down recovery?",
@@ -528,10 +572,12 @@
         "explanation": "IAS 2 allows reversal when the reasons for a prior write-down no longer exist, limited to the original write-down.",
         "skills": [
           "Asset valuation"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       }
     ],
-    "content_revision": "2026-10-08",
+    "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
     "difficulty": "Medium"
   },
@@ -554,7 +600,9 @@
         "explanation": "$1.2 million × ($1 million/$1.25 million) = $960,000, assuming the distinct license transfers at signing.",
         "skills": [
           "Revenue recognition"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       },
       {
         "q": "How much service revenue is recognized per month over six months?",
@@ -568,10 +616,12 @@
         "explanation": "Allocated services price $240,000 / 6 months = $40,000 monthly.",
         "skills": [
           "Revenue recognition"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       }
     ],
-    "content_revision": "2026-10-08",
+    "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
     "difficulty": "Medium"
   },
@@ -594,7 +644,9 @@
         "explanation": "Combining cash authorization/custody, recordkeeping, and reconciliation undermines independent control.",
         "skills": [
           "Control activities"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       },
       {
         "q": "Which improvement best addresses cash disbursement risk?",
@@ -608,10 +660,12 @@
         "explanation": "Independent review and authorization compensate for limited staffing and separate incompatible duties.",
         "skills": [
           "Control activities"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       }
     ],
-    "content_revision": "2026-10-08",
+    "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
     "difficulty": "Medium"
   },
@@ -634,7 +688,9 @@
         "explanation": "Independent reconciliation identifies errors or irregularities after processing; the other choices are preventive.",
         "skills": [
           "Control activities"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       },
       {
         "q": "Which duties should be separated?",
@@ -648,10 +704,12 @@
         "explanation": "Separating custody, recording, and reconciliation reduces opportunity to conceal diversion of receipts.",
         "skills": [
           "Control activities"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       }
     ],
-    "content_revision": "2026-10-08",
+    "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
     "difficulty": "Medium"
   },
@@ -674,7 +732,9 @@
         "explanation": "Phased rollout allows stabilization and learning before broader deployment, though the right approach depends on dependencies.",
         "skills": [
           "Information systems and ERP"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       },
       {
         "q": "What should the controller own during ERP implementation?",
@@ -688,10 +748,12 @@
         "explanation": "Finance owns the control and data-quality outcomes, not necessarily the software code.",
         "skills": [
           "Information systems and ERP"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       }
     ],
-    "content_revision": "2026-10-08",
+    "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
     "difficulty": "Medium"
   },
@@ -714,7 +776,9 @@
         "explanation": "Prescriptive analytics recommends decisions or actions subject to objectives and constraints.",
         "skills": [
           "Prescriptive analytics"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       },
       {
         "q": "Which analytics type forecasts SKU-store demand using history and seasonality?",
@@ -728,10 +792,12 @@
         "explanation": "Predictive analytics forecasts likely future outcomes.",
         "skills": [
           "Predictive analytics"
-        ]
+        ],
+        "calculation": null,
+        "numeric_check": null
       }
     ],
-    "content_revision": "2026-10-08",
+    "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
     "difficulty": "Medium"
   }
