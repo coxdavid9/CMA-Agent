@@ -15,7 +15,7 @@ def test_imported_part1_cases_have_valid_answers_and_blueprint_domains():
     cases = [c for c in CASES if c["id"].startswith("PART1-")]
     assert len(cases) == 12
     assert {c["domain"] for c in cases} == DOMAINS
-    assert sum(len(c["questions"]) for c in cases) == 25
+    assert sum(len(c["questions"]) for c in cases) == 26
     for case in cases:
         assert case["part"] == "Part 1"
         assert case["scenario"].strip()
