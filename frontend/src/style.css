@@ -35,3 +35,21 @@ nav{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:25px;
 
 
 .skill-strip{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 16px}.skill-strip span{font-size:11px;font-weight:800;padding:6px 9px;border-radius:999px;background:#eef2ff;color:#3730a3}.skill-strip .mistake{background:#fff7ed;color:#9a3412;text-transform:capitalize}.skill-priority-list{display:grid;gap:10px}.skill-priority-head{display:flex;justify-content:space-between;gap:12px;align-items:center}.skill-priority-head span{font-size:11px;font-weight:800;padding:5px 8px;border-radius:999px;background:#f2f4f7;color:#475467}
+
+/* Learning support: opt-in hints and teach-before-retest review */
+.hint-ladder{margin-top:14px;padding:20px;border:1px solid #c7d2fe;background:#f8faff;border-radius:16px}
+.hint-ladder p{color:#475467;line-height:1.5;margin:8px 0}
+.hint-step{background:#fff;border:1px solid #e0e7ff;border-radius:11px;padding:13px;margin-top:10px}
+.hint-step b{font-size:12px;color:#3730a3}
+.hint-step p{margin:6px 0 0}
+.teach-options{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.teach-options button{flex:1;min-width:135px;font-size:12px}
+.teach-options button.selected{border-color:#4f46e5;background:#eef2ff;color:#3730a3}
+.teaching-panel{background:#f8fafc;border:1px solid #e4e7ec;border-radius:12px;padding:17px;line-height:1.65}
+.teaching-panel p{margin:8px 0 0}
+.teaching-panel pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.teaching-panel ol{padding-left:20px}
+.teaching-panel small,.review-note,.support-note{color:#667085;font-size:12px}
+.teach-check{display:flex;align-items:flex-start;gap:9px;padding:15px 0;margin:10px 0 0;font-size:13px;line-height:1.4}
+.teach-check input{width:18px;height:18px;flex:none;margin:0;accent-color:#4f46e5}
+@media(max-width:600px){.hint-ladder{padding:14px}.teach-options{flex-direction:column}.teach-options button{width:100%}}
