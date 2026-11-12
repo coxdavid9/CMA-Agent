@@ -89,6 +89,7 @@ class GradeRequest(BaseModel):
     question_id: str
     selected: str
     confidence: int = 0
+    hint_level: int = 0
     session_id: Optional[str] = None
 
 
@@ -301,10 +302,12 @@ def grade_question(request: GradeRequest):
     ok, graded = grade(request.question_id, request.selected, request.confidence, request.session_id)
     adaptive.record_result(request.question_id, ok, request.confidence)
     feedback = learning_feedback(request.question_id, request.selected, request.confidence)
-    skill_feedback = skills.record_attempt(q, ok, request.confidence)
+    skill_feedback = skills.record_attempt(q, ok, request.confidence, hint_level=max(0,min(3,request.hint_level)))
     feedback["skills"] = skill_feedback["skills"]
     feedback["mistake_type"] = skill_feedback["mistake_type"]
     feedback["coaching"] = skill_feedback["coaching"]
+    feedback["hint_level"] = skill_feedback["hint_level"]
+    feedback["assisted"] = skill_feedback["assisted"]
     sid = request.session_id or get_or_start_session()
     return {"correct": bool(ok), "question": clean_question(graded), "feedback": feedback, "session": session_stats(sid)}
 
