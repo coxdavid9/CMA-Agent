@@ -31,10 +31,13 @@ def _ensure_schema(conn):
             correct INTEGER, confidence INTEGER, mistake_type TEXT, ts TEXT)""")
     if engine.DATABASE_URL:
         conn.execute("ALTER TABLE skill_attempts ADD COLUMN IF NOT EXISTS bank_revision TEXT")
+        conn.execute("ALTER TABLE skill_attempts ADD COLUMN IF NOT EXISTS hint_level INTEGER DEFAULT 0")
     else:
         columns = {r[1] for r in conn.execute("PRAGMA table_info(skill_attempts)").fetchall()}
         if "bank_revision" not in columns:
             conn.execute("ALTER TABLE skill_attempts ADD COLUMN bank_revision TEXT")
+        if "hint_level" not in columns:
+            conn.execute("ALTER TABLE skill_attempts ADD COLUMN hint_level INTEGER DEFAULT 0")
     conn.execute("CREATE INDEX IF NOT EXISTS idx_skill_attempts_skill ON skill_attempts(skill)")
     conn.execute("CREATE INDEX IF NOT EXISTS idx_skill_attempts_domain ON skill_attempts(domain)")
     conn.commit()
@@ -55,7 +58,8 @@ def diagnose(q, correct, confidence):
     return "knowledge_gap", "You were unsure and missed it. Use the short explanation, then immediately apply the same skill again."
 
 
-def record_attempt(q, correct, confidence):
+def record_attempt(q, correct, confidence, hint_level=0):
+    hint_level = max(0, min(3, int(hint_level or 0)))
     mistake_type, coaching = diagnose(q, bool(correct), confidence)
     conn = engine.db()
     _ensure_schema(conn)
@@ -63,12 +67,12 @@ def record_attempt(q, correct, confidence):
     ts = datetime.now().isoformat(timespec="seconds")
     for skill in _labels(q):
         conn.execute(
-            "INSERT INTO skill_attempts(question_id,part,domain,skill,correct,confidence,mistake_type,ts,bank_revision) VALUES(?,?,?,?,?,?,?,?,?)",
-            (q["id"], q["part"], q["domain"], skill, int(bool(correct)), int(confidence or 0), mistake_type, ts, q.get("content_revision")),
+            "INSERT INTO skill_attempts(question_id,part,domain,skill,correct,confidence,mistake_type,ts,bank_revision,hint_level) VALUES(?,?,?,?,?,?,?,?,?,?)",
+            (q["id"], q["part"], q["domain"], skill, int(bool(correct)), int(confidence or 0), mistake_type, ts, q.get("content_revision"), hint_level),
         )
     conn.commit()
     conn.close()
-    return {"skills": _labels(q), "mistake_type": mistake_type, "coaching": coaching}
+    return {"skills": _labels(q), "mistake_type": mistake_type, "coaching": coaching, "hint_level": hint_level, "assisted": hint_level > 0}
 
 
 def snapshot(part="Both", domain="All"):
@@ -82,7 +86,7 @@ def snapshot(part="Both", domain="All"):
     clause = (" WHERE " + " AND ".join(where)) if where else ""
     rows = conn.execute(
         f"""SELECT skill,domain,COUNT(*) attempts,COALESCE(SUM(correct),0) correct,
-        COALESCE(AVG(confidence),0) avg_confidence
+        COALESCE(AVG(confidence),0) avg_confidence, COALESCE(SUM(CASE WHEN hint_level>0 THEN 1 ELSE 0 END),0) assisted_attempts
         FROM skill_attempts{clause} GROUP BY skill,domain""", tuple(args)
     ).fetchall()
     conn.close()
@@ -92,12 +96,13 @@ def snapshot(part="Both", domain="All"):
         correct = int(r["correct"] or 0)
         accuracy = round(correct / attempts * 100, 1) if attempts else 0
         avg_conf = round(float(r["avg_confidence"] or 0), 1)
+        assisted = int(r["assisted_attempts"] or 0)
         # Accuracy is primary; low confidence keeps a correct skill in rotation.
         priority = (100 - accuracy) + max(0, 2.2 - avg_conf) * 12 + max(0, 4 - attempts) * 3
-        status = "Needs work" if accuracy < 70 else "Reinforce" if accuracy < 85 or avg_conf < 2 else "Strong"
+        status = "Needs work" if accuracy < 70 else "Reinforce" if accuracy < 85 or avg_conf < 2 or assisted > 0 and assisted >= attempts // 2 else "Strong"
         items.append({
             "skill": r["skill"], "domain": r["domain"], "attempts": attempts,
-            "accuracy": accuracy, "avg_confidence": avg_conf,
+            "accuracy": accuracy, "avg_confidence": avg_conf, "assisted_attempts": assisted,
             "status": status, "priority": round(priority, 1),
         })
     items.sort(key=lambda x: (-x["priority"], x["attempts"], x["skill"]))
