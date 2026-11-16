@@ -30,3 +30,8 @@ Content inventory: **408 reviewed standalone MCQs (293 Part 1 / 115 Part 2), 16 
 
 ## Quality guardrails
 Preserve existing reviewed questions and answer keys. New content needs arithmetic/direction checks, plausible distractors, explicit CMA mappings, and duplicate review. Do not call a bank metric or same-day repeated answer exam readiness. Review dates are in-app prompts, not push notifications.
+
+## Practice teaching bridge (2026-11-16)
+- Question Practice offers concept teaching where reviewed skill links fit an existing lesson. Flexible-budget links explicitly exclude revenue and sales-contribution variance questions outside the cost lesson's scope.
+- Teaching opens inline; the current question, choice, confidence, and review stay in place and draft state survives refresh on the current device. Previewing does not create or alter Learn runs. Teaching used before grading counts as assistance; new attempts reset that support flag.
+- Learn and all practice modes share the same green brand palette while retaining their layouts. Semantic success/error colors remain distinct.
