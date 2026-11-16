@@ -23,6 +23,8 @@ def private_state(run):
 
 
 def finish(run, help_on_check=False, wrong_on_check=False):
+    while run.get('teaching_step',5)<5:
+        run=lessons.act(run['run_id'],run['index'],'teach_next',str(run['teaching_step']))
     while not run['done']:
         state = private_state(run)
         task = state['tasks'][run['index']]
@@ -42,7 +44,10 @@ def finish(run, help_on_check=False, wrong_on_check=False):
 def test_all_lessons_grade_resume_and_require_delayed_recall(isolated_db, monkeypatch, lesson_id):
     run = lessons.start(lesson_id)
     assert run == lessons.start(lesson_id)
-    assert not {'answer','explanation','wrong','hints'} & set(run['task'])
+    if run.get('teaching_step',5)<5:
+        assert 'task' not in run
+    else:
+        assert not {'answer','explanation','wrong','hints'} & set(run['task'])
     done = finish(run)
     assert done['outcome']=='Independent check passed'
     assert done['independent_correct']==2
@@ -160,6 +165,8 @@ def test_lesson_api_and_existing_modes(isolated_db):
     assert client.get('/api/coverage').json()['question_count']==408
     assert client.post('/api/lessons/start',json={'lesson_id':'unknown'}).status_code==400
     run=client.post('/api/lessons/start',json={'lesson_id':'flexible-budget'}).json()
+    for step in range(5):
+        run=client.post('/api/lessons/action',json={'run_id':run['run_id'],'index':0,'action':'teach_next','answer':str(step)}).json()
     response=client.post('/api/lessons/action',json={'run_id':run['run_id'],'index':0,'action':'answer','answer':'actual'})
     assert response.status_code==200 and response.json()['feedback']['correct']
     assert client.get('/api/dashboard').status_code==200
@@ -171,3 +178,56 @@ def test_lesson_api_and_existing_modes(isolated_db):
     assert len(exam['mcq_questions'])==100
     assert all('answer' not in q for q in exam['mcq_questions'])
     assert client.post('/api/exam/start',json={'part':'Part 2'}).status_code==400
+
+
+def test_teaching_is_ungraded_resumable_and_gates_calculations(isolated_db):
+    run=lessons.start('flexible-budget')
+    assert run['teaching_step']==0 and 'task' not in run
+    with pytest.raises(ValueError,match='teaching pages'):
+        lessons.act(run['run_id'],0,'answer','actual')
+    moved=lessons.act(run['run_id'],0,'teach_next','0')
+    assert moved['teaching_step']==1
+    assert lessons.start('flexible-budget')['teaching_step']==1
+    assert lessons.act(run['run_id'],0,'teach_next','0')==moved
+    back=lessons.act(run['run_id'],0,'teach_back','1')
+    assert back['teaching_step']==0
+    assert not private_state(back)['results']
+    for step in range(5):
+        run=lessons.act(run['run_id'],0,'teach_next',str(step))
+    assert run['teaching_step']==5 and 'task' in run
+    assert private_state(run)['results']==[]
+    c=engine.db()
+    assert c.execute('SELECT COUNT(*) AS n FROM attempts').fetchone()['n']==0
+    c.close()
+
+
+def test_old_lesson_history_is_preserved_but_revised_lesson_starts_fresh(isolated_db):
+    c=engine.db()
+    lessons._schema(c)
+    old_state={'outcome':'Independent check passed','mode':'lesson','tasks':[], 'results':[]}
+    c.execute('INSERT INTO lesson_runs(id,lesson_id,revision,started_at,completed_at,due_at,state) VALUES(?,?,?,?,?,?,?)',
+              ('old-run','flexible-budget','guided-v1','2026-11-01','2026-11-01','2026-11-02',json.dumps(old_state)))
+    c.commit();c.close()
+    run=lessons.start('flexible-budget')
+    assert run['mode']=='lesson' and run['teaching_step']==0
+    assert run['run_id']!='old-run'
+    c=engine.db()
+    assert c.execute('SELECT completed_at FROM lesson_runs WHERE id=?',('old-run',)).fetchone()['completed_at']=='2026-11-01'
+    c.close()
+
+
+def test_revisiting_teaching_during_independent_check_counts_as_help(isolated_db):
+    run=lessons.start('flexible-budget')
+    for step in range(5):
+        run=lessons.act(run['run_id'],0,'teach_next',str(step))
+    for index in range(3):
+        task=private_state(run)['tasks'][index]
+        run=lessons.act(run['run_id'],index,'answer',str(task['answer']))
+        run=lessons.act(run['run_id'],index,'next')
+    assert run['stage']=='Independent check'
+    run=lessons.act(run['run_id'],3,'teach_review')
+    assert run['teaching_step']==0 and run['index']==3
+    for step in range(5):
+        run=lessons.act(run['run_id'],3,'teach_next',str(step))
+    assert run['assisted']
+    assert finish(run)['outcome']=='Needs reinforcement'
