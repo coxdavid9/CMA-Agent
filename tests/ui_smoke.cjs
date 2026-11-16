@@ -9,6 +9,8 @@ const fs=require('node:fs');
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  fs.mkdirSync('ui-artifacts',{recursive:true});
  await page.goto('http://127.0.0.1:8000');
+ await page.screenshot({path:'ui-artifacts/initial-screen.png',fullPage:true});
+ if(errors.length)throw new Error(errors.join('\n'));
  const lessonAnswers=[];
  page.on('request',r=>{if(r.url().endsWith('/api/lessons/action')&&r.method()==='POST')lessonAnswers.push(r.postDataJSON().action)});
  await page.getByRole('button',{name:'Start guided lesson',exact:true}).click();
@@ -81,6 +83,76 @@ const fs=require('node:fs');
  assert.equal((await (await grading).json()).feedback.assisted,true);
  await page.getByRole('button',{name:'Dashboard',exact:true}).click();
  await page.getByRole('heading',{name:'Independent Practice by Domain'}).waitFor();
+
+ // Deterministic existing-bank question: verify teaching and return without
+ // relying on random adaptive selection. The real backend still grades it.
+ const {relatedLessons}=await import('../frontend/src/practiceTeaching.mjs');
+ const catalog=(await (await fetch('http://127.0.0.1:8000/api/lessons')).json()).lessons;
+ const supported=(await (await fetch('http://127.0.0.1:8000/api/question/P1Q-110')).json());
+ assert.equal(relatedLessons(supported,catalog)[0].id,'flexible-budget');
+ assert.deepEqual(relatedLessons({...supported,id:'V3-1-03-025',question:'Revenue variance'},catalog),[]);
+ assert.deepEqual(relatedLessons({...supported,skills:[],domain:'Performance Management'},catalog),[]);
+ assert.deepEqual(relatedLessons({...supported,part:'Part 2'},catalog),[]);
+ let startedLesson=false;
+ page.on('request',r=>{if(r.url().endsWith('/api/lessons/start')||r.url().endsWith('/api/lessons/action'))startedLesson=true});
+ await page.route('**/api/question',async route=>{
+  if(route.request().method()==='POST')await route.fulfill({json:supported});
+  else await route.continue();
+ });
+ await page.route('**/api/preferences',async route=>{
+  if(route.request().method()==='GET')await route.fulfill({json:{part:'Part 1',difficulty:'All',domain:'All',resume_question_id:'P1-014'}});
+  else await route.continue();
+ });
+ await page.getByRole('button',{name:'Practice',exact:true}).click();
+ // Existing question is answered; finish its review before starting a new one.
+ const checkbox=page.getByRole('checkbox');
+ if(await checkbox.count())await checkbox.first().check();
+ const continueButton=page.getByRole('button',{name:'Continue to another skill',exact:true});
+ if(await continueButton.count())await continueButton.click();
+ else await page.getByRole('button',{name:'Start Practice',exact:false}).click();
+ await page.getByText(supported.question,{exact:true}).waitFor();
+ await page.getByRole('radio').first().check();
+ await page.getByRole('button',{name:'Very sure',exact:false}).click();
+ const selected=await page.getByRole('radio').first().getAttribute('name');
+ await page.getByRole('button',{name:'Teach me this concept',exact:true}).click();
+ await page.getByRole('heading',{name:'“Costs are $900 over budget. What happened?”'}).waitFor();
+ await page.getByRole('button',{name:'Show me how to think about it'}).click();
+ await page.reload();
+ await page.getByRole('button',{name:'Practice',exact:true}).click();
+ await page.getByRole('heading',{name:'Watch me separate the two effects.'}).waitFor();
+ await page.getByText(supported.question,{exact:true}).waitFor();
+ assert.equal(await page.getByRole('radio').first().isChecked(),true,'Selected answer survives teaching and refresh');
+ const sure=await page.getByRole('button',{name:'Very sure',exact:false}).getAttribute('class');
+ assert.ok(sure.includes('selected'),'Confidence survives teaching and refresh');
+ await page.screenshot({path:'ui-artifacts/mobile-practice-teaching.png',fullPage:true});
+ assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
+ await page.getByRole('button',{name:'Back to my question',exact:true}).first().click();
+ assert.equal(await page.getByRole('heading',{name:'Watch me separate the two effects.'}).count(),0);
+ assert.equal(await page.getByRole('radio').first().isChecked(),true);
+ assert.equal(startedLesson,false,'Preview must not start/change Learn progress');
+ const teachingGrade=page.waitForResponse(r=>r.url().endsWith('/api/grade'));
+ await page.getByRole('button',{name:'Submit Answer',exact:true}).click();
+ assert.equal((await (await teachingGrade).json()).feedback.assisted,true);
+ await page.getByRole('checkbox').first().check();
+ await page.getByRole('button',{name:'Continue to another skill',exact:true}).click();
+ await page.getByText(supported.question,{exact:true}).waitFor();
+ await page.getByRole('button',{name:'Teach me this concept',exact:true}).waitFor();
+ assert.equal(await page.getByRole('heading',{name:'Watch me separate the two effects.'}).count(),0);
+ await page.getByRole('radio').first().check();
+ await page.getByRole('button',{name:'Very sure',exact:false}).click();
+ const freshGrade=page.waitForResponse(r=>r.url().endsWith('/api/grade'));
+ await page.getByRole('button',{name:'Submit Answer',exact:true}).click();
+ assert.equal((await (await freshGrade).json()).feedback.assisted,false,'A new attempt resets prior teaching support');
+
+ // Shared brand colors, including selections and hints, across modes.
+ const practiceColor=await page.locator('.hero').evaluate(el=>getComputedStyle(el).backgroundImage);
+ const practiceNav=await page.getByRole('button',{name:'Practice',exact:true}).evaluate(el=>getComputedStyle(el).color);
+ await page.getByRole('button',{name:'Learn',exact:true}).click();
+ await page.waitForFunction(expected=>{const button=document.querySelector('nav button.active');return button?.textContent==='Learn'&&getComputedStyle(button).color===expected},practiceNav);
+ const learnColor=await page.locator('.hero').evaluate(el=>getComputedStyle(el).backgroundImage);
+ const learnNav=await page.getByRole('button',{name:'Learn',exact:true}).evaluate(el=>getComputedStyle(el).color);
+ assert.equal(practiceColor,learnColor,'Learn/Practice header palette must match');
+ assert.equal(practiceNav,learnNav,'Learn/Practice active nav palette must match');
  assert.deepEqual(errors,[]);
  await browser.close();
  console.log('Reasoning-first story, worked example, ungraded explorer arithmetic/persistence, misconception discussion, desktop/mobile, guided practice and regressions: passed');
