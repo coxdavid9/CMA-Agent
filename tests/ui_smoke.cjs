@@ -9,6 +9,8 @@ const fs=require('node:fs');
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  fs.mkdirSync('ui-artifacts',{recursive:true});
  await page.goto('http://127.0.0.1:8000');
+ await page.screenshot({path:'ui-artifacts/initial-screen.png',fullPage:true});
+ if(errors.length)throw new Error(errors.join('\n'));
  const lessonAnswers=[];
  page.on('request',r=>{if(r.url().endsWith('/api/lessons/action')&&r.method()==='POST')lessonAnswers.push(r.postDataJSON().action)});
  await page.getByRole('button',{name:'Start guided lesson',exact:true}).click();

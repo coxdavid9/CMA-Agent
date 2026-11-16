@@ -12,7 +12,7 @@ const QUESTION_KEY='cma-coach-current-question-reviewed-2026-09-30';
 const api=(path,opts={})=>fetch(path,{headers:{'Content-Type':'application/json'},...opts}).then(async r=>{const d=await r.json();if(!r.ok)throw new Error(d.detail||'Request failed');return d});
 const readLocal=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}};
 const writeLocal=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value))}catch{}};
-const draftValue=(name,fallback)=>{const d=readLocal(DRAFT_KEY,null);return d?.question_id===readLocal(QUESTION_KEY,null)?.id?(d[name]??fallback):fallback};
+const draftValue=(name,fallback)=>{const d=readLocal(DRAFT_KEY,null);return d?.question_id&&d.question_id===readLocal(QUESTION_KEY,null)?.id?(d[name]??fallback):fallback};
 const resetHintUse=id=>{resetTeaching(id);const usage=readLocal('cma-hint-use',{});usage[id]=0;writeLocal('cma-hint-use',usage)};
 
 function App(){
