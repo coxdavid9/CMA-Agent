@@ -1,0 +1,407 @@
+{
+  "effective_date": "2024-09-01",
+  "verified_date": "2026-11-16",
+  "source_url": "https://mc-69e30ef4-758e-4371-ac6f-2657-cdn-endpoint.azureedge.net/-/media/IMA/Files/Home/IMA-Certifications/CMA-Certification/2024-CMA-Learning-Outcome-Statement-Final.ashx?hash=E964C981F7A37658F3C5C8406F3B7C7F&rev=45820e8cc9dc42c48961a1c5c60a4868",
+  "scope": "Candidate subtopic coverage based on reviewed skill tags. Individual lettered learning outcomes and cognitive depth still require editorial audit. Counts do not establish syllabus completeness or exam readiness.",
+  "subtopics": [
+    {
+      "id": "P1.A.1",
+      "part": "Part 1",
+      "title": "Financial statements",
+      "skills": [
+        "Financial statements",
+        "Consolidated statements",
+        "Integrated reporting"
+      ]
+    },
+    {
+      "id": "P1.A.2",
+      "part": "Part 1",
+      "title": "Recognition, measurement, and valuation",
+      "skills": [
+        "Asset valuation",
+        "Liability valuation",
+        "Revenue recognition",
+        "Income measurement",
+        "GAAP vs. IFRS",
+        "Equity transactions",
+        "Accounting information quality",
+        "Deferred tax and lease measurement"
+      ]
+    },
+    {
+      "id": "P1.B.1",
+      "part": "Part 1",
+      "title": "Strategic planning",
+      "skills": [
+        "Strategic planning"
+      ]
+    },
+    {
+      "id": "P1.B.2",
+      "part": "Part 1",
+      "title": "Budgeting concepts",
+      "skills": [
+        "Budgeting concepts"
+      ]
+    },
+    {
+      "id": "P1.B.3",
+      "part": "Part 1",
+      "title": "Forecasting techniques",
+      "skills": [
+        "Forecasting techniques",
+        "Learning curve applications"
+      ]
+    },
+    {
+      "id": "P1.B.4",
+      "part": "Part 1",
+      "title": "Budget methodologies",
+      "skills": [
+        "Project budgeting",
+        "Flexible budgeting"
+      ]
+    },
+    {
+      "id": "P1.B.5",
+      "part": "Part 1",
+      "title": "Annual profit plan and supporting schedules",
+      "skills": [
+        "Master budgeting"
+      ]
+    },
+    {
+      "id": "P1.B.6",
+      "part": "Part 1",
+      "title": "Top-level planning and analysis",
+      "skills": [
+        "Pro forma and cash projections"
+      ]
+    },
+    {
+      "id": "P1.C.1",
+      "part": "Part 1",
+      "title": "Cost and variance measures",
+      "skills": [
+        "Flexible budget performance",
+        "Standard cost and variances",
+        "Management by exception",
+        "Advanced variance decomposition",
+        "Budget variance analysis"
+      ]
+    },
+    {
+      "id": "P1.C.2",
+      "part": "Part 1",
+      "title": "Responsibility centers and reporting segments",
+      "skills": [
+        "Responsibility centers",
+        "Transfer pricing",
+        "Segment performance"
+      ]
+    },
+    {
+      "id": "P1.C.3",
+      "part": "Part 1",
+      "title": "Performance measures",
+      "skills": [
+        "ROI and residual income",
+        "Balanced scorecard"
+      ]
+    },
+    {
+      "id": "P1.D.1",
+      "part": "Part 1",
+      "title": "Measurement concepts",
+      "skills": [
+        "Cost behavior and cost objects",
+        "Absorption and variable costing",
+        "Joint and by-product costing"
+      ]
+    },
+    {
+      "id": "P1.D.2",
+      "part": "Part 1",
+      "title": "Costing systems",
+      "skills": [
+        "Job and process costing",
+        "Activity-based costing",
+        "Life-cycle costing",
+        "Equivalent unit calculations"
+      ]
+    },
+    {
+      "id": "P1.D.3",
+      "part": "Part 1",
+      "title": "Overhead costs",
+      "skills": [
+        "Overhead allocation",
+        "Service department allocation"
+      ]
+    },
+    {
+      "id": "P1.D.4",
+      "part": "Part 1",
+      "title": "Supply chain management",
+      "skills": [
+        "Operational efficiency"
+      ]
+    },
+    {
+      "id": "P1.D.5",
+      "part": "Part 1",
+      "title": "Business process improvement",
+      "skills": [
+        "Process and quality improvement"
+      ]
+    },
+    {
+      "id": "P1.E.1",
+      "part": "Part 1",
+      "title": "Governance, risk, and compliance",
+      "skills": [
+        "COSO and control environment",
+        "Risk assessment",
+        "Control activities",
+        "Internal audit",
+        "Fraud and compliance",
+        "Control monitoring"
+      ]
+    },
+    {
+      "id": "P1.E.2",
+      "part": "Part 1",
+      "title": "System controls and security measures",
+      "skills": [
+        "IT general controls",
+        "Application and transaction controls",
+        "Business continuity and recovery"
+      ]
+    },
+    {
+      "id": "P1.F.1",
+      "part": "Part 1",
+      "title": "Information systems",
+      "skills": [
+        "Information systems and ERP"
+      ]
+    },
+    {
+      "id": "P1.F.2",
+      "part": "Part 1",
+      "title": "Data governance",
+      "skills": [
+        "Data governance and management",
+        "Technology risk and data ethics"
+      ]
+    },
+    {
+      "id": "P1.F.3",
+      "part": "Part 1",
+      "title": "Technology-enabled finance transformation",
+      "skills": [
+        "Finance automation and interfaces"
+      ]
+    },
+    {
+      "id": "P1.F.4",
+      "part": "Part 1",
+      "title": "Data analytics",
+      "skills": [
+        "Data visualization",
+        "Descriptive analytics",
+        "Diagnostic analytics",
+        "Predictive analytics",
+        "Prescriptive analytics",
+        "Data preparation and ETL",
+        "Model evaluation"
+      ]
+    },
+    {
+      "id": "P2.A.1",
+      "part": "Part 2",
+      "title": "Comparative financial statement analysis",
+      "skills": [
+        "Common-size and trend analysis"
+      ]
+    },
+    {
+      "id": "P2.A.2",
+      "part": "Part 2",
+      "title": "Financial ratios",
+      "skills": [
+        "Financial ratios",
+        "Liquidity and solvency",
+        "Activity ratios"
+      ]
+    },
+    {
+      "id": "P2.A.3",
+      "part": "Part 2",
+      "title": "Profitability analysis",
+      "skills": [
+        "Profitability analysis"
+      ]
+    },
+    {
+      "id": "P2.A.4",
+      "part": "Part 2",
+      "title": "Special issues",
+      "skills": [
+        "Cash flow analysis",
+        "Earnings quality",
+        "Financial statement effects"
+      ]
+    },
+    {
+      "id": "P2.B.1",
+      "part": "Part 2",
+      "title": "Financial risk and return",
+      "skills": [
+        "Risk and return"
+      ]
+    },
+    {
+      "id": "P2.B.2",
+      "part": "Part 2",
+      "title": "Long-term financial management",
+      "skills": [
+        "Cost of capital",
+        "Capital structure",
+        "Security valuation"
+      ]
+    },
+    {
+      "id": "P2.B.3",
+      "part": "Part 2",
+      "title": "Raising capital",
+      "skills": [
+        "Dividend policy",
+        "Financing decisions",
+        "Financial markets"
+      ]
+    },
+    {
+      "id": "P2.B.4",
+      "part": "Part 2",
+      "title": "Working capital management",
+      "skills": [
+        "Working capital management",
+        "Credit and hedging decisions"
+      ]
+    },
+    {
+      "id": "P2.B.5",
+      "part": "Part 2",
+      "title": "Corporate restructuring",
+      "skills": []
+    },
+    {
+      "id": "P2.B.6",
+      "part": "Part 2",
+      "title": "International finance",
+      "skills": [
+        "Foreign exchange"
+      ]
+    },
+    {
+      "id": "P2.C.1",
+      "part": "Part 2",
+      "title": "Cost/volume/profit analysis",
+      "skills": [
+        "Cost-volume-profit"
+      ]
+    },
+    {
+      "id": "P2.C.2",
+      "part": "Part 2",
+      "title": "Marginal analysis",
+      "skills": [
+        "Relevant costs and revenues",
+        "Sunk and opportunity costs",
+        "Special orders",
+        "Make-or-buy",
+        "Product mix and constraints",
+        "Keep-or-drop decisions"
+      ]
+    },
+    {
+      "id": "P2.C.3",
+      "part": "Part 2",
+      "title": "Pricing",
+      "skills": [
+        "Pricing decisions"
+      ]
+    },
+    {
+      "id": "P2.D.1",
+      "part": "Part 2",
+      "title": "Enterprise risk",
+      "skills": [
+        "ERM framework",
+        "Risk identification",
+        "Risk assessment and response",
+        "Strategic and operational risk",
+        "Financial risk",
+        "Reputation and compliance risk",
+        "Risk monitoring",
+        "Scenario and sensitivity analysis"
+      ]
+    },
+    {
+      "id": "P2.E.1",
+      "part": "Part 2",
+      "title": "Capital budgeting process",
+      "skills": [
+        "Cash flow estimation",
+        "Capital rationing",
+        "Project risk and sensitivity"
+      ]
+    },
+    {
+      "id": "P2.E.2",
+      "part": "Part 2",
+      "title": "Capital investment analysis methods",
+      "skills": [
+        "Time value of money",
+        "Net present value",
+        "Internal rate of return",
+        "Payback and discounted payback",
+        "Profitability index",
+        "DCF project calculations"
+      ]
+    },
+    {
+      "id": "P2.F.1",
+      "part": "Part 2",
+      "title": "Business ethics",
+      "skills": [
+        "Fraudulent or misleading reporting"
+      ]
+    },
+    {
+      "id": "P2.F.2",
+      "part": "Part 2",
+      "title": "Ethical considerations for management accounting and financial management professionals",
+      "skills": [
+        "IMA ethical principles",
+        "Integrity and credibility",
+        "Conflict of interest",
+        "Confidentiality and data protection",
+        "Ethical decision resolution",
+        "Independence and objectivity",
+        "Professional competence",
+        "Ethical case resolution"
+      ]
+    },
+    {
+      "id": "P2.F.3",
+      "part": "Part 2",
+      "title": "Ethical considerations for the organization",
+      "skills": [
+        "Legal and regulatory compliance"
+      ]
+    }
+  ]
+}

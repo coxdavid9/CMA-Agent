@@ -1,30 +1,31 @@
 # CMA Coach Project Status
 
-Last verified from repository: 2026-10-02
+Last verified from repository: 2026-11-16
 
 ## Current state
-CMA Coach is an active study system with a reviewed question bank, practice/skill engine, React/mobile UI, case features, automated integrity validation, and CI. The active bank after the September 30 study-guide import contains **408 MCQs plus eight case items**.
+CMA Coach is a personal study app with React/mobile UI, FastAPI, SQLite/Postgres history, adaptive practice, cases, exam practice, and a new guided-learning home.
 
-## Recently completed
-- Commit/PR work imported 76 reviewed study-guide MCQs while excluding 44 equivalent tasks.
-- The full content-trust audit retired 392 duplicates and quarantined 28 weak distinct items from the earlier source bank.
-- The practice-first CMA Skill Engine and mobile-first UI were built.
-- The duplicate sidebar book cover was removed.
+Content inventory: **408 reviewed standalone MCQs (293 Part 1 / 115 Part 2), 16 short MCQ cases with 34 subquestions, and five original guided starter lessons.** These counts are distinct; neither a question count nor a lesson completion establishes full syllabus mastery.
 
-## Verified open work
-The content-trust audit explicitly identifies the next editorial work: replace quarantined/weak coverage with substantive exam-useful tasks targeting actual gaps rather than chasing a question-count target.
+## Completed
+- Reviewed bank audit and study-guide import, duplicate retirement, arithmetic validation, skill tagging, and CI.
+- 12 additional Part 1 case scenarios; current case responses remain MCQ only.
+- Optional practice hints and teach-before-retest review (PR #12).
+- Guided lessons for flexible budgets, absorption/variable costing, special orders, working capital/cash conversion cycle, and NPV.
+- Each lesson teaches a concept, guides three steps, checks a fresh numeric answer and a reasoning choice, and schedules a delayed check. Examples use varied parameters and keep answer keys on the server.
+- Persistent lesson progress and hint usage. Guided/assisted checks cannot establish independent success. Initial independent success and delayed recall are separate labels; no full-topic mastery claim.
+- Practice hint usage survives hiding/reload. Assisted attempts remain in history but are excluded from independent question/domain mastery, and return sooner for review. Old history without hint metadata cannot be retrospectively classified.
+- Official 41-subtopic inventory with an editorial skill-tag crosswalk and five lessons mapped to specific lettered outcomes. The crosswalk explicitly does not claim a complete individual-outcome or cognitive-depth audit.
+- Running correctness removed from the exam screen. Existing practice, case, exam, dashboard, and study-plan modes remain available.
+- CI covers bank integrity, regressions, frontend build, browser flows/screenshots, and legacy Postgres migrations.
 
-Highest-priority verified gaps:
-- cash-flow valuation and financing risk
-- ethics decisions with competing duties
-- multi-part standard-cost analysis
-- inventory-process mathematics and allocation
-- complex financial-reporting measurement
-- Corporate Finance and Professional Ethics remain especially thin
-- Part 2 cannot yet satisfy the current 100-question simulation proportions
+## Remaining / next milestone
+1. Try the five-lesson path with David, then improve the actual teaching friction before expanding it.
+2. Audit individual lettered IMA learning outcomes against question reasoning and depth. Tag matching is only candidate coverage; missing outcomes can exist in any tagged subtopic.
+3. Add substantive Corporate Finance and Professional Ethics content. Part 2 simulation still lacks 7 Corporate Finance and 6 Ethics questions just to form one weighted 100-question set; those minima are not sufficient learning breadth.
+4. Build integrated ~250-word cases and numeric/list/matching response formats. Existing short MCQ cases are not a replica of the current U.S. CBQ section.
+5. Add exam review/flagging navigation, separate section diagnostics, robust timed-session persistence, and fix timeout completion totals. The current raw percentage is not an official scaled-score estimate.
+6. Consider conversational explanations only after the deterministic teaching path is useful. No paid LLM dependency is required for the current lessons.
 
 ## Quality guardrails
-Accuracy and CMA usefulness come before question count. New questions must pass duplicate/near-duplicate review, answer/explanation consistency, arithmetic/direction checks where applicable, plausible distractors, explicit CMA domain/skill mapping, and the existing CI validation.
-
-## Next milestone
-**Build reviewed questions for the highest-priority thin/missing skills, starting with Corporate Finance and Professional Ethics, without duplicating active tasks.** Update the audit/coverage artifacts as coverage improves.
+Preserve existing reviewed questions and answer keys. New content needs arithmetic/direction checks, plausible distractors, explicit CMA mappings, and duplicate review. Do not call a bank metric or same-day repeated answer exam readiness. Review dates are in-app prompts, not push notifications.

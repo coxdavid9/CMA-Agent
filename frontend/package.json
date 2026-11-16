@@ -1,1 +1,1 @@
-{"scripts":{"build":"vite build"},"dependencies":{"@vitejs/plugin-react":"latest","vite":"latest","react":"latest","react-dom":"latest"},"devDependencies":{}}
+{"scripts":{"build":"vite build"},"dependencies":{"@vitejs/plugin-react":"latest","react":"latest","react-dom":"latest","vite":"latest"},"devDependencies":{"playwright":"^1.65.1"}}

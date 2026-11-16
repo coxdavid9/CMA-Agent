@@ -48,9 +48,12 @@ def db():
         c.execute("CREATE TABLE IF NOT EXISTS session_state(id INTEGER PRIMARY KEY CHECK(id=1),session_id TEXT,last_activity TEXT)")
         c.execute("CREATE INDEX IF NOT EXISTS idx_attempts_question ON attempts(question_id)")
         c.execute("CREATE INDEX IF NOT EXISTS idx_attempts_domain ON attempts(domain)")
+        c.execute("ALTER TABLE attempts ADD COLUMN IF NOT EXISTS session_id TEXT")
+        c.execute("ALTER TABLE preferences ADD COLUMN IF NOT EXISTS resume_question_id TEXT")
         c.execute("CREATE INDEX IF NOT EXISTS idx_attempts_session ON attempts(session_id)")
         c.execute("CREATE INDEX IF NOT EXISTS idx_attempts_ts ON attempts(ts)")
         c.execute("ALTER TABLE attempts ADD COLUMN IF NOT EXISTS bank_revision TEXT")
+        c.execute("ALTER TABLE attempts ADD COLUMN IF NOT EXISTS hint_level INTEGER DEFAULT 0")
         c.commit()
         return c
 
@@ -66,6 +69,7 @@ def db():
     cols={r[1] for r in c.execute("PRAGMA table_info(attempts)").fetchall()}
     if "session_id" not in cols:c.execute("ALTER TABLE attempts ADD COLUMN session_id TEXT")
     if "bank_revision" not in cols:c.execute("ALTER TABLE attempts ADD COLUMN bank_revision TEXT")
+    if "hint_level" not in cols:c.execute("ALTER TABLE attempts ADD COLUMN hint_level INTEGER DEFAULT 0")
     c.commit(); return c
 
 
@@ -115,11 +119,11 @@ def domains(part="Both"):
 
 
 def _question_history(conn):
-    rows=conn.execute("SELECT question_id,COUNT(*) attempts,SUM(correct) correct,MAX(id) last_id FROM attempts WHERE bank_revision=? GROUP BY question_id",(REVISION,)).fetchall(); return {r["question_id"]:dict(r) for r in rows}
+    rows=conn.execute("SELECT question_id,COUNT(*) attempts,SUM(correct) correct,MAX(id) last_id FROM attempts WHERE bank_revision=? AND COALESCE(hint_level,0)=0 GROUP BY question_id",(REVISION,)).fetchall(); return {r["question_id"]:dict(r) for r in rows}
 
 
 def question_status(question_id,conn=None):
-    owns=conn is None; conn=conn or db(); rows=conn.execute("SELECT correct FROM attempts WHERE question_id=? AND bank_revision=? ORDER BY id DESC LIMIT 5",(question_id,REVISION)).fetchall();
+    owns=conn is None; conn=conn or db(); rows=conn.execute("SELECT correct FROM attempts WHERE question_id=? AND bank_revision=? AND COALESCE(hint_level,0)=0 ORDER BY id DESC LIMIT 5",(question_id,REVISION)).fetchall();
     if owns:conn.close()
     if not rows:return "New"
     results=[int(r["correct"]) for r in rows]; attempts=len(results)
@@ -134,7 +138,7 @@ def _question_statuses(conn):
     This is important for the remote Supabase backend: choosing one question
     should not open hundreds of queries against Postgres.
     """
-    rows=conn.execute("SELECT question_id,correct FROM attempts WHERE bank_revision=? ORDER BY id DESC",(REVISION,)).fetchall()
+    rows=conn.execute("SELECT question_id,correct FROM attempts WHERE bank_revision=? AND COALESCE(hint_level,0)=0 ORDER BY id DESC",(REVISION,)).fetchall()
     recent={}
     for row in rows:
         qid=row["question_id"]
@@ -154,7 +158,7 @@ def _question_statuses(conn):
 
 
 def topic_status(domain,conn=None):
-    owns=conn is None; conn=conn or db(); rows=conn.execute("SELECT correct FROM attempts WHERE domain=? AND bank_revision=? ORDER BY id DESC LIMIT 10",(domain,REVISION)).fetchall();
+    owns=conn is None; conn=conn or db(); rows=conn.execute("SELECT correct FROM attempts WHERE domain=? AND bank_revision=? AND COALESCE(hint_level,0)=0 ORDER BY id DESC LIMIT 10",(domain,REVISION)).fetchall();
     if owns:conn.close()
     if not rows:return "New"
     results=[int(r["correct"]) for r in rows]
@@ -205,7 +209,7 @@ def learning_feedback(question_id,selected,confidence):
 
 
 def learning_snapshot(domain="All"):
-    c=db(); where="WHERE bank_revision=?" if domain=="All" else "WHERE bank_revision=? AND domain=?"; args=(REVISION,) if domain=="All" else (REVISION,domain); rows=c.execute(f"SELECT question_id,correct,confidence,domain FROM attempts {where} ORDER BY id DESC LIMIT 50",args).fetchall(); weak=[]; fragile=[]
+    c=db(); where="WHERE bank_revision=? AND COALESCE(hint_level,0)=0" if domain=="All" else "WHERE bank_revision=? AND COALESCE(hint_level,0)=0 AND domain=?"; args=(REVISION,) if domain=="All" else (REVISION,domain); rows=c.execute(f"SELECT question_id,correct,confidence,domain FROM attempts {where} ORDER BY id DESC LIMIT 50",args).fetchall(); weak=[]; fragile=[]
     for d in domains("Both"):
         drows=[r for r in rows if r["domain"]==d]
         if not drows:continue
@@ -215,8 +219,8 @@ def learning_snapshot(domain="All"):
     recent_misses=[dict(r) for r in rows if int(r["correct"])==0][:5]; c.close(); weak.sort(); fragile.sort(reverse=True); return {"weak_domains":[d for _,d in weak[:3]],"fragile_domains":[d for _,d in fragile[:3]],"recent_misses":recent_misses}
 
 
-def grade(question_id,selected,confidence=0,session_id=None):
-    q=get_question(question_id); correct=int(selected.upper()==q["answer"]); c=db(); c.execute("INSERT INTO attempts(ts,question_id,part,domain,difficulty,selected,correct,confidence,session_id,bank_revision) VALUES(?,?,?,?,?,?,?,?,?,?)",(datetime.now().isoformat(timespec="seconds"),question_id,q["part"],q["domain"],q["difficulty"],selected.upper(),correct,int(confidence or 0),session_id or get_or_start_session(),q.get("content_revision"))); c.commit(); c.close(); return correct,q
+def grade(question_id,selected,confidence=0,session_id=None,hint_level=0):
+    q=get_question(question_id); correct=int(selected.upper()==q["answer"]); c=db(); c.execute("INSERT INTO attempts(ts,question_id,part,domain,difficulty,selected,correct,confidence,session_id,bank_revision,hint_level) VALUES(?,?,?,?,?,?,?,?,?,?,?)",(datetime.now().isoformat(timespec="seconds"),question_id,q["part"],q["domain"],q["difficulty"],selected.upper(),correct,int(confidence or 0),session_id or get_or_start_session(),q.get("content_revision"),max(0,min(3,int(hint_level))))); c.commit(); c.close(); return correct,q
 
 
 def stats():

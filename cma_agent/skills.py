@@ -86,7 +86,11 @@ def snapshot(part="Both", domain="All"):
     clause = (" WHERE " + " AND ".join(where)) if where else ""
     rows = conn.execute(
         f"""SELECT skill,domain,COUNT(*) attempts,COALESCE(SUM(correct),0) correct,
-        COALESCE(AVG(confidence),0) avg_confidence, COALESCE(SUM(CASE WHEN hint_level>0 THEN 1 ELSE 0 END),0) assisted_attempts
+        COALESCE(AVG(CASE WHEN hint_level=0 THEN confidence END),0) avg_confidence,
+        COALESCE(SUM(CASE WHEN hint_level=0 THEN 1 ELSE 0 END),0) independent_attempts,
+        COALESCE(SUM(CASE WHEN hint_level=0 THEN correct ELSE 0 END),0) independent_correct,
+        COUNT(DISTINCT CASE WHEN hint_level=0 THEN question_id END) independent_questions,
+        COUNT(DISTINCT CASE WHEN hint_level=0 THEN SUBSTR(ts,1,10) END) independent_days, COALESCE(SUM(CASE WHEN hint_level>0 THEN 1 ELSE 0 END),0) assisted_attempts
         FROM skill_attempts{clause} GROUP BY skill,domain""", tuple(args)
     ).fetchall()
     conn.close()
@@ -97,12 +101,14 @@ def snapshot(part="Both", domain="All"):
         accuracy = round(correct / attempts * 100, 1) if attempts else 0
         avg_conf = round(float(r["avg_confidence"] or 0), 1)
         assisted = int(r["assisted_attempts"] or 0)
+        independent = int(r["independent_attempts"] or 0)
+        independent_accuracy = round(int(r["independent_correct"] or 0)/independent*100, 1) if independent else 0
         # Accuracy is primary; low confidence keeps a correct skill in rotation.
-        priority = (100 - accuracy) + max(0, 2.2 - avg_conf) * 12 + max(0, 4 - attempts) * 3
-        status = "Needs work" if accuracy < 70 else "Reinforce" if accuracy < 85 or avg_conf < 2 or assisted > 0 and assisted >= attempts // 2 else "Strong"
+        priority = (100 - independent_accuracy) + max(0, 2.2 - avg_conf) * 12 + max(0, 4 - attempts) * 3
+        status = "Needs work" if independent and independent_accuracy < 70 else "Strong" if independent_accuracy >= 85 and avg_conf >= 2 and int(r["independent_questions"]) >= 5 and int(r["independent_days"]) >= 2 else "Reinforce"
         items.append({
             "skill": r["skill"], "domain": r["domain"], "attempts": attempts,
-            "accuracy": accuracy, "avg_confidence": avg_conf, "assisted_attempts": assisted,
+            "accuracy": independent_accuracy, "practice_accuracy": accuracy, "independent_attempts": independent, "avg_confidence": avg_conf, "assisted_attempts": assisted,
             "status": status, "priority": round(priority, 1),
         })
     items.sort(key=lambda x: (-x["priority"], x["attempts"], x["skill"]))

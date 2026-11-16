@@ -1,0 +1,52 @@
+// Exercise the built application against a disposable local database.
+const {chromium}=require('../frontend/node_modules/playwright');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+(async()=>{
+ for(let i=0;i<60;i++){try{if((await fetch('http://127.0.0.1:8000/api/health')).ok)break}catch{} await new Promise(r=>setTimeout(r,250))}
+ const browser=await chromium.launch({headless:true});
+ const page=await browser.newPage({viewport:{width:1440,height:1050}});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ fs.mkdirSync('ui-artifacts',{recursive:true});
+ await page.goto('http://127.0.0.1:8000');
+ await page.getByRole('button',{name:'Start guided lesson',exact:true}).click();
+ await page.getByRole('button',{name:'Walk me through an example'}).waitFor();
+ await page.screenshot({path:'ui-artifacts/desktop-lesson.png',fullPage:true});
+ await page.getByRole('button',{name:'Walk me through an example'}).click();
+ await page.getByText('Actual output',{exact:true}).click();
+ await page.getByRole('button',{name:'Check this step'}).click();
+ await page.getByText('Correct with guidance',{exact:true}).waitFor();
+ await page.reload();
+ await page.getByRole('button',{name:'Continue where I stopped'}).click();
+ await page.getByText('Correct with guidance',{exact:true}).waitFor();
+ await page.getByRole('button',{name:'Continue one step'}).click();
+ await page.getByRole('button',{name:'Help me set it up'}).click();
+ await page.getByText('Setup help 1',{exact:true}).waitFor();
+ await page.getByRole('button',{name:'Coverage',exact:true}).click();
+ await page.getByText('408 standalone questions · 41 official subtopics').waitFor();
+ await page.setViewportSize({width:390,height:844});
+ await page.getByRole('button',{name:'Learn',exact:true}).click();
+ await page.getByRole('button',{name:'Continue where I stopped'}).click();
+ await page.getByText('Setup help 1',{exact:true}).waitFor();
+ await page.screenshot({path:'ui-artifacts/mobile-step.png',fullPage:true});
+ assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true,'Mobile body must not scroll horizontally');
+ // New practice attempts can use hints, hide them, and reload without losing usage.
+ await page.getByRole('button',{name:'Practice',exact:true}).click();
+ await page.getByRole('button',{name:'Start Practice',exact:false}).click();
+ await page.getByRole('button',{name:'Give me a hint',exact:false}).click();
+ await page.getByRole('button',{name:'Hide hints',exact:true}).click();
+ await page.reload();
+ await page.getByRole('button',{name:'Practice',exact:true}).click();
+ await page.getByRole('button',{name:'Show hints',exact:true}).count().then(async n=>{if(n)await page.getByRole('button',{name:'Show hints',exact:true}).click()});
+ await page.getByText('Hint 1',{exact:true}).waitFor();
+ await page.getByRole('radio').first().check();
+ await page.getByRole('button',{name:'Very sure',exact:false}).click();
+ const grading=page.waitForResponse(r=>r.url().endsWith('/api/grade'));
+ await page.getByRole('button',{name:'Submit Answer',exact:true}).click();
+ assert.equal((await (await grading).json()).feedback.assisted,true);
+ await page.getByRole('button',{name:'Dashboard',exact:true}).click();
+ await page.getByRole('heading',{name:'Independent Practice by Domain'}).waitFor();
+ assert.deepEqual(errors,[]);
+ await browser.close();
+ console.log('Desktop/mobile lessons, save/resume, coverage, assisted practice, dashboard: passed');
+})().catch(e=>{console.error(e);process.exit(1)});
