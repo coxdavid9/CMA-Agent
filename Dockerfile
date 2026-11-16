@@ -3,6 +3,7 @@ WORKDIR /frontend
 COPY frontend/package*.json ./
 RUN npm ci
 COPY frontend/ ./
+COPY data/part1_curriculum.json /data/part1_curriculum.json
 RUN npm run build
 
 FROM python:3.11-slim

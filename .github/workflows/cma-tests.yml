@@ -60,6 +60,12 @@ jobs:
           cd ..
           node tests/financial_models.cjs
 
+      - name: Verify production container packaging
+        working-directory: .
+        run: |
+          docker build --tag cma-production-check .
+          docker run --rm --entrypoint python cma-production-check -c "from cma_agent.lessons import LESSONS; assert len(LESSONS) == 11"
+
   learning-browser:
     runs-on: ubuntu-latest
     steps:
