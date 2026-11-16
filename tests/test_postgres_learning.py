@@ -26,6 +26,8 @@ def test_postgres_legacy_schema_learning_and_assisted_history(monkeypatch):
     monkeypatch.setattr(api,'_schema_ready',False)
     run=lessons.start('npv')
     assert lessons.start('npv')['run_id']==run['run_id']
+    for step in range(5):
+        run=lessons.act(run['run_id'],0,'teach_next',str(step))
     while not run['done']:
         c=engine.db()
         state=json.loads(c.execute('SELECT state FROM lesson_runs WHERE id=?',(run['run_id'],)).fetchone()['state'])

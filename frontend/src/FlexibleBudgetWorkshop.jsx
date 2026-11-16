@@ -11,14 +11,14 @@ const signed=n=>(n>0?'+':'')+money(n);
 const pages=['The situation','Watch the reasoning','Explore without a score','Talk through the decision','Bring it together'];
 function readExplorer(id){try{return JSON.parse(localStorage.getItem('cma-budget-explorer-'+id))||{units:1100,actual:10900}}catch{return {units:1100,actual:10900}}}
 
-export default function FlexibleBudgetWorkshop({run,busy,onMove}){
+export default function FlexibleBudgetWorkshop({run,busy,onMove,preview=false}){
  const [explorer,setExplorer]=useState(()=>readExplorer(run.run_id));
  const [reason,setReason]=useState('');
  const [exampleStep,setExampleStep]=useState(0);
  const step=run.teaching_step;
  const b=budgetBridge(explorer.units,explorer.actual);
  function explore(next){setExplorer(next);try{localStorage.setItem('cma-budget-explorer-'+run.run_id,JSON.stringify(next))}catch{}}
- const nextNames=['Show me how to think about it','Let me explore the numbers','Talk through the decision','Connect the idea to the formula','Guide my first calculation'];
+ const nextNames=['Show me how to think about it','Let me explore the numbers','Talk through the decision','Connect the idea to the formula',preview?'Back to my question':'Guide my first calculation'];
  return <div className="budget-workshop">
   <div className="workshop-heading"><span className="pill">Teaching · no score</span><span>{step+1} of {pages.length} · {pages[step]}</span></div>
   <p className="workshop-promise">You are not expected to solve anything yet. We’ll build the idea before using the formula.</p>

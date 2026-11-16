@@ -35,3 +35,10 @@ Preserve existing reviewed questions and answer keys. New content needs arithmet
 - Question Practice offers concept teaching where reviewed skill links fit an existing lesson. Flexible-budget links explicitly exclude revenue and sales-contribution variance questions outside the cost lesson's scope.
 - Teaching opens inline; the current question, choice, confidence, and review stay in place and draft state survives refresh on the current device. Previewing does not create or alter Learn runs. Teaching used before grading counts as assistance; new attempts reset that support flag.
 - Learn and all practice modes share the same green brand palette while retaining their layouts. Semantic success/error colors remain distinct.
+
+
+## All starter scenarios now teach first (2026-11-16)
+- Rebuilt the remaining four lessons with worked reasoning, ungraded explorers, misconception feedback, and a formula recap before calculation. All five starter topics now have this flow in Learn and matching Question Practice support.
+- Explored inventory buildup/release, idle/constrained capacity, negative/zero/positive cash cycles, and positive/zero/negative NPV with timing and required-return controls.
+- Existing flexible-budget v2 progress stays intact. Earlier v1 attempts for the other four remain stored; their rebuilt versions start fresh. Reopened teaching during checks is assisted practice.
+- Added independent arithmetic/model checks and full desktop/mobile browser paths for each new workshop. This remains five starter topics, not full-syllabus instruction or a complete CBQ simulator.

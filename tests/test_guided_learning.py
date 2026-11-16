@@ -73,6 +73,8 @@ def test_help_and_incorrect_answers_never_pass_independent_check(isolated_db):
 
 def test_invalid_numbers_stale_requests_and_resubmission(isolated_db):
     run = lessons.start('cash-cycle')
+    for step in range(5):
+        run=lessons.act(run['run_id'],0,'teach_next',str(step))
     run = lessons.act(run['run_id'],0,'answer','dpo')
     # Correctness cannot be changed after the solution is shown.
     replay = lessons.act(run['run_id'],0,'answer','dio')
@@ -180,14 +182,15 @@ def test_lesson_api_and_existing_modes(isolated_db):
     assert client.post('/api/exam/start',json={'part':'Part 2'}).status_code==400
 
 
-def test_teaching_is_ungraded_resumable_and_gates_calculations(isolated_db):
-    run=lessons.start('flexible-budget')
+@pytest.mark.parametrize('lesson_id', list(lessons.BY_ID))
+def test_teaching_is_ungraded_resumable_and_gates_calculations(isolated_db, lesson_id):
+    run=lessons.start(lesson_id)
     assert run['teaching_step']==0 and 'task' not in run
     with pytest.raises(ValueError,match='teaching pages'):
         lessons.act(run['run_id'],0,'answer','actual')
     moved=lessons.act(run['run_id'],0,'teach_next','0')
     assert moved['teaching_step']==1
-    assert lessons.start('flexible-budget')['teaching_step']==1
+    assert lessons.start(lesson_id)['teaching_step']==1
     assert lessons.act(run['run_id'],0,'teach_next','0')==moved
     back=lessons.act(run['run_id'],0,'teach_back','1')
     assert back['teaching_step']==0
@@ -201,14 +204,15 @@ def test_teaching_is_ungraded_resumable_and_gates_calculations(isolated_db):
     c.close()
 
 
-def test_old_lesson_history_is_preserved_but_revised_lesson_starts_fresh(isolated_db):
+@pytest.mark.parametrize('lesson_id', list(lessons.BY_ID))
+def test_old_lesson_history_is_preserved_but_revised_lesson_starts_fresh(isolated_db, lesson_id):
     c=engine.db()
     lessons._schema(c)
     old_state={'outcome':'Independent check passed','mode':'lesson','tasks':[], 'results':[]}
     c.execute('INSERT INTO lesson_runs(id,lesson_id,revision,started_at,completed_at,due_at,state) VALUES(?,?,?,?,?,?,?)',
-              ('old-run','flexible-budget','guided-v1','2026-11-01','2026-11-01','2026-11-02',json.dumps(old_state)))
+              ('old-run',lesson_id,'guided-v1','2026-11-01','2026-11-01','2026-11-02',json.dumps(old_state)))
     c.commit();c.close()
-    run=lessons.start('flexible-budget')
+    run=lessons.start(lesson_id)
     assert run['mode']=='lesson' and run['teaching_step']==0
     assert run['run_id']!='old-run'
     c=engine.db()
@@ -216,8 +220,9 @@ def test_old_lesson_history_is_preserved_but_revised_lesson_starts_fresh(isolate
     c.close()
 
 
-def test_revisiting_teaching_during_independent_check_counts_as_help(isolated_db):
-    run=lessons.start('flexible-budget')
+@pytest.mark.parametrize('lesson_id', list(lessons.BY_ID))
+def test_revisiting_teaching_during_independent_check_counts_as_help(isolated_db, lesson_id):
+    run=lessons.start(lesson_id)
     for step in range(5):
         run=lessons.act(run['run_id'],0,'teach_next',str(step))
     for index in range(3):
@@ -231,3 +236,19 @@ def test_revisiting_teaching_during_independent_check_counts_as_help(isolated_db
         run=lessons.act(run['run_id'],3,'teach_next',str(step))
     assert run['assisted']
     assert finish(run)['outcome']=='Needs reinforcement'
+
+
+
+def test_all_starter_lessons_publish_teaching_version(isolated_db):
+    rows=lessons.catalog()
+    assert len(rows)==5
+    assert all(row.get('teaching_version')=='reasoning-first' for row in rows)
+
+def test_flexible_budget_v2_history_is_not_reset(isolated_db):
+    run=lessons.start('flexible-budget')
+    done=finish(run)
+    catalog={row['id']:row for row in lessons.catalog()}
+    assert catalog['flexible-budget']['status']=='Independent check passed'
+    c=engine.db()
+    assert c.execute('SELECT revision FROM lesson_runs WHERE id=?',(done['run_id'],)).fetchone()['revision']=='guided-v2-teaching'
+    c.close()
