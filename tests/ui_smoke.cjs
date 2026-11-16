@@ -98,7 +98,7 @@ const fs=require('node:fs');
   else await route.continue();
  });
  await page.route('**/api/preferences',async route=>{
-  if(route.request().method()==='GET')await route.fulfill({json:{part:'Part 1',difficulty:'All',domain:'All',resume_question_id:supported.id}});
+  if(route.request().method()==='GET')await route.fulfill({json:{part:'Part 1',difficulty:'All',domain:'All',resume_question_id:'P1-014'}});
   else await route.continue();
  });
  await page.getByRole('button',{name:'Practice',exact:true}).click();
@@ -131,6 +131,17 @@ const fs=require('node:fs');
  const teachingGrade=page.waitForResponse(r=>r.url().endsWith('/api/grade'));
  await page.getByRole('button',{name:'Submit Answer',exact:true}).click();
  assert.equal((await (await teachingGrade).json()).feedback.assisted,true);
+ await page.getByRole('checkbox').first().check();
+ await page.getByRole('button',{name:'Continue to another skill',exact:true}).click();
+ await page.getByText(supported.question,{exact:true}).waitFor();
+ await page.getByRole('button',{name:'Teach me this concept',exact:true}).waitFor();
+ assert.equal(await page.getByRole('heading',{name:'Watch me separate the two effects.'}).count(),0);
+ await page.getByRole('radio').first().check();
+ await page.getByRole('button',{name:'Very sure',exact:false}).click();
+ const freshGrade=page.waitForResponse(r=>r.url().endsWith('/api/grade'));
+ await page.getByRole('button',{name:'Submit Answer',exact:true}).click();
+ assert.equal((await (await freshGrade).json()).feedback.assisted,false,'A new attempt resets prior teaching support');
+
  // Shared brand colors, including selections and hints, across modes.
  const practiceColor=await page.locator('.hero').evaluate(el=>getComputedStyle(el).backgroundImage);
  const practiceNav=await page.getByRole('button',{name:'Practice',exact:true}).evaluate(el=>getComputedStyle(el).color);
