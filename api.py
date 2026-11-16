@@ -7,6 +7,7 @@ import cma_agent.engine as engine
 import cma_agent.adaptive as adaptive
 import cma_agent.skills as skills
 from fastapi import FastAPI, HTTPException
+from cma_agent import lessons, coverage
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import Optional
@@ -28,6 +29,9 @@ def db():
         c.execute("CREATE TABLE IF NOT EXISTS session_state(id INTEGER PRIMARY KEY CHECK(id=1),session_id TEXT,last_activity TEXT)")
         c.execute("CREATE INDEX IF NOT EXISTS idx_attempts_question ON attempts(question_id)")
         c.execute("CREATE INDEX IF NOT EXISTS idx_attempts_domain ON attempts(domain)")
+        c.execute("ALTER TABLE attempts ADD COLUMN IF NOT EXISTS session_id TEXT")
+        c.execute("ALTER TABLE preferences ADD COLUMN IF NOT EXISTS resume_question_id TEXT")
+        c.execute("ALTER TABLE attempts ADD COLUMN IF NOT EXISTS hint_level INTEGER DEFAULT 0")
         c.execute("CREATE INDEX IF NOT EXISTS idx_attempts_session ON attempts(session_id)")
         c.execute("CREATE INDEX IF NOT EXISTS idx_attempts_ts ON attempts(ts)")
         c.execute("ALTER TABLE attempts ADD COLUMN IF NOT EXISTS bank_revision TEXT")
@@ -299,8 +303,8 @@ def grade_question(request: GradeRequest):
     q = get_question(request.question_id)
     if not q:
         raise HTTPException(status_code=404, detail="Question not found")
-    ok, graded = grade(request.question_id, request.selected, request.confidence, request.session_id)
-    adaptive.record_result(request.question_id, ok, request.confidence)
+    ok, graded = grade(request.question_id, request.selected, request.confidence, request.session_id, request.hint_level)
+    adaptive.record_result(request.question_id, ok, request.confidence, request.hint_level)
     feedback = learning_feedback(request.question_id, request.selected, request.confidence)
     skill_feedback = skills.record_attempt(q, ok, request.confidence, hint_level=max(0,min(3,request.hint_level)))
     feedback["skills"] = skill_feedback["skills"]
@@ -308,6 +312,9 @@ def grade_question(request: GradeRequest):
     feedback["coaching"] = skill_feedback["coaching"]
     feedback["hint_level"] = skill_feedback["hint_level"]
     feedback["assisted"] = skill_feedback["assisted"]
+    if skill_feedback["assisted"]:
+        feedback["diagnosis"] = "Correct with support" if ok else "Keep building the setup"
+        feedback["coaching"] = "Help is part of learning. This attempt does not establish independent mastery; a short review will return later."
     sid = request.session_id or get_or_start_session()
     return {"correct": bool(ok), "question": clean_question(graded), "feedback": feedback, "session": session_stats(sid)}
 
@@ -416,6 +423,47 @@ def study_profile():
             "Use follow-up questions after misses.",
         ],
     }
+
+
+class LessonStartRequest(BaseModel):
+    lesson_id: str
+
+
+class LessonActionRequest(BaseModel):
+    run_id: str
+    index: int
+    action: str
+    answer: str = ""
+
+
+@app.get("/api/lessons")
+def lesson_catalog(part: str = "Both"):
+    if part not in ("Both", "Part 1", "Part 2"):
+        raise HTTPException(status_code=400, detail="Choose Part 1, Part 2, or Both")
+    return {"lessons": lessons.catalog(part)}
+
+
+@app.post("/api/lessons/start")
+def lesson_start(request: LessonStartRequest):
+    try:
+        return lessons.start(request.lesson_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+
+
+@app.post("/api/lessons/action")
+def lesson_action(request: LessonActionRequest):
+    try:
+        return lessons.act(request.run_id, request.index, request.action, request.answer)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+
+
+@app.get("/api/coverage")
+def syllabus_coverage(part: str = "Both"):
+    if part not in ("Both", "Part 1", "Part 2"):
+        raise HTTPException(status_code=400, detail="Choose Part 1, Part 2, or Both")
+    return coverage.report(part)
 
 
 app.mount("/", StaticFiles(directory="frontend/dist", html=True), name="frontend")

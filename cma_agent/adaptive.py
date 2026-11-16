@@ -24,7 +24,7 @@ def ensure_schema(conn):
     conn.commit()
 
 
-def record_result(question_id, correct, confidence):
+def record_result(question_id, correct, confidence, hint_level=0):
     conn = engine.db()
     ensure_schema(conn)
     row = conn.execute("SELECT interval_days,streak FROM review_state WHERE question_id=?", (question_id,)).fetchone()
@@ -32,7 +32,7 @@ def record_result(question_id, correct, confidence):
     previous_streak = int(row["streak"] or 0) if row else 0
     now = _now()
 
-    if not correct:
+    if not correct or hint_level > 0:
         interval = 0.25 if previous_interval == 0 else 0.5
         streak = 0
         due = now + timedelta(days=interval)
@@ -88,7 +88,7 @@ def _mastery_status(results):
 
 
 def _question_statuses(conn):
-    rows = conn.execute("SELECT question_id,correct,confidence FROM attempts WHERE bank_revision=? ORDER BY id DESC", (engine.REVISION,)).fetchall()
+    rows = conn.execute("SELECT question_id,correct,confidence FROM attempts WHERE bank_revision=? AND COALESCE(hint_level,0)=0 ORDER BY id DESC", (engine.REVISION,)).fetchall()
     recent = {}
     for row in rows:
         qid = row["question_id"]
@@ -185,7 +185,7 @@ def mastery_by_domain(part="Both", domain="All"):
     allowed_domains = {q["domain"] for q in allowed_questions}
     question_map = {q["id"]: q for q in allowed_questions}
     conn = engine.db()
-    rows = conn.execute("SELECT question_id,domain,correct,confidence FROM attempts WHERE bank_revision=? ORDER BY id DESC", (engine.REVISION,)).fetchall()
+    rows = conn.execute("SELECT question_id,domain,correct,confidence FROM attempts WHERE bank_revision=? AND COALESCE(hint_level,0)=0 ORDER BY id DESC", (engine.REVISION,)).fetchall()
     conn.close()
 
     grouped = {d: [] for d in allowed_domains}

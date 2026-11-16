@@ -4,3 +4,8 @@ __pycache__/
 .streamlit/secrets.toml
 data/*.db
 *.pyc
+
+frontend/node_modules/
+frontend/dist/
+.pytest_cache/
+ui-artifacts/

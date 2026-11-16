@@ -36,7 +36,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install test dependencies
-        run: python -m pip install pytest fastapi
+        run: python -m pip install pytest fastapi httpx
       - name: Run regression tests including skill-engine tests
         run: python -m pytest -q
       - name: Compile all Python entry points
@@ -52,5 +52,59 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - run: npm install
+      - run: npm ci
       - run: npm run build
+
+  learning-browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: python -m pip install fastapi uvicorn
+      - run: npm ci
+        working-directory: frontend
+      - run: npm run build
+        working-directory: frontend
+      - run: npx playwright install --with-deps chromium
+        working-directory: frontend
+      - name: Exercise desktop and mobile learning flows
+        run: |
+          CMA_DB_PATH=/tmp/cma-browser-study.db python -m uvicorn api:app --host 127.0.0.1 --port 8000 > /tmp/cma-browser.log 2>&1 &
+          node tests/ui_smoke.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: learning-ui-screenshots
+          path: ui-artifacts
+
+  learning-postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: cma_test
+          POSTGRES_PASSWORD: disposable_test_password
+          POSTGRES_DB: cma_learning_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U cma_test -d cma_learning_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install pytest fastapi "psycopg[binary]>=3.2,<4"
+      - name: Verify legacy schema and persistent guided learning
+        env:
+          CMA_TEST_POSTGRES_URL: postgresql://cma_test:disposable_test_password@localhost:5432/cma_learning_test
+        run: python -m pytest tests/test_postgres_learning.py -q
