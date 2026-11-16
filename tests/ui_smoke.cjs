@@ -148,6 +148,7 @@ const fs=require('node:fs');
  const practiceColor=await page.locator('.hero').evaluate(el=>getComputedStyle(el).backgroundImage);
  const practiceNav=await page.getByRole('button',{name:'Practice',exact:true}).evaluate(el=>getComputedStyle(el).color);
  await page.getByRole('button',{name:'Learn',exact:true}).click();
+ await page.waitForFunction(expected=>{const button=document.querySelector('nav button.active');return button?.textContent==='Learn'&&getComputedStyle(button).color===expected},practiceNav);
  const learnColor=await page.locator('.hero').evaluate(el=>getComputedStyle(el).backgroundImage);
  const learnNav=await page.getByRole('button',{name:'Learn',exact:true}).evaluate(el=>getComputedStyle(el).color);
  assert.equal(practiceColor,learnColor,'Learn/Practice header palette must match');
