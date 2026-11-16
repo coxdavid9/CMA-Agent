@@ -11,6 +11,7 @@ Content inventory: **408 reviewed standalone MCQs (293 Part 1 / 115 Part 2), 16 
 - Reviewed bank audit and study-guide import, duplicate retirement, arithmetic validation, skill tagging, and CI.
 - 12 additional Part 1 case scenarios; current case responses remain MCQ only.
 - Optional practice hints and teach-before-retest review (PR #12).
+- Reasoning-first flexible-budget workshop: a month-end story, a fully worked cost bridge, an ungraded live budget explorer, misconception-specific discussion, and a formula recap before calculation. Previous first-lesson history is preserved under its older revision; the revised path starts fresh. Reopening teaching during an independent check counts as assistance.
 - Guided lessons for flexible budgets, absorption/variable costing, special orders, working capital/cash conversion cycle, and NPV.
 - Each lesson teaches a concept, guides three steps, checks a fresh numeric answer and a reasoning choice, and schedules a delayed check. Examples use varied parameters and keep answer keys on the server.
 - Persistent lesson progress and hint usage. Guided/assisted checks cannot establish independent success. Initial independent success and delayed recall are separate labels; no full-topic mastery claim.

@@ -19,3 +19,10 @@ Practice attempts now have `hint_level` metadata. Helped responses remain in his
 
 ## Known boundaries
 Five starter lessons do not cover the full syllabus. Numeric entry is implemented in guided lessons; the case/exam UI still uses MCQs. Exam navigation, section-weighted diagnostic reporting, time carryover policy verification, and robust exam persistence remain separate work. Guided lessons use the existing personal/shared study database model; this release does not add multi-user accounts.
+
+
+## Flexible-budget teaching revision (November 16, 2026)
+
+David reported that the first lesson still felt like questions with brief explanations. The first lesson now has a separate ungraded teaching phase: an everyday cost-review problem, a fully worked $900 bridge ($600 output effect plus $300 unfavorable flexible-budget cost variance), an explorer with output and actual-cost controls, a discussion of the reasoning with feedback for different misconceptions, and a formula recap. Graded guided calculations are unavailable until that phase is complete. Teaching navigation is saved in the database and protected against duplicate/stale page moves; explorer values are saved on the current device. Teaching interactions create no attempts, correctness, or mastery evidence.
+
+Only the flexible-budget lesson uses revision `guided-v2-teaching`; previous run records remain unchanged, and the other lessons keep their existing history. Delayed-recall sessions still start with fresh checks. Reopening the teaching from a check records assistance. The explorer assumes a $6 variable rate and a $4,000 fixed total throughout its modeled output range; it does not identify the causes of a spending variance. Its automated browser check covers below/at/above planned volume, favorable/unfavorable/zero spending variance, reload persistence, mobile layout, and the absence of graded answers during teaching. Whether this approach helps David learn is to be evaluated through his next use, not inferred from passing software tests.

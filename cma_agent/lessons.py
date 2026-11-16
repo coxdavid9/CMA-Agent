@@ -15,7 +15,8 @@ SOURCE = "https://www.imanet.org/ima-certifications/cma-certification/prepare"
 LESSONS = [
     {
         "id": "flexible-budget", "title": "Separate volume from spending",
-        "part": "Part 1", "domain": "Performance Management", "minutes": 12,
+        "part": "Part 1", "domain": "Performance Management", "minutes": 18,
+        "teaching_version": "reasoning-first",
         "outcomes": ["P1.C.1.e", "P1.C.1.g"],
         "skills": ["Flexible budget performance", "Standard cost and variances"],
         "purpose": "Explain a cost overrun without blaming the team for producing more.",
@@ -140,8 +141,12 @@ def _now():
     return datetime.now(timezone.utc).replace(tzinfo=None)
 
 
+def _revision(lesson_id):
+    return "guided-v2-teaching" if lesson_id == "flexible-budget" else "guided-v1"
+
+
 def _runs(conn, lesson_id):
-    return conn.execute("SELECT * FROM lesson_runs WHERE lesson_id=? AND revision=? ORDER BY started_at DESC", (lesson_id, "guided-v1")).fetchall()
+    return conn.execute("SELECT * FROM lesson_runs WHERE lesson_id=? AND revision=? ORDER BY started_at DESC", (lesson_id, _revision(lesson_id))).fetchall()
 
 
 def _public(row):
@@ -154,7 +159,9 @@ def _public(row):
               "feedback": state.get("feedback"), "done": bool(row["completed_at"]),
               "due_at": row["due_at"], "outcome": state.get("outcome"),
               "guided_count": state["guided_count"], "independent_correct": state.get("independent_correct", 0)}
-    if task:
+    if "teaching_step" in state:
+        result["teaching_step"] = state["teaching_step"]
+    if task and not (state.get("teaching_step", 5) < 5):
         result["task"] = {k: task[k] for k in ("type", "prompt", "choices") if k in task}
         result["hints"] = task["hints"][:state.get("hint_level", 0)]
         result["can_hint"] = state.get("hint_level", 0) < len(task["hints"])
@@ -205,8 +212,10 @@ def start(lesson_id):
              "tasks": ([] if recall else built["guided"]) + built["check"],
              "guided_count": 0 if recall else len(built["guided"]), "context": built["context"],
              "results": [], "previous_independent": bool(latest and json.loads(latest["state"]).get("outcome") in ("Independent check passed", "Recall confirmed"))}
+    if lesson_id == "flexible-budget" and not recall:
+        state["teaching_step"] = 0
     run_id = str(uuid.uuid4())
-    conn.execute("INSERT INTO lesson_runs(id,lesson_id,revision,started_at,state) VALUES(?,?,?,?,?)", (run_id, lesson_id, "guided-v1", _now().isoformat(timespec="microseconds"), json.dumps(state)))
+    conn.execute("INSERT INTO lesson_runs(id,lesson_id,revision,started_at,state) VALUES(?,?,?,?,?)", (run_id, lesson_id, _revision(lesson_id), _now().isoformat(timespec="microseconds"), json.dumps(state)))
     conn.commit()
     row = conn.execute("SELECT * FROM lesson_runs WHERE id=?", (run_id,)).fetchone()
     conn.close()
@@ -228,6 +237,32 @@ def act(run_id, index, action, answer=""):
     if row["completed_at"] or index != state["index"]:
         conn.close()
         return _public(row)
+    if action == "teach_review" and row["lesson_id"] == "flexible-budget":
+        state["teaching_step"] = 0
+        if index >= state["guided_count"] and not state.get("feedback"):
+            # Reopening the worked teaching during a check is legitimate help,
+            # and must not subsequently count as an unaided answer.
+            state["hint_level"] = max(1, state.get("hint_level", 0))
+        conn.execute("UPDATE lesson_runs SET state=? WHERE id=?", (json.dumps(state), run_id))
+        conn.commit()
+        updated = conn.execute("SELECT * FROM lesson_runs WHERE id=?", (run_id,)).fetchone()
+        conn.close()
+        return _public(updated)
+    if action in ("teach_next", "teach_back"):
+        current = state.get("teaching_step", 5)
+        # The expected teaching page makes repeat/stale navigation idempotent.
+        if str(current) != answer or current >= 5:
+            conn.close()
+            return _public(row)
+        state["teaching_step"] = max(0, min(5, current+(1 if action == "teach_next" else -1)))
+        conn.execute("UPDATE lesson_runs SET state=? WHERE id=?", (json.dumps(state), run_id))
+        conn.commit()
+        updated = conn.execute("SELECT * FROM lesson_runs WHERE id=?", (run_id,)).fetchone()
+        conn.close()
+        return _public(updated)
+    if state.get("teaching_step", 5) < 5:
+        conn.close()
+        raise ValueError("Explore the teaching pages before starting the calculation.")
     if action in ("answer", "hint") and state.get("feedback"):
         conn.close()
         return _public(row)
