@@ -1,5 +1,5 @@
 import React,{useEffect,useRef,useState} from 'react';
-import FlexibleBudgetWorkshop from './FlexibleBudgetWorkshop';
+import LessonWorkshop from './LessonWorkshop';
 import {relatedLessons,readSaved,writeSaved,markTeaching,PANEL_KEY} from './practiceTeaching.mjs';
 
 export default function QuestionTeaching({question,api,graded=false}){
@@ -22,8 +22,8 @@ export default function QuestionTeaching({question,api,graded=false}){
    <div className="teaching-return"><span className="pill">Practice support · no lesson score</span><button onClick={close}>Back to my question</button></div>
    <h2 id="question-teaching-title" tabIndex={-1} ref={heading}>{lesson.title}</h2>
    <p>Your question and selected answer stay saved below. This teaching preview does not start or change your Learn progress.</p>
-   {lesson.id==='flexible-budget'&&panel.step<5?<FlexibleBudgetWorkshop run={{run_id:'practice-help-'+question.id,teaching_step:panel.step}} busy={false} onMove={action=>save({...panel,step:Math.max(0,Math.min(5,panel.step+(action==='teach_back'?-1:1)))})}/>:<><div className="card"><div className="eyebrow">THE IDEA</div><p>{lesson.concept}</p><div className="lesson-formula">{lesson.formula}</div></div><div className="card"><h3>Connect it to your work</h3><p>{lesson.connection}</p></div><div className="lesson-trap"><b>Watch for this</b><p>{lesson.trap}</p></div>{lesson.id==='flexible-budget'&&<p>Apply the same reasoning to your original question: hold output constant, preserve the budget cost assumptions, and investigate the remaining difference.</p>}</>}
-   <div className="teaching-return"><button className="primary" onClick={close}>Back to my question</button>{lesson.id==='flexible-budget'&&panel.step===5&&<button onClick={()=>save({...panel,step:0})}>Revisit the worked example</button>}</div>
+   {panel.step<5?<LessonWorkshop lesson={lesson} preview run={{run_id:'practice-help-'+question.id,teaching_step:panel.step}} busy={false} onMove={action=>{if(action==='teach_next'&&panel.step===4)close();else save({...panel,step:Math.max(0,Math.min(5,panel.step+(action==='teach_back'?-1:1)))})}}/>:<><div className="card"><div className="eyebrow">THE IDEA</div><p>{lesson.concept}</p><div className="lesson-formula">{lesson.formula}</div></div><div className="card"><h3>Connect it to your work</h3><p>{lesson.connection}</p></div><div className="lesson-trap"><b>Watch for this</b><p>{lesson.trap}</p></div>{lesson.id==='flexible-budget'&&<p>Apply the same reasoning to your original question: hold output constant, preserve the budget cost assumptions, and investigate the remaining difference.</p>}</>}
+   <div className="teaching-return"><button className="primary" onClick={close}>Back to my question</button>{panel.step===5&&<button onClick={()=>save({...panel,step:0})}>Revisit the worked example</button>}</div>
   </section>}
  </div>
 }

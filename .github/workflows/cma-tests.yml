@@ -54,6 +54,8 @@ jobs:
           node-version: "20"
       - run: npm ci
       - run: npm run build
+      - name: Verify all scenario calculations
+        run: node ../tests/scenario_models.cjs
 
   learning-browser:
     runs-on: ubuntu-latest
@@ -76,6 +78,7 @@ jobs:
         run: |
           CMA_DB_PATH=/tmp/cma-browser-study.db python -m uvicorn api:app --host 127.0.0.1 --port 8000 > /tmp/cma-browser.log 2>&1 &
           node tests/ui_smoke.cjs
+          node tests/scenario_browser.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

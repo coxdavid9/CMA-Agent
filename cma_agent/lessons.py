@@ -27,7 +27,8 @@ LESSONS = [
     },
     {
         "id": "absorption-variable", "title": "Why inventory changes profit",
-        "part": "Part 1", "domain": "Cost Management", "minutes": 12,
+        "part": "Part 1", "domain": "Cost Management", "minutes": 18,
+        "teaching_version": "reasoning-first",
         "outcomes": ["P1.D.1.f", "P1.D.1.g", "P1.D.1.h"],
         "skills": ["Absorption and variable costing"],
         "purpose": "Reconcile profit when production and sales move in different directions.",
@@ -38,7 +39,8 @@ LESSONS = [
     },
     {
         "id": "special-order", "title": "Decide what actually changes",
-        "part": "Part 2", "domain": "Business Decision Analysis", "minutes": 12,
+        "part": "Part 2", "domain": "Business Decision Analysis", "minutes": 18,
+        "teaching_version": "reasoning-first",
         "outcomes": ["P2.C.2.a", "P2.C.2.b", "P2.C.2.h"],
         "skills": ["Special orders", "Relevant costs and revenues", "Sunk and opportunity costs"],
         "purpose": "Evaluate a one-time order without letting allocated costs distort the decision.",
@@ -49,7 +51,8 @@ LESSONS = [
     },
     {
         "id": "cash-cycle", "title": "Find where cash gets tied up",
-        "part": "Part 2", "domain": "Corporate Finance", "minutes": 10,
+        "part": "Part 2", "domain": "Corporate Finance", "minutes": 15,
+        "teaching_version": "reasoning-first",
         "outcomes": ["P2.B.4.a", "P2.B.4.gg"],
         "skills": ["Working capital management"],
         "purpose": "Connect inventory, collections, and supplier payments to cash pressure.",
@@ -60,7 +63,8 @@ LESSONS = [
     },
     {
         "id": "npv", "title": "Turn future savings into today's value",
-        "part": "Part 2", "domain": "Capital Investment Decisions", "minutes": 12,
+        "part": "Part 2", "domain": "Capital Investment Decisions", "minutes": 18,
+        "teaching_version": "reasoning-first",
         "outcomes": ["P2.E.2.a", "P2.E.2.b", "P2.E.2.c"],
         "skills": ["Net present value", "Time value of money"],
         "purpose": "Decide whether future cash benefits compensate for the money invested today.",
@@ -142,7 +146,7 @@ def _now():
 
 
 def _revision(lesson_id):
-    return "guided-v2-teaching" if lesson_id == "flexible-budget" else "guided-v1"
+    return "guided-v2-teaching"
 
 
 def _runs(conn, lesson_id):
@@ -212,7 +216,7 @@ def start(lesson_id):
              "tasks": ([] if recall else built["guided"]) + built["check"],
              "guided_count": 0 if recall else len(built["guided"]), "context": built["context"],
              "results": [], "previous_independent": bool(latest and json.loads(latest["state"]).get("outcome") in ("Independent check passed", "Recall confirmed"))}
-    if lesson_id == "flexible-budget" and not recall:
+    if not recall:
         state["teaching_step"] = 0
     run_id = str(uuid.uuid4())
     conn.execute("INSERT INTO lesson_runs(id,lesson_id,revision,started_at,state) VALUES(?,?,?,?,?)", (run_id, lesson_id, _revision(lesson_id), _now().isoformat(timespec="microseconds"), json.dumps(state)))
@@ -237,7 +241,7 @@ def act(run_id, index, action, answer=""):
     if row["completed_at"] or index != state["index"]:
         conn.close()
         return _public(row)
-    if action == "teach_review" and row["lesson_id"] == "flexible-budget":
+    if action == "teach_review" and row["lesson_id"] in BY_ID:
         state["teaching_step"] = 0
         if index >= state["guided_count"] and not state.get("feedback"):
             # Reopening the worked teaching during a check is legitimate help,
