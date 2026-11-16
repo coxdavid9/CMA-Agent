@@ -9,7 +9,7 @@ import math
 import random
 import uuid
 
-from cma_agent import engine
+from cma_agent import engine, financial_lessons
 
 SOURCE = "https://www.imanet.org/ima-certifications/cma-certification/prepare"
 LESSONS = [
@@ -74,6 +74,7 @@ LESSONS = [
         "trap": "Discount cash flows, not accounting profit. Do not discount the time-zero payment again. These starter examples assume one year, no taxes, no working-capital changes, and no salvage value.",
     },
 ]
+LESSONS = financial_lessons.LESSONS + LESSONS
 BY_ID = {lesson["id"]: lesson for lesson in LESSONS}
 
 
@@ -89,6 +90,8 @@ def _choice(prompt, choices, answer, explanation, hints):
 
 def build_tasks(lesson_id, rng=None):
     r = rng or random.SystemRandom()
+    if lesson_id in financial_lessons.IDS:
+        return financial_lessons.build_tasks(lesson_id, r, _number, _choice)
     if lesson_id == "flexible-budget":
         units, rate, fixed = r.randrange(8, 17)*100, r.randrange(4, 10), r.randrange(3, 8)*1000
         budget = units*rate+fixed

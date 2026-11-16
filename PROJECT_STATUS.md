@@ -5,7 +5,7 @@ Last verified from repository: 2026-11-16
 ## Current state
 CMA Coach is a personal study app with React/mobile UI, FastAPI, SQLite/Postgres history, adaptive practice, cases, exam practice, and a new guided-learning home.
 
-Content inventory: **408 reviewed standalone MCQs (293 Part 1 / 115 Part 2), 16 short MCQ cases with 34 subquestions, and five original guided starter lessons.** These counts are distinct; neither a question count nor a lesson completion establishes full syllabus mastery.
+Content inventory: **408 reviewed standalone MCQs (293 Part 1 / 115 Part 2), 16 short MCQ cases with 34 subquestions, and 11 original guided lessons (8 Part 1 / 3 Part 2).** These counts are distinct; neither a question count nor a lesson completion establishes full syllabus mastery.
 
 ## Completed
 - Reviewed bank audit and study-guide import, duplicate retirement, arithmetic validation, skill tagging, and CI.
@@ -42,3 +42,10 @@ Preserve existing reviewed questions and answer keys. New content needs arithmet
 - Explored inventory buildup/release, idle/constrained capacity, negative/zero/positive cash cycles, and positive/zero/negative NPV with timing and required-return controls.
 - Existing flexible-budget v2 progress stays intact. Earlier v1 attempts for the other four remain stored; their rebuilt versions start fresh. Reopened teaching during checks is assisted practice.
 - Added independent arithmetic/model checks and full desktop/mobile browser paths for each new workshop. This remains five starter topics, not full-syllabus instruction or a complete CBQ simulator.
+
+## Financial reporting curriculum batch — 2026-11-16
+Six new focused workshops cover statement links, accrual timing, indirect cash reconciliation, a simple single-obligation service contract, periodic FIFO/weighted-average/NRV, and allowance adjustments/write-offs. Original teaching uses progressive entries and an ungraded ledger with undo/reset, followed by three guided steps and two independent checks. Relevant reviewed question IDs open the same teaching in Practice without changing Learn runs.
+
+The Part 1 course build checklist lists 55 proposed units across all 22 official subtopics. Eight units are available; this is content availability, not user progress or complete outcome coverage. The plan is provisional and can split as lettered outcomes are audited. In particular, advanced recognition, factoring, multi-obligation contracts, inventory errors/LIFO, consolidations and integrated reporting remain unfinished.
+
+New automated checks cover randomized server answers, balanced statement entries, cash-flow signs, inventory cost reconciliation, write-off neutrality, precise question links, all six mobile learning/preview flows, and existing persistence/assistance/history guarantees. Existing lesson IDs and revisions stay unchanged.

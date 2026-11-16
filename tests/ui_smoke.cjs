@@ -13,7 +13,7 @@ const fs=require('node:fs');
  if(errors.length)throw new Error(errors.join('\n'));
  const lessonAnswers=[];
  page.on('request',r=>{if(r.url().endsWith('/api/lessons/action')&&r.method()==='POST')lessonAnswers.push(r.postDataJSON().action)});
- await page.getByRole('button',{name:'Start guided lesson',exact:true}).click();
+ await page.locator('.lesson-card').filter({has:page.getByRole('heading',{name:'Separate volume from spending',exact:true})}).getByRole('button').click();
  await page.getByRole('heading',{name:'“Costs are $900 over budget. What happened?”'}).waitFor();
  assert.equal(await page.getByRole('button',{name:'Check this step',exact:true}).count(),0);
  await page.screenshot({path:'ui-artifacts/desktop-story.png',fullPage:true});
