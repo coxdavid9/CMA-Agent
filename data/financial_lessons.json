@@ -1,0 +1,130 @@
+[
+  {
+    "id": "statement-links",
+    "title": "Connect the four financial statements",
+    "outcomes": [
+      "P1.A.1.b",
+      "P1.A.1.c",
+      "P1.A.1.e",
+      "P1.A.1.f",
+      "P1.A.1.g"
+    ],
+    "skills": [
+      "Financial statements"
+    ],
+    "purpose": "Trace one transaction through profit, assets, equity, and cash.",
+    "concept": "Transactions can affect several statements at once. Earning revenue is different from collecting cash; paying a dividend reduces equity without reducing profit.",
+    "formula": "Ending retained earnings = beginning retained earnings + net income − dividends",
+    "connection": "A monthly close is a connected reconciliation. An entry should explain both where value sits and how it got there.",
+    "trap": "Owner funding is financing, not revenue. A dividend is a distribution, not an expense.",
+    "part": "Part 1",
+    "domain": "External Financial Reporting Decisions",
+    "minutes": 20,
+    "teaching_version": "reasoning-first"
+  },
+  {
+    "id": "accrual-timing",
+    "title": "Separate earning, paying, and collecting",
+    "outcomes": [
+      "P1.A.1.e",
+      "P1.A.1.f",
+      "P1.A.2.z",
+      "P1.A.2.cc"
+    ],
+    "skills": [
+      "Income measurement",
+      "Asset valuation"
+    ],
+    "purpose": "Choose the period that receives the service or earns the revenue.",
+    "concept": "Payment, delivery, and recognition can occur in different periods. A prepayment remains an asset until consumed; an advance remains a liability until earned.",
+    "formula": "Unconsumed prepayment = cash paid − expense recognized",
+    "connection": "At close, ask what was delivered or consumed this month before asking when the bank moved.",
+    "trap": "Cash received is not automatically revenue, and cash paid is not automatically expense.",
+    "part": "Part 1",
+    "domain": "External Financial Reporting Decisions",
+    "minutes": 20,
+    "teaching_version": "reasoning-first"
+  },
+  {
+    "id": "cash-flow-bridge",
+    "title": "Explain why profit is not operating cash",
+    "outcomes": [
+      "P1.A.1.c",
+      "P1.A.1.e",
+      "P1.A.1.g"
+    ],
+    "skills": [
+      "Financial statements"
+    ],
+    "purpose": "Build an indirect operating cash bridge without reversing the signs.",
+    "concept": "Start with net income. Remove noncash expense effects and adjust operating working capital for cash timing. Keep investing and financing separate.",
+    "formula": "CFO = net income + depreciation − increase in receivables − increase in inventory + increase in payables",
+    "connection": "This is the same bridge you would use to explain why a profitable month still required borrowing.",
+    "trap": "Depreciation is added back because it reduced profit without using current cash. The addback is not a cash receipt.",
+    "part": "Part 1",
+    "domain": "External Financial Reporting Decisions",
+    "minutes": 20,
+    "teaching_version": "reasoning-first"
+  },
+  {
+    "id": "revenue-delivery",
+    "title": "Recognize revenue as the service is delivered",
+    "outcomes": [
+      "P1.A.2.x",
+      "P1.A.2.y"
+    ],
+    "skills": [
+      "Revenue recognition"
+    ],
+    "purpose": "Separate an advance payment from earned revenue in a simple contract.",
+    "concept": "A valid customer contract identifies promised performance. Revenue follows satisfaction of that obligation, not simply a payment or invoice.",
+    "formula": "Earned revenue = contract price × measured performance satisfied",
+    "connection": "A customer paying early helps cash; it does not mean the team has completed its work.",
+    "trap": "This example qualifies for recognition over time because the customer receives and consumes benefits as work occurs. A calendar alone is not evidence.",
+    "part": "Part 1",
+    "domain": "External Financial Reporting Decisions",
+    "minutes": 20,
+    "teaching_version": "reasoning-first"
+  },
+  {
+    "id": "inventory-measurement",
+    "title": "Follow inventory cost into profit and valuation",
+    "outcomes": [
+      "P1.A.2.c",
+      "P1.A.2.d",
+      "P1.A.2.e",
+      "P1.A.2.f"
+    ],
+    "skills": [
+      "Asset valuation"
+    ],
+    "purpose": "Explain how cost assignment changes ending inventory and gross profit.",
+    "concept": "Costs of goods available must end up in cost of goods sold or ending inventory. Periodic FIFO and weighted average assign different costs; a valuation check comes afterward.",
+    "formula": "Goods available cost = cost of goods sold + ending inventory (before write-down)",
+    "connection": "Use the rollforward to explain a margin movement before treating it as an operating improvement.",
+    "trap": "Cost flow is an accounting assumption. This lesson covers periodic FIFO and weighted average under the lower-of-cost-and-NRV rule, not LIFO or the retail method.",
+    "part": "Part 1",
+    "domain": "External Financial Reporting Decisions",
+    "minutes": 20,
+    "teaching_version": "reasoning-first"
+  },
+  {
+    "id": "receivable-allowance",
+    "title": "Estimate receivable losses without double-counting",
+    "outcomes": [
+      "P1.A.2.a"
+    ],
+    "skills": [
+      "Asset valuation"
+    ],
+    "purpose": "Adjust the allowance to its required balance, then trace a write-off.",
+    "concept": "An allowance reduces gross receivables to an expected collectible amount. Adjust the existing allowance to the required ending balance; a later write-off uses the allowance.",
+    "formula": "Net receivables = gross receivables − allowance; adjustment = required allowance − existing credit balance",
+    "connection": "A collections issue affects both the balance sheet estimate and profit. A write-off should not record the same expected loss again.",
+    "trap": "The expected loss rate is given for this exercise. It is not a universal rule for estimating credit losses.",
+    "part": "Part 1",
+    "domain": "External Financial Reporting Decisions",
+    "minutes": 20,
+    "teaching_version": "reasoning-first"
+  }
+]

@@ -103,7 +103,7 @@ def test_content_arithmetic_across_parameter_ranges():
                     assert task['answer'] in task['choices']
         # Independent arithmetic oracle for each lesson's first numeric check.
         import re
-        for lesson_id in lessons.BY_ID:
+        for lesson_id in ('flexible-budget','absorption-variable','special-order','cash-cycle','npv'):
             task=lessons.build_tasks(lesson_id,random.Random(seed))['check'][0]
             n=[float(x.replace(',','')) for x in re.findall(r'\d[\d,]*(?:\.\d+)?',task['prompt'])]
             if lesson_id=='flexible-budget':expected=n[3]-(n[0]*n[1]+n[2])
@@ -241,7 +241,7 @@ def test_revisiting_teaching_during_independent_check_counts_as_help(isolated_db
 
 def test_all_starter_lessons_publish_teaching_version(isolated_db):
     rows=lessons.catalog()
-    assert len(rows)==5
+    assert len(rows)==11
     assert all(row.get('teaching_version')=='reasoning-first' for row in rows)
 
 def test_flexible_budget_v2_history_is_not_reset(isolated_db):

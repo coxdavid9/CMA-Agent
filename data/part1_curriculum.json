@@ -1,0 +1,357 @@
+{
+  "scope": "A proposed Part 1 build checklist, not an outcome-completeness claim. Available lessons teach focused skills; broader outcomes within each subtopic remain to be audited. Planned units may split as content is developed.",
+  "subtopics": [
+    {
+      "id": "P1.A.1",
+      "title": "Financial statements",
+      "lessons": [
+        {
+          "id": "statement-links",
+          "title": "Connect the four financial statements"
+        },
+        {
+          "id": "accrual-timing",
+          "title": "Separate earning, paying, and collecting"
+        },
+        {
+          "id": "cash-flow-bridge",
+          "title": "Explain why profit is not operating cash"
+        },
+        {
+          "id": "consolidations",
+          "title": "Consolidations and intercompany eliminations"
+        },
+        {
+          "id": "integrated-reporting",
+          "title": "Integrated reporting and value creation"
+        }
+      ]
+    },
+    {
+      "id": "P1.A.2",
+      "title": "Recognition, measurement, and valuation",
+      "lessons": [
+        {
+          "id": "revenue-delivery",
+          "title": "Recognize revenue as the service is delivered"
+        },
+        {
+          "id": "receivable-allowance",
+          "title": "Estimate receivable losses without double-counting"
+        },
+        {
+          "id": "inventory-measurement",
+          "title": "Follow inventory cost into profit and valuation"
+        },
+        {
+          "id": "inventory-errors-lifo",
+          "title": "Inventory errors, LIFO, and method selection"
+        },
+        {
+          "id": "depreciation-impairment",
+          "title": "Depreciation, disposals, and impairment"
+        },
+        {
+          "id": "investment-valuation",
+          "title": "Debt investments and valuation"
+        },
+        {
+          "id": "liabilities-warranties",
+          "title": "Debt classification and warranties"
+        },
+        {
+          "id": "deferred-tax",
+          "title": "Temporary differences and deferred tax"
+        },
+        {
+          "id": "leases",
+          "title": "Lease recognition and presentation"
+        },
+        {
+          "id": "equity-oci",
+          "title": "Equity transactions and comprehensive income"
+        },
+        {
+          "id": "gaap-ifrs",
+          "title": "Compare GAAP and IFRS recognition"
+        }
+      ]
+    },
+    {
+      "id": "P1.B.1",
+      "title": "Strategic planning",
+      "lessons": [
+        {
+          "id": "strategy-choices",
+          "title": "Strategic choices and competitive analysis"
+        },
+        {
+          "id": "planning-tools",
+          "title": "Translate strategy into operating plans"
+        }
+      ]
+    },
+    {
+      "id": "P1.B.2",
+      "title": "Budgeting concepts",
+      "lessons": [
+        {
+          "id": "budget-design",
+          "title": "Budget design and behavioral effects"
+        },
+        {
+          "id": "standards-participation",
+          "title": "Standards and participative budgeting"
+        }
+      ]
+    },
+    {
+      "id": "P1.B.3",
+      "title": "Forecasting techniques",
+      "lessons": [
+        {
+          "id": "regression",
+          "title": "Regression and forecast interpretation"
+        },
+        {
+          "id": "learning-curves",
+          "title": "Learning curves"
+        },
+        {
+          "id": "probability-expected-value",
+          "title": "Probability and expected values"
+        }
+      ]
+    },
+    {
+      "id": "P1.B.4",
+      "title": "Budget methodologies",
+      "lessons": [
+        {
+          "id": "budget-methods",
+          "title": "Choose a budgeting method"
+        }
+      ]
+    },
+    {
+      "id": "P1.B.5",
+      "title": "Annual profit plan and supporting schedules",
+      "lessons": [
+        {
+          "id": "sales-production",
+          "title": "Sales and production budgets"
+        },
+        {
+          "id": "purchases-labor-overhead",
+          "title": "Purchases, labor, and overhead budgets"
+        },
+        {
+          "id": "cash-budget",
+          "title": "Build a cash budget"
+        }
+      ]
+    },
+    {
+      "id": "P1.B.6",
+      "title": "Top-level planning and analysis",
+      "lessons": [
+        {
+          "id": "pro-forma-financing",
+          "title": "Pro forma statements and financing needs"
+        }
+      ]
+    },
+    {
+      "id": "P1.C.1",
+      "title": "Cost and variance measures",
+      "lessons": [
+        {
+          "id": "flexible-budget",
+          "title": "Separate volume from spending"
+        },
+        {
+          "id": "materials-labor-variance",
+          "title": "Materials and labor variances"
+        },
+        {
+          "id": "overhead-variance",
+          "title": "Overhead variances"
+        },
+        {
+          "id": "mix-yield-volume",
+          "title": "Mix, yield, and sales volume"
+        }
+      ]
+    },
+    {
+      "id": "P1.C.2",
+      "title": "Responsibility centers and reporting segments",
+      "lessons": [
+        {
+          "id": "responsibility-segments",
+          "title": "Responsibility centers and segment reporting"
+        },
+        {
+          "id": "transfer-pricing",
+          "title": "Transfer pricing"
+        }
+      ]
+    },
+    {
+      "id": "P1.C.3",
+      "title": "Performance measures",
+      "lessons": [
+        {
+          "id": "roi-residual-income",
+          "title": "ROI and residual income"
+        },
+        {
+          "id": "balanced-scorecard",
+          "title": "Balanced scorecard and measures"
+        }
+      ]
+    },
+    {
+      "id": "P1.D.1",
+      "title": "Measurement concepts",
+      "lessons": [
+        {
+          "id": "absorption-variable",
+          "title": "Absorption versus variable costing"
+        },
+        {
+          "id": "cost-behavior-joint-cost",
+          "title": "Cost behavior and joint costs"
+        }
+      ]
+    },
+    {
+      "id": "P1.D.2",
+      "title": "Costing systems",
+      "lessons": [
+        {
+          "id": "job-process-costing",
+          "title": "Job and process costing"
+        },
+        {
+          "id": "abc-life-cycle",
+          "title": "Activity-based and life-cycle costing"
+        }
+      ]
+    },
+    {
+      "id": "P1.D.3",
+      "title": "Overhead costs",
+      "lessons": [
+        {
+          "id": "overhead-allocation",
+          "title": "Overhead allocation"
+        },
+        {
+          "id": "service-cost-allocation",
+          "title": "Service department cost allocation"
+        }
+      ]
+    },
+    {
+      "id": "P1.D.4",
+      "title": "Supply chain management",
+      "lessons": [
+        {
+          "id": "supply-chain-lean-mrp",
+          "title": "Supply chain, lean, and materials planning"
+        }
+      ]
+    },
+    {
+      "id": "P1.D.5",
+      "title": "Business process improvement",
+      "lessons": [
+        {
+          "id": "quality-process-improvement",
+          "title": "Quality costs and process improvement"
+        }
+      ]
+    },
+    {
+      "id": "P1.E.1",
+      "title": "Governance, risk, and compliance",
+      "lessons": [
+        {
+          "id": "coso-governance",
+          "title": "COSO, governance, and controls"
+        },
+        {
+          "id": "control-fraud",
+          "title": "Control design and fraud risk"
+        },
+        {
+          "id": "internal-audit",
+          "title": "Internal audit"
+        }
+      ]
+    },
+    {
+      "id": "P1.E.2",
+      "title": "System controls and security measures",
+      "lessons": [
+        {
+          "id": "it-system-controls",
+          "title": "IT system controls"
+        },
+        {
+          "id": "security-continuity",
+          "title": "Security and business continuity"
+        }
+      ]
+    },
+    {
+      "id": "P1.F.1",
+      "title": "Information systems",
+      "lessons": [
+        {
+          "id": "information-systems-erp",
+          "title": "Information systems and ERP"
+        }
+      ]
+    },
+    {
+      "id": "P1.F.2",
+      "title": "Data governance",
+      "lessons": [
+        {
+          "id": "data-governance-ethics",
+          "title": "Data governance and ethics"
+        }
+      ]
+    },
+    {
+      "id": "P1.F.3",
+      "title": "Technology-enabled finance transformation",
+      "lessons": [
+        {
+          "id": "finance-automation",
+          "title": "Finance automation and emerging technology"
+        }
+      ]
+    },
+    {
+      "id": "P1.F.4",
+      "title": "Data analytics",
+      "lessons": [
+        {
+          "id": "analytics-questions",
+          "title": "Choose an analytical approach"
+        },
+        {
+          "id": "visualization",
+          "title": "Visualize and communicate results"
+        },
+        {
+          "id": "data-model-quality",
+          "title": "Data preparation and model quality"
+        }
+      ]
+    }
+  ]
+}
