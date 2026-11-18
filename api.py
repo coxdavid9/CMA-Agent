@@ -1,4 +1,5 @@
 import re
+import os
 import copy
 import json
 import random
@@ -264,6 +265,11 @@ def session():
 def new_session():
     sid = start_new_session()
     return {"session_id": sid, "stats": session_stats(sid)}
+
+
+@app.get("/api/history-generation")
+def history_generation():
+    return {"generation": os.environ.get("CMA_HISTORY_RESET_ID", "")}
 
 
 @app.get("/api/preferences")

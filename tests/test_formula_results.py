@@ -54,3 +54,19 @@ def test_attempt_sources_and_stats_endpoint(tmp_path, monkeypatch):
     assert stats["by_type"]["numeric"] == {"attempts":1,"correct":1,"accuracy":100}
     assert stats["by_type"]["reveal"] == {"attempts":1,"correct":1,"accuracy":100}
     assert stats["by_type"]["cloze_pick"]["accuracy"] is None
+
+
+def test_reset_archives_progress_once_and_preserves_settings(tmp_path, monkeypatch):
+    from cma_agent.reset_history import reset_once
+
+    monkeypatch.setattr(engine, "DB", tmp_path / "reset.db")
+    engine.save_preferences("Part 2", "All", "All")
+    engine.save_resume_question("resume-test")
+    formulas.grade("FORM-06", False)
+    assert reset_once("test")["formula_attempts"] == 1
+    assert formulas.stats("Part 1")["total_attempts"] == 0
+    assert engine.get_preferences()["part"] == "Part 2"
+    assert engine.get_preferences()["resume_question_id"] is None
+    formulas.grade("FORM-06", True)
+    assert reset_once("test") is None
+    assert formulas.stats("Part 1")["total_attempts"] == 1

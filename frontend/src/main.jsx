@@ -169,4 +169,20 @@ function Study({data,refresh}){
 }
 function StudyForm({g,refresh}){const [target,setTarget]=useState(g?.target_date||new Date().toISOString().slice(0,10)),[part,setPart]=useState(g?.part||'Part 1'),[mins,setMins]=useState(g?.daily_minutes||30),[saving,setSaving]=useState(false);return <div className="goal"><label>Target exam date<input type="date" value={target} onChange={e=>setTarget(e.target.value)}/></label><label>Part<select value={part} onChange={e=>setPart(e.target.value)}>{['Part 1','Part 2','Both'].map(x=><option key={x}>{x}</option>)}</select></label><label>Daily study minutes<input type="number" min="10" max="240" value={mins} onChange={e=>setMins(e.target.value)}/></label><button className="primary" disabled={saving} onClick={async()=>{setSaving(true);try{await api('/api/study-plan',{method:'POST',body:JSON.stringify({target_date:target,part,daily_minutes:Number(mins)})});await refresh()}finally{setSaving(false)}}}>{saving?'Saving…':'Save Study Goal'}</button></div>}
 
-createRoot(document.getElementById('root')).render(<App/>);
+async function mount() {
+  try {
+    const {generation}=await api('/api/history-generation');
+    const key='cma-history-generation';
+    if (generation && localStorage.getItem(key)!==generation) {
+      for (const name of Object.keys(localStorage)) {
+        if (name.startsWith('cma-') && name!==PREF_KEY) localStorage.removeItem(name);
+      }
+      localStorage.setItem(key,generation);
+    }
+  } catch {
+    // The study app still opens if browser storage or the reset check is unavailable.
+  }
+  createRoot(document.getElementById('root')).render(<App/>);
+}
+
+mount();
