@@ -1,4 +1,5 @@
 import re
+import os
 import copy
 import json
 import random
@@ -6,7 +7,7 @@ from pathlib import Path
 import cma_agent.engine as engine
 import cma_agent.adaptive as adaptive
 import cma_agent.skills as skills
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from cma_agent import lessons, coverage, study_metrics, timed, exam_mix, formulas, case_drill
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
@@ -264,6 +265,11 @@ def session():
 def new_session():
     sid = start_new_session()
     return {"session_id": sid, "stats": session_stats(sid)}
+
+
+@app.get("/api/history-generation")
+def history_generation():
+    return {"generation": os.environ.get("CMA_HISTORY_RESET_ID", "")}
 
 
 @app.get("/api/preferences")
@@ -536,8 +542,14 @@ class FormulaGrade(BaseModel):
 
 
 @app.get("/api/formulas/due")
-def formula_due(part: str = "Part 1"):
-    return formulas.due(study_part(part))
+def formula_due(part: str = "Part 1", limit: int = Query(default=10, ge=1, le=50),
+                exclude: list[str] = Query(default=[])):
+    return formulas.due(study_part(part), limit=limit, exclude=exclude)
+
+
+@app.get("/api/formulas/stats")
+def formula_stats(part: str = "Part 1"):
+    return formulas.stats(study_part(part))
 
 
 @app.post("/api/formulas/grade")

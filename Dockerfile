@@ -13,4 +13,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 COPY --from=frontend /frontend/dist ./frontend/dist
 EXPOSE 8000
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c", "python -m cma_agent.reset_history && exec uvicorn api:app --host 0.0.0.0 --port 8000"]
