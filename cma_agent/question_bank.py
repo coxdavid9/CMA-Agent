@@ -84,7 +84,7 @@ def case_questions(cases):
         if case["id"] in case_ids:
             raise ValueError("Duplicate case ID")
         case_ids.add(case["id"])
-        if not case.get("scenario", "").strip() or not case.get("questions"):
+        if not case.get("scenario", "").strip() or not (case.get("questions") or case.get("written_practice")):
             raise ValueError("Case requires scenario and questions")
         for index, item in enumerate(case["questions"], 1):
             result.append({
@@ -192,6 +192,17 @@ def near_duplicates(questions):
 def validate_bank(questions, cases, audit):
     combined = questions + case_questions(cases)
     errors = [error for q in combined for error in validate_question(q)]
+    for case in cases:
+        written = case.get("written_practice")
+        if written:
+            if not written.get("scenario", "").strip() or not written.get("questions"):
+                errors.append(f"{case['id']}: missing written scenario or questions")
+            for item in written.get("questions", []):
+                if item.get("type") != "short_answer" or not item.get("q", "").strip() or not item.get("model_answer", "").strip():
+                    errors.append(f"{case['id']}: invalid short-answer item")
+        for item in case["questions"]:
+            if item.get("type", "mcq") != "mcq" or not item.get("choices") or item.get("answer") not in item["choices"]:
+                errors.append(f"{case['id']}: invalid multiple-choice item")
     ids = [q["id"] for q in combined]
     if len(ids) != len(set(ids)):
         errors.append("Duplicate IDs in combined MCQ/case bank")

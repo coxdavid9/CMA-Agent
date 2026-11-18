@@ -4,7 +4,7 @@ import random
 import time
 import uuid
 
-from cma_agent import engine
+from cma_agent import case_drill, engine, exam_mix
 
 
 def connect():
@@ -14,12 +14,20 @@ def connect():
     return c
 
 
-def start(part):
+def start(part, gate_weights=None):
     bank = [q for q in engine.QUESTIONS if q["part"] == part and not q.get("is_case")]
-    ids = [q["id"] for q in random.sample(bank, 25)]
+    if gate_weights:
+        pools = {domain: [q["id"] for q in bank if q["domain"] == domain] for domain in gate_weights}
+        ids = []
+        while len(ids) < 20:
+            available = {domain: weight for domain, weight in gate_weights.items() if pools[domain]}
+            domain = exam_mix.draw(available)
+            ids.append(pools[domain].pop(random.randrange(len(pools[domain]))))
+    else:
+        ids = [q["id"] for q in random.sample(bank, 25)]
     set_id = str(uuid.uuid4())
     now = time.time()
-    state = {"ids": ids, "deadline": now + 2700, "shown": now, "answers": []}
+    state = {"ids": ids, "deadline": now + (2160 if gate_weights else 2700), "shown": now, "answers": [], "gate": bool(gate_weights)}
     c = connect()
     try:
         c.execute("INSERT INTO timed_sets VALUES(?,?)", (set_id, json.dumps(state)))
@@ -35,6 +43,8 @@ def public(set_id, state):
     if "results" in state:
         result["results"] = state["results"]
         result["score"] = sum(item["correct"] for item in state["results"])
+        if state.get("gate"):
+            result["gate_case_id"] = state.get("gate_case_id")
     else:
         q = engine.get_question(state["ids"][result["index"]])
         result["question"] = {key: q[key] for key in ("id", "question", "choices", "domain")}
@@ -71,6 +81,8 @@ def advance(set_id, question_id=None, selected=None, finish=False):
                                 "answer": q["answer"], "explanation": q.get("explanation", ""),
                                 "elapsed_seconds": elapsed, "correct": correct, "attempt_id": attempt_id})
             state["results"] = results
+            if state.get("gate"):
+                state["gate_case_id"] = case_drill.gate_result(c, set_id, sum(item["correct"] for item in results))
         c.execute("UPDATE timed_sets SET state=? WHERE id=?", (json.dumps(state), set_id))
         c.commit()
         return public(set_id, state)
