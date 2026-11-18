@@ -5,10 +5,10 @@ API key, or new paid service is required. All answers stay on the server.
 """
 from datetime import datetime, timedelta, timezone
 import json
-import math
 import random
 import uuid
 
+from cma_agent.numeric import parse_number, within_tolerance
 from cma_agent import engine, financial_lessons
 
 SOURCE = "https://www.imanet.org/ima-certifications/cma-certification/prepare"
@@ -279,14 +279,11 @@ def act(run_id, index, action, answer=""):
     elif action == "answer" and not state.get("feedback"):
         if task["type"] == "number":
             try:
-                value = float(str(answer).strip().replace(",", "").replace("$", ""))
+                value = parse_number(answer)
             except ValueError:
                 conn.close()
-                raise ValueError("Enter a number, such as 1250 or -350.")
-            if not math.isfinite(value):
-                conn.close()
-                raise ValueError("Enter a finite number.")
-            correct = abs(value-task["answer"]) <= task["tolerance"]
+                raise
+            correct = within_tolerance(value, task["answer"], task["tolerance"])
             mistake = task.get("wrong", {}).get(str(round(value)), "Check which facts belong in the setup, then follow the worked calculation below.")
             expected = f"{task['answer']:,.0f}"
         else:

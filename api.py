@@ -546,6 +546,23 @@ def grade_formula(request: FormulaGrade):
         return formulas.grade(request.formula_id, request.correct)
     except KeyError:
         raise HTTPException(404, "Formula not found")
+    except ValueError as exc:
+        raise HTTPException(422, str(exc))
+
+
+class FormulaAnswer(BaseModel):
+    formula_id: str
+    response: str = Field(min_length=1, max_length=500)
+
+
+@app.post("/api/formulas/answer")
+def answer_formula(request: FormulaAnswer):
+    try:
+        return formulas.answer(request.formula_id, request.response)
+    except KeyError:
+        raise HTTPException(404, "Formula not found")
+    except ValueError as exc:
+        raise HTTPException(422, str(exc))
 
 
 class WrittenScores(BaseModel):
