@@ -1,11 +1,13 @@
 from collections import Counter
 import random
 
-from api import _BLUEPRINT
 from cma_agent import engine, exam_mix, formulas
 
 
 def test_exam_mix_shares_and_weak_domain(tmp_path, monkeypatch):
+    from pathlib import Path
+    (Path(__file__).parents[1] / "frontend/dist").mkdir(exist_ok=True)
+    from api import _BLUEPRINT
     monkeypatch.setattr(engine, "DB", tmp_path / "mix.db")
     part = "Part 1"
     blueprint = _BLUEPRINT[part]
@@ -24,6 +26,9 @@ def test_exam_mix_shares_and_weak_domain(tmp_path, monkeypatch):
 
 
 def test_formula_review_schedule_and_domains(tmp_path, monkeypatch):
+    from pathlib import Path
+    (Path(__file__).parents[1] / "frontend/dist").mkdir(exist_ok=True)
+    from api import _BLUEPRINT
     monkeypatch.setattr(engine, "DB", tmp_path / "formula.db")
     for card in formulas.CARDS.values():
         assert card["domain"] in _BLUEPRINT[card["part"]]
