@@ -54,11 +54,14 @@ def db():
         c.execute("CREATE INDEX IF NOT EXISTS idx_attempts_ts ON attempts(ts)")
         c.execute("ALTER TABLE attempts ADD COLUMN IF NOT EXISTS bank_revision TEXT")
         c.execute("ALTER TABLE attempts ADD COLUMN IF NOT EXISTS hint_level INTEGER DEFAULT 0")
+        c.execute("ALTER TABLE attempts ADD COLUMN IF NOT EXISTS error_cause TEXT")
+        c.execute("ALTER TABLE attempts ADD COLUMN IF NOT EXISTS elapsed_seconds REAL")
         c.commit()
         return c
 
     c=sqlite3.connect(DB)
     c.row_factory=sqlite3.Row
+    c.execute("BEGIN IMMEDIATE")
     c.execute("CREATE TABLE IF NOT EXISTS attempts(id INTEGER PRIMARY KEY,ts TEXT,question_id TEXT,part TEXT,domain TEXT,difficulty TEXT,selected TEXT,correct INTEGER,confidence INTEGER)")
     c.execute("CREATE TABLE IF NOT EXISTS goals(id INTEGER PRIMARY KEY CHECK(id=1),target_date TEXT,part TEXT,daily_minutes INTEGER)")
     c.execute("CREATE TABLE IF NOT EXISTS study_plans(id INTEGER PRIMARY KEY AUTOINCREMENT,created_at TEXT,target_date TEXT,part TEXT,daily_minutes INTEGER)")
@@ -70,6 +73,8 @@ def db():
     if "session_id" not in cols:c.execute("ALTER TABLE attempts ADD COLUMN session_id TEXT")
     if "bank_revision" not in cols:c.execute("ALTER TABLE attempts ADD COLUMN bank_revision TEXT")
     if "hint_level" not in cols:c.execute("ALTER TABLE attempts ADD COLUMN hint_level INTEGER DEFAULT 0")
+    if "error_cause" not in cols:c.execute("ALTER TABLE attempts ADD COLUMN error_cause TEXT")
+    if "elapsed_seconds" not in cols:c.execute("ALTER TABLE attempts ADD COLUMN elapsed_seconds REAL")
     c.commit(); return c
 
 
@@ -219,8 +224,31 @@ def learning_snapshot(domain="All"):
     recent_misses=[dict(r) for r in rows if int(r["correct"])==0][:5]; c.close(); weak.sort(); fragile.sort(reverse=True); return {"weak_domains":[d for _,d in weak[:3]],"fragile_domains":[d for _,d in fragile[:3]],"recent_misses":recent_misses}
 
 
-def grade(question_id,selected,confidence=0,session_id=None,hint_level=0):
-    q=get_question(question_id); correct=int(selected.upper()==q["answer"]); c=db(); c.execute("INSERT INTO attempts(ts,question_id,part,domain,difficulty,selected,correct,confidence,session_id,bank_revision,hint_level) VALUES(?,?,?,?,?,?,?,?,?,?,?)",(datetime.now().isoformat(timespec="seconds"),question_id,q["part"],q["domain"],q["difficulty"],selected.upper(),correct,int(confidence or 0),session_id or get_or_start_session(),q.get("content_revision"),max(0,min(3,int(hint_level))))); c.commit(); c.close(); return correct,q
+def insert_attempt(c, q, selected, confidence, session_id, hint_level=0, elapsed_seconds=None):
+    correct = int(selected.upper() == q["answer"])
+    row = c.execute(
+        """INSERT INTO attempts(ts,question_id,part,domain,difficulty,selected,correct,
+           confidence,session_id,bank_revision,hint_level,elapsed_seconds)
+           VALUES(?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id""",
+        (datetime.now().isoformat(timespec="seconds"), q["id"], q["part"], q["domain"],
+         q["difficulty"], selected.upper(), correct, int(confidence or 0), session_id,
+         q.get("content_revision"), max(0, min(3, int(hint_level))), elapsed_seconds),
+    ).fetchone()
+    return correct, row["id"]
+
+
+def grade(question_id, selected, confidence=0, session_id=None, hint_level=0,
+          elapsed_seconds=None, include_id=False):
+    q = get_question(question_id)
+    session_id = session_id or get_or_start_session()
+    c = db()
+    try:
+        correct, attempt_id = insert_attempt(c, q, selected, confidence, session_id,
+                                             hint_level, elapsed_seconds)
+        c.commit()
+    finally:
+        c.close()
+    return (correct, q, attempt_id) if include_id else (correct, q)
 
 
 def stats():
