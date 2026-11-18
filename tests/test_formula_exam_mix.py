@@ -35,11 +35,11 @@ def test_formula_review_schedule_and_domains(tmp_path, monkeypatch):
     # Exercise the legacy flip-card grading path independently of active-card priority.
     monkeypatch.setattr(formulas, "CARDS", {cid: card for cid, card in formulas.CARDS.items()
                                           if card.get("type", "reveal") == "reveal"})
-    cards = formulas.due("Part 1")
+    cards = formulas.due("Part 1", limit=10)
     assert len(cards) == 10
     hit = formulas.grade(cards[0]["id"], True)
     miss = formulas.grade(cards[1]["id"], False)
     assert hit["interval_days"] == 1
     assert miss["interval_days"] == .25
     assert miss["due_at"] < hit["due_at"]
-    assert cards[0] not in formulas.due("Part 1")
+    assert cards[0] not in formulas.due("Part 1", limit=10)
