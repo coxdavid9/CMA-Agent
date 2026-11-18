@@ -13,6 +13,7 @@ export default function FormulaDrill({api,part}) {
   const [phase,setPhase]=useState('start');
   const [seen,setSeen]=useState([]);
   const [answers,setAnswers]=useState([]);
+  const [extraPractice,setExtraPractice]=useState(false);
   const [exhausted,setExhausted]=useState(false);
   const [revealed,setRevealed]=useState(false);
   const [response,setResponse]=useState('');
@@ -29,10 +30,11 @@ export default function FormulaDrill({api,part}) {
     setError('');
   }
 
-  async function fetchBatch(excluded) {
+  async function fetchBatch(excluded, includeFuture=extraPractice) {
     setBusy(true);
     setError('');
     const query=new URLSearchParams({part,limit:'50'});
+    if (includeFuture) query.set('include_future','true');
     excluded.forEach(id=>query.append('exclude',id));
     try {
       const batch=await api('/api/formulas/due?'+query);
@@ -79,6 +81,12 @@ export default function FormulaDrill({api,part}) {
     setExhausted(false);
     setPhase('start');
   }
+  function restart(includeFuture) {
+    done();
+    setExtraPractice(includeFuture);
+    fetchBatch([],includeFuture);
+  }
+
   async function send(action, body, onSuccess) {
     setBusy(true);
     setError('');
@@ -95,11 +103,12 @@ export default function FormulaDrill({api,part}) {
   return <section>
     <h2>Formula drill · {part}</h2>
     {error && <p role="alert">{error}</p>}
-    {phase==='start' && <button className="primary" disabled={busy} onClick={()=>fetchBatch([])}>
+    {phase==='start' && <button className="primary" disabled={busy} onClick={()=>restart(false)}>
       {busy?'Loading cards…':'Start formula drill'}
     </button>}
     {phase==='summary' && <SessionSummary answers={answers} exhausted={exhausted}
-      busy={busy} onContinue={()=>fetchBatch(seen)} onDone={done}/>}
+      busy={busy} onContinue={()=>fetchBatch(seen)} onDone={done}
+      onRestart={()=>restart(exhausted)}/>}
     {phase==='drill' && card && <article className="card">
       <div className="actions">
         <p>Card {seen.length} · {card.domain}</p>
@@ -145,7 +154,7 @@ export default function FormulaDrill({api,part}) {
 }
 
 
-function SessionSummary({answers,exhausted,busy,onContinue,onDone}) {
+function SessionSummary({answers,exhausted,busy,onContinue,onDone,onRestart}) {
   const correct=answers.filter(entry=>entry.correct).length;
   const misses=answers.filter(entry=>!entry.correct);
   const percent=answers.length?Math.round(100*correct/answers.length):0;
@@ -160,7 +169,8 @@ function SessionSummary({answers,exhausted,busy,onContinue,onDone}) {
     {!!misses.length && <><h4>Review missed cards</h4>
       <ul>{misses.map(entry=><li key={entry.id}><b>{entry.front}</b><p>{entry.back}</p></li>)}</ul></>}
     <div className="actions">
-      <button className="primary" disabled={busy} onClick={onContinue}>Keep going</button>
+      {!exhausted && <button className="primary" disabled={busy} onClick={onContinue}>Keep going</button>}
+      <button disabled={busy} onClick={onRestart}>{exhausted?'Start extra practice':'Start new session'}</button>
       <button disabled={busy} onClick={onDone}>Done</button>
     </div>
   </div>;

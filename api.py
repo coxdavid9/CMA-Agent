@@ -542,9 +542,10 @@ class FormulaGrade(BaseModel):
 
 
 @app.get("/api/formulas/due")
-def formula_due(part: str = "Part 1", limit: int = Query(default=10, ge=1, le=50),
-                exclude: list[str] = Query(default=[])):
-    return formulas.due(study_part(part), limit=limit, exclude=exclude)
+def formula_due(part: str = "Part 1", limit: int = Query(default=50, ge=1, le=50),
+                exclude: list[str] = Query(default=[]), include_future: bool = False):
+    return formulas.due(study_part(part), limit=limit, exclude=exclude,
+                        include_future=include_future)
 
 
 @app.get("/api/formulas/stats")

@@ -26,7 +26,7 @@ def test_attempt_sources_and_stats_endpoint(tmp_path, monkeypatch):
     monkeypatch.setattr(engine, "DB", tmp_path / "results.db")
     client = TestClient(app)
     assert client.get("/api/formulas/stats").json()["accuracy"] is None
-    assert len(client.get("/api/formulas/due").json()) == 10
+    assert len(client.get("/api/formulas/due").json()) == 50
     batch = client.get("/api/formulas/due", params=[("limit", 2), ("exclude", "FORM-42")]).json()
     assert [card["id"] for card in batch] == ["FORM-43", "FORM-44"]
 
@@ -70,3 +70,19 @@ def test_reset_archives_progress_once_and_preserves_settings(tmp_path, monkeypat
     formulas.grade("FORM-06", True)
     assert reset_once("test") is None
     assert formulas.stats("Part 1")["total_attempts"] == 1
+
+
+def test_extra_practice_can_restart_when_all_cards_are_scheduled(tmp_path, monkeypatch):
+    monkeypatch.setattr(engine, "DB", tmp_path / "restart.db")
+    part = "Part 1"
+    c = formulas.connect()
+    for key, card in formulas.CARDS.items():
+        if card["part"] == part:
+            c.execute("INSERT INTO formula_state(formula_id,due_at) VALUES(?,?)",
+                      (key, "2099-01-01"))
+    c.commit()
+    c.close()
+    assert formulas.due(part) == []
+    batch = formulas.due(part, include_future=True)
+    assert len(batch) == 50
+    assert formulas.due(part, include_future=True, exclude=[card["id"] for card in batch]) == []
