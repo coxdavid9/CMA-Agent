@@ -7,7 +7,7 @@ import cma_agent.engine as engine
 import cma_agent.adaptive as adaptive
 import cma_agent.skills as skills
 from fastapi import FastAPI, HTTPException
-from cma_agent import lessons, coverage, study_metrics, timed
+from cma_agent import lessons, coverage, study_metrics, timed, exam_mix, formulas
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from typing import Optional
@@ -101,6 +101,7 @@ class GradeRequest(BaseModel):
 
 
 class QuestionRequest(BaseModel):
+    exam_mix: bool = False
     part: str = "Both"
     domain: str = "All"
     difficulty: str = "All"
@@ -287,7 +288,11 @@ def question(question_id: str):
 @app.post("/api/question")
 def question_choose(request: QuestionRequest):
     exclude = list(dict.fromkeys((request.exclude or []) + _recent_question_ids(15)))
-    q = skills.choose_question(request.part, request.domain, request.difficulty, exclude=exclude)
+    part, domain = request.part, request.domain
+    if request.exam_mix:
+        part = "Part 2" if part == "Part 2" else "Part 1"
+        domain = exam_mix.draw(exam_mix.weights(part, _BLUEPRINT[part]))
+    q = skills.choose_question(part, domain, "All" if request.exam_mix else request.difficulty, exclude=exclude)
     save_resume_question(q["id"])
     return clean_question(q)
 
@@ -522,6 +527,24 @@ def advance_timed(set_id: str, request: TimedAction):
         raise HTTPException(404, "Timed set not found")
     except ValueError as exc:
         raise HTTPException(422, str(exc))
+
+
+class FormulaGrade(BaseModel):
+    formula_id: str
+    correct: bool
+
+
+@app.get("/api/formulas/due")
+def formula_due(part: str = "Part 1"):
+    return formulas.due(study_part(part))
+
+
+@app.post("/api/formulas/grade")
+def grade_formula(request: FormulaGrade):
+    try:
+        return formulas.grade(request.formula_id, request.correct)
+    except KeyError:
+        raise HTTPException(404, "Formula not found")
 
 
 app.mount("/", StaticFiles(directory="frontend/dist", html=True), name="frontend")

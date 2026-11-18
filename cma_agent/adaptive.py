@@ -24,6 +24,23 @@ def ensure_schema(conn):
     conn.commit()
 
 
+def review_interval(correct, confidence, hint_level, previous_interval, previous_streak):
+    if not correct or hint_level > 0:
+        interval = 0.25 if previous_interval == 0 else 0.5
+        streak = 0
+    elif int(confidence or 0) <= 1:
+        interval = 1 if previous_interval == 0 else min(max(previous_interval * 1.5, 1), 7)
+        streak = previous_streak + 1
+    elif int(confidence or 0) == 2:
+        interval = 3 if previous_interval == 0 else min(max(previous_interval * 2, 3), 21)
+        streak = previous_streak + 1
+    else:
+        interval = 7 if previous_interval == 0 else min(max(previous_interval * 2.5, 7), 45)
+        streak = previous_streak + 1
+
+    return interval, streak
+
+
 def record_result(question_id, correct, confidence, hint_level=0):
     conn = engine.db()
     ensure_schema(conn)
@@ -32,22 +49,8 @@ def record_result(question_id, correct, confidence, hint_level=0):
     previous_streak = int(row["streak"] or 0) if row else 0
     now = _now()
 
-    if not correct or hint_level > 0:
-        interval = 0.25 if previous_interval == 0 else 0.5
-        streak = 0
-        due = now + timedelta(days=interval)
-    elif int(confidence or 0) <= 1:
-        interval = 1 if previous_interval == 0 else min(max(previous_interval * 1.5, 1), 7)
-        streak = previous_streak + 1
-        due = now + timedelta(days=interval)
-    elif int(confidence or 0) == 2:
-        interval = 3 if previous_interval == 0 else min(max(previous_interval * 2, 3), 21)
-        streak = previous_streak + 1
-        due = now + timedelta(days=interval)
-    else:
-        interval = 7 if previous_interval == 0 else min(max(previous_interval * 2.5, 7), 45)
-        streak = previous_streak + 1
-        due = now + timedelta(days=interval)
+    interval, streak = review_interval(correct, confidence, hint_level, previous_interval, previous_streak)
+    due = now + timedelta(days=interval)
 
     conn.execute(
         "INSERT INTO review_state(question_id,due_at,interval_days,streak,last_correct,last_confidence,updated_at) "

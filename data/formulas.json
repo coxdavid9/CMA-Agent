@@ -1,0 +1,326 @@
+[
+  {
+    "id": "FORM-01",
+    "part": "Part 2",
+    "domain": "Business Decision Analysis",
+    "front": "Contribution margin ratio",
+    "back": "(Sales − variable costs) ÷ sales",
+    "example": "($100 − $60) ÷ $100 = 40%",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-02",
+    "part": "Part 2",
+    "domain": "Business Decision Analysis",
+    "front": "Breakeven units",
+    "back": "Fixed costs ÷ contribution margin per unit",
+    "example": "$4,000 ÷ $20 = 200 units",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-03",
+    "part": "Part 2",
+    "domain": "Business Decision Analysis",
+    "front": "Breakeven sales dollars",
+    "back": "Fixed costs ÷ contribution margin ratio",
+    "example": "$4,000 ÷ 40% = $10,000",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-04",
+    "part": "Part 2",
+    "domain": "Business Decision Analysis",
+    "front": "Target-profit units",
+    "back": "(Fixed costs + target operating profit) ÷ contribution margin per unit",
+    "example": "($4,000 + $1,000) ÷ $20 = 250 units",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-05",
+    "part": "Part 2",
+    "domain": "Business Decision Analysis",
+    "front": "Margin of safety in dollars",
+    "back": "Actual or planned sales − breakeven sales",
+    "example": "$13,000 − $10,000 = $3,000",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-06",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Materials price variance",
+    "back": "Actual quantity purchased × (actual price − standard price), when recorded at purchase",
+    "example": "1,000 × ($5.20 − $5.00) = $200 unfavorable",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-07",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Materials quantity variance",
+    "back": "Standard price × (actual quantity used − standard quantity allowed)",
+    "example": "$5 × (1,000 − 960) = $200 unfavorable",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-08",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Labor rate variance",
+    "back": "Actual hours × (actual rate − standard rate)",
+    "example": "100 × ($21 − $20) = $100 unfavorable",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-09",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Labor efficiency variance",
+    "back": "Standard rate × (actual hours − standard hours allowed)",
+    "example": "$20 × (100 − 95) = $100 unfavorable",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-10",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Variable overhead spending variance",
+    "back": "Actual variable overhead − (actual driver hours × standard variable overhead rate)",
+    "example": "$1,100 − (100 × $10) = $100 unfavorable",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-11",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Variable overhead efficiency variance",
+    "back": "Standard variable overhead rate × (actual driver hours − standard hours allowed)",
+    "example": "$10 × (100 − 95) = $50 unfavorable",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-12",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Fixed overhead spending variance",
+    "back": "Actual fixed overhead − budgeted fixed overhead",
+    "example": "$5,100 − $5,000 = $100 unfavorable",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-13",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Fixed overhead volume variance",
+    "back": "Budgeted fixed overhead − applied fixed overhead",
+    "example": "$5,000 − $4,800 = $200 unfavorable",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-14",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Flexible budget cost",
+    "back": "Budgeted fixed cost + actual activity × standard variable cost per unit",
+    "example": "$4,000 + 1,100 × $6 = $10,600",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-15",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Return on investment",
+    "back": "Operating income ÷ average operating assets",
+    "example": "$30,000 ÷ $200,000 = 15%",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-16",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Residual income",
+    "back": "Operating income − (required return × operating assets)",
+    "example": "$30,000 − (10% × $200,000) = $10,000",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-17",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Economic value added",
+    "back": "Net operating profit after tax − (weighted average cost of capital × invested capital)",
+    "example": "$40,000 − (8% × $300,000) = $16,000",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-18",
+    "part": "Part 2",
+    "domain": "Financial Statement Analysis",
+    "front": "Current ratio",
+    "back": "Current assets ÷ current liabilities",
+    "example": "$80,000 ÷ $40,000 = 2.0",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-19",
+    "part": "Part 2",
+    "domain": "Financial Statement Analysis",
+    "front": "Quick ratio",
+    "back": "(Cash + short-term marketable securities + net receivables) ÷ current liabilities",
+    "example": "($12,000 + $8,000 + $20,000) ÷ $40,000 = 1.0",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-20",
+    "part": "Part 2",
+    "domain": "Financial Statement Analysis",
+    "front": "Days sales outstanding",
+    "back": "Average net receivables ÷ annual net credit sales × 365",
+    "example": "$30,000 ÷ $365,000 × 365 = 30 days",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-21",
+    "part": "Part 2",
+    "domain": "Financial Statement Analysis",
+    "front": "Days in inventory",
+    "back": "Average inventory ÷ annual cost of goods sold × 365",
+    "example": "$40,000 ÷ $365,000 × 365 = 40 days",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-22",
+    "part": "Part 2",
+    "domain": "Financial Statement Analysis",
+    "front": "Days payable outstanding",
+    "back": "Average trade payables ÷ annual credit purchases × 365",
+    "example": "$20,000 ÷ $365,000 × 365 = 20 days",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-23",
+    "part": "Part 2",
+    "domain": "Corporate Finance",
+    "front": "Cash conversion cycle",
+    "back": "Inventory days + receivable days − payable days",
+    "example": "40 + 30 − 20 = 50 days",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-24",
+    "part": "Part 1",
+    "domain": "External Financial Reporting Decisions",
+    "front": "Gross margin percent",
+    "back": "(Net sales − cost of goods sold) ÷ net sales",
+    "example": "($100 − $60) ÷ $100 = 40%",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-25",
+    "part": "Part 1",
+    "domain": "Planning, Budgeting, and Forecasting",
+    "front": "Budgeted production units",
+    "back": "Budgeted sales + desired ending finished goods − beginning finished goods",
+    "example": "1,000 + 200 − 150 = 1,050",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-26",
+    "part": "Part 1",
+    "domain": "Planning, Budgeting, and Forecasting",
+    "front": "Budgeted materials purchases",
+    "back": "Materials needed for production + desired ending materials − beginning materials",
+    "example": "2,100 + 400 − 300 = 2,200 lb",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-27",
+    "part": "Part 1",
+    "domain": "Planning, Budgeting, and Forecasting",
+    "front": "Budgeted direct labor cost",
+    "back": "Production units × standard hours per unit × wage rate",
+    "example": "1,050 × 2 × $20 = $42,000",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-28",
+    "part": "Part 1",
+    "domain": "Planning, Budgeting, and Forecasting",
+    "front": "Cash before financing",
+    "back": "Opening cash + cash receipts − cash disbursements",
+    "example": "$5,000 + $20,000 − $23,000 = $2,000",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-29",
+    "part": "Part 1",
+    "domain": "Planning, Budgeting, and Forecasting",
+    "front": "Learning curve (cumulative average)",
+    "back": "Starting labor per unit × learning rate for each doubling of cumulative output",
+    "example": "10 hours × 80% × 80% = 6.4 average hours after two doublings",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-30",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Applied fixed overhead",
+    "back": "Standard activity allowed × predetermined fixed overhead rate",
+    "example": "480 hours × $10 = $4,800",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-31",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Sales price variance",
+    "back": "Actual sales units × (actual price − budgeted price)",
+    "example": "200 × ($32 − $30) = $400 favorable",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-32",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Operating margin",
+    "back": "Operating income ÷ sales",
+    "example": "$30,000 ÷ $200,000 = 15%",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-33",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Investment turnover",
+    "back": "Sales ÷ average operating assets",
+    "example": "$200,000 ÷ $100,000 = 2 times",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-34",
+    "part": "Part 1",
+    "domain": "External Financial Reporting Decisions",
+    "front": "Ending retained earnings",
+    "back": "Beginning retained earnings + net income − dividends",
+    "example": "$10,000 + $3,000 − $500 = $12,500",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-35",
+    "part": "Part 1",
+    "domain": "External Financial Reporting Decisions",
+    "front": "Periodic weighted-average unit cost",
+    "back": "Total cost of goods available ÷ total units available",
+    "example": "$2,400 ÷ 200 = $12 per unit",
+    "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-36",
+    "part": "Part 1",
+    "domain": "External Financial Reporting Decisions",
+    "front": "Receivables allowance adjustment",
+    "back": "Required ending allowance − existing credit balance",
+    "example": "$500 − $200 = $300 expense",
+    "content_revision": "2026-11-18"
+  }
+]
