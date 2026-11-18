@@ -32,6 +32,9 @@ def test_formula_review_schedule_and_domains(tmp_path, monkeypatch):
     monkeypatch.setattr(engine, "DB", tmp_path / "formula.db")
     for card in formulas.CARDS.values():
         assert card["domain"] in _BLUEPRINT[card["part"]]
+    # Exercise the legacy flip-card grading path independently of active-card priority.
+    monkeypatch.setattr(formulas, "CARDS", {cid: card for cid, card in formulas.CARDS.items()
+                                          if card.get("type", "reveal") == "reveal"})
     cards = formulas.due("Part 1")
     assert len(cards) == 10
     hit = formulas.grade(cards[0]["id"], True)

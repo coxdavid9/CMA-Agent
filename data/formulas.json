@@ -322,5 +322,503 @@
     "back": "Required ending allowance − existing credit balance",
     "example": "$500 − $200 = $300 expense",
     "content_revision": "2026-11-18"
+  },
+  {
+    "id": "FORM-37",
+    "part": "Part 2",
+    "domain": "Business Decision Analysis",
+    "front": "Contribution margin ratio = (sales − variable costs) ÷ ___.",
+    "back": "(Sales − variable costs) ÷ sales",
+    "example": "($100 − $60) ÷ $100 = 40%",
+    "content_revision": "2026-11-18",
+    "type": "cloze_pick",
+    "options": [
+      "fixed costs",
+      "sales",
+      "operating income",
+      "units sold"
+    ],
+    "answer": "sales"
+  },
+  {
+    "id": "FORM-38",
+    "part": "Part 2",
+    "domain": "Business Decision Analysis",
+    "front": "Fixed costs are $200,000, selling price is $55 per unit, and variable cost is $32 per unit. What is the minimum whole number of units needed to break even?",
+    "back": "Fixed costs ÷ contribution margin per unit",
+    "example": "$200,000 ÷ ($55 − $32) = 8,695.65. Round up to 8,696 units.",
+    "content_revision": "2026-11-18",
+    "type": "numeric",
+    "answer": 8696.0
+  },
+  {
+    "id": "FORM-39",
+    "part": "Part 2",
+    "domain": "Business Decision Analysis",
+    "front": "Breakeven sales dollars = fixed costs ÷ ___.",
+    "back": "Fixed costs ÷ contribution margin ratio",
+    "example": "$4,000 ÷ 40% = $10,000",
+    "content_revision": "2026-11-18",
+    "type": "cloze_type",
+    "accept": [
+      "contribution margin ratio",
+      "CM ratio",
+      "contribution margin percentage",
+      "CM percentage"
+    ]
+  },
+  {
+    "id": "FORM-40",
+    "part": "Part 2",
+    "domain": "Business Decision Analysis",
+    "front": "Fixed costs are $4,000, target operating profit is $1,000, and contribution margin is $20 per unit. How many units must you sell?",
+    "back": "(Fixed costs + target operating profit) ÷ contribution margin per unit",
+    "example": "($4,000 + $1,000) ÷ $20 = 250 units",
+    "content_revision": "2026-11-18",
+    "type": "numeric",
+    "answer": 250.0
+  },
+  {
+    "id": "FORM-41",
+    "part": "Part 2",
+    "domain": "Business Decision Analysis",
+    "front": "Margin of safety in dollars = actual sales dollars − ___.",
+    "back": "Actual or planned sales − breakeven sales",
+    "example": "$13,000 − $10,000 = $3,000",
+    "content_revision": "2026-11-18",
+    "type": "cloze_pick",
+    "options": [
+      "variable costs",
+      "sales returns",
+      "breakeven sales dollars",
+      "target-profit sales dollars"
+    ],
+    "answer": "breakeven sales dollars"
+  },
+  {
+    "id": "FORM-42",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Materials price variance at purchase = (___ − standard price) × actual quantity purchased.",
+    "back": "Actual quantity purchased × (actual price − standard price), when recorded at purchase",
+    "example": "1,000 × ($5.20 − $5.00) = $200 unfavorable",
+    "content_revision": "2026-11-18",
+    "type": "cloze_type",
+    "accept": [
+      "actual price",
+      "actual price per unit",
+      "actual purchase price per unit",
+      "actual purchase price"
+    ]
+  },
+  {
+    "id": "FORM-43",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Standard material costs $5 per pound. Actual output allowed 960 pounds, but production used 1,000 pounds. Enter the quantity variance in dollars, positive for unfavorable.",
+    "back": "Standard price × (actual quantity used − standard quantity allowed)",
+    "example": "$5 × (1,000 − 960) = $200 unfavorable",
+    "content_revision": "2026-11-18",
+    "type": "numeric",
+    "answer": 200.0
+  },
+  {
+    "id": "FORM-44",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Labor rate variance = ___ × (actual hourly rate − standard hourly rate).",
+    "back": "Actual hours × (actual rate − standard rate)",
+    "example": "100 × ($21 − $20) = $100 unfavorable",
+    "content_revision": "2026-11-18",
+    "type": "cloze_pick",
+    "options": [
+      "standard hours allowed",
+      "standard hourly rate",
+      "actual units produced",
+      "actual hours worked"
+    ],
+    "answer": "actual hours worked"
+  },
+  {
+    "id": "FORM-45",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "The standard labor rate is $20 per hour. Actual hours were 100 and standard hours allowed were 95. Enter the labor efficiency variance in dollars, positive for unfavorable.",
+    "back": "Standard rate × (actual hours − standard hours allowed)",
+    "example": "$20 × (100 − 95) = $100 unfavorable",
+    "content_revision": "2026-11-18",
+    "type": "numeric",
+    "answer": 100.0
+  },
+  {
+    "id": "FORM-46",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Variable overhead spending variance = actual variable overhead − (___ × standard variable overhead rate).",
+    "back": "Actual variable overhead − (actual driver hours × standard variable overhead rate)",
+    "example": "$1,100 − (100 × $10) = $100 unfavorable",
+    "content_revision": "2026-11-18",
+    "type": "cloze_type",
+    "accept": [
+      "actual driver hours",
+      "actual hours",
+      "actual activity hours"
+    ]
+  },
+  {
+    "id": "FORM-47",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Actual driver hours were 100, standard hours allowed were 95, and the standard variable overhead rate is $10 per hour. Enter the efficiency variance in dollars, positive for unfavorable.",
+    "back": "Standard variable overhead rate × (actual driver hours − standard hours allowed)",
+    "example": "$10 × (100 − 95) = $50 unfavorable",
+    "content_revision": "2026-11-18",
+    "type": "numeric",
+    "answer": 50.0
+  },
+  {
+    "id": "FORM-48",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Fixed overhead spending variance = actual fixed overhead − ___.",
+    "back": "Actual fixed overhead − budgeted fixed overhead",
+    "example": "$5,100 − $5,000 = $100 unfavorable",
+    "content_revision": "2026-11-18",
+    "type": "cloze_pick",
+    "options": [
+      "applied fixed overhead",
+      "budgeted fixed overhead",
+      "actual variable overhead",
+      "budgeted variable overhead"
+    ],
+    "answer": "budgeted fixed overhead"
+  },
+  {
+    "id": "FORM-49",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Budgeted fixed overhead is $5,000 and applied fixed overhead is $4,800. Enter the fixed overhead volume variance in dollars, positive for unfavorable.",
+    "back": "Budgeted fixed overhead − applied fixed overhead",
+    "example": "$5,000 − $4,800 = $200 unfavorable",
+    "content_revision": "2026-11-18",
+    "type": "numeric",
+    "answer": 200.0
+  },
+  {
+    "id": "FORM-50",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Flexible budget cost = budgeted fixed cost + (___ × standard variable cost per unit).",
+    "back": "Budgeted fixed cost + actual activity × standard variable cost per unit",
+    "example": "$4,000 + 1,100 × $6 = $10,600",
+    "content_revision": "2026-11-18",
+    "type": "cloze_type",
+    "accept": [
+      "actual activity",
+      "actual units",
+      "actual output",
+      "actual units produced",
+      "actual activity level"
+    ]
+  },
+  {
+    "id": "FORM-51",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "A division earns $30,000 of operating income on average operating assets of $200,000. Enter ROI as a percentage (for example, 12 for 12%).",
+    "back": "Operating income ÷ average operating assets",
+    "example": "$30,000 ÷ $200,000 = 15%",
+    "content_revision": "2026-11-18",
+    "type": "numeric",
+    "answer": 15.0
+  },
+  {
+    "id": "FORM-52",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Residual income = operating income − (___ × operating assets).",
+    "back": "Operating income − (required return × operating assets)",
+    "example": "$30,000 − (10% × $200,000) = $10,000",
+    "content_revision": "2026-11-18",
+    "type": "cloze_pick",
+    "options": [
+      "tax rate",
+      "gross margin percentage",
+      "required rate of return",
+      "asset turnover"
+    ],
+    "answer": "required rate of return"
+  },
+  {
+    "id": "FORM-53",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Net operating profit after tax is $40,000. Invested capital is $300,000 and the weighted average cost of capital is 8%. Enter economic value added in dollars.",
+    "back": "Net operating profit after tax − (weighted average cost of capital × invested capital)",
+    "example": "$40,000 − (8% × $300,000) = $16,000",
+    "content_revision": "2026-11-18",
+    "type": "numeric",
+    "answer": 16000.0
+  },
+  {
+    "id": "FORM-54",
+    "part": "Part 2",
+    "domain": "Financial Statement Analysis",
+    "front": "Current ratio = current assets ÷ ___.",
+    "back": "Current assets ÷ current liabilities",
+    "example": "$80,000 ÷ $40,000 = 2.0",
+    "content_revision": "2026-11-18",
+    "type": "cloze_type",
+    "accept": [
+      "current liabilities",
+      "total current liabilities"
+    ]
+  },
+  {
+    "id": "FORM-55",
+    "part": "Part 2",
+    "domain": "Financial Statement Analysis",
+    "front": "Cash is $12,000, short-term marketable securities are $8,000, net receivables are $20,000, inventory is $30,000, and current liabilities are $40,000. Enter the quick ratio as a number (for example, 1.5).",
+    "back": "(Cash + short-term marketable securities + net receivables) ÷ current liabilities",
+    "example": "($12,000 + $8,000 + $20,000) ÷ $40,000 = 1.0",
+    "content_revision": "2026-11-18",
+    "type": "numeric",
+    "answer": 1.0
+  },
+  {
+    "id": "FORM-56",
+    "part": "Part 2",
+    "domain": "Financial Statement Analysis",
+    "front": "Days sales outstanding = average net receivables ÷ ___ × 365.",
+    "back": "Average net receivables ÷ annual net credit sales × 365",
+    "example": "$30,000 ÷ $365,000 × 365 = 30 days",
+    "content_revision": "2026-11-18",
+    "type": "cloze_pick",
+    "options": [
+      "annual cost of goods sold",
+      "annual credit purchases",
+      "ending inventory",
+      "annual net credit sales"
+    ],
+    "answer": "annual net credit sales"
+  },
+  {
+    "id": "FORM-57",
+    "part": "Part 2",
+    "domain": "Financial Statement Analysis",
+    "front": "Average inventory is $40,000 and annual cost of goods sold is $365,000. Using 365 days, calculate days in inventory.",
+    "back": "Average inventory ÷ annual cost of goods sold × 365",
+    "example": "$40,000 ÷ $365,000 × 365 = 40 days",
+    "content_revision": "2026-11-18",
+    "type": "numeric",
+    "answer": 40.0
+  },
+  {
+    "id": "FORM-58",
+    "part": "Part 2",
+    "domain": "Financial Statement Analysis",
+    "front": "Days payable outstanding = average trade payables ÷ ___ × 365.",
+    "back": "Average trade payables ÷ annual credit purchases × 365",
+    "example": "$20,000 ÷ $365,000 × 365 = 20 days",
+    "content_revision": "2026-11-18",
+    "type": "cloze_type",
+    "accept": [
+      "annual credit purchases",
+      "annual purchases on credit",
+      "credit purchases",
+      "purchases on credit"
+    ]
+  },
+  {
+    "id": "FORM-59",
+    "part": "Part 2",
+    "domain": "Corporate Finance",
+    "front": "Inventory days are 40, receivable days are 30, and payable days are 20. Enter the cash conversion cycle in days.",
+    "back": "Inventory days + receivable days − payable days",
+    "example": "40 + 30 − 20 = 50 days",
+    "content_revision": "2026-11-18",
+    "type": "numeric",
+    "answer": 50.0
+  },
+  {
+    "id": "FORM-60",
+    "part": "Part 1",
+    "domain": "External Financial Reporting Decisions",
+    "front": "Gross margin percent = (net sales − ___) ÷ net sales.",
+    "back": "(Net sales − cost of goods sold) ÷ net sales",
+    "example": "($100 − $60) ÷ $100 = 40%",
+    "content_revision": "2026-11-18",
+    "type": "cloze_pick",
+    "options": [
+      "operating expenses",
+      "cost of goods sold",
+      "sales returns",
+      "income tax expense"
+    ],
+    "answer": "cost of goods sold"
+  },
+  {
+    "id": "FORM-61",
+    "part": "Part 1",
+    "domain": "Planning, Budgeting, and Forecasting",
+    "front": "Budgeted sales are 1,000 units. Beginning finished goods inventory is 150 units and desired ending inventory is 200 units. How many units should be produced?",
+    "back": "Budgeted sales + desired ending finished goods − beginning finished goods",
+    "example": "1,000 + 200 − 150 = 1,050",
+    "content_revision": "2026-11-18",
+    "type": "numeric",
+    "answer": 1050.0
+  },
+  {
+    "id": "FORM-62",
+    "part": "Part 1",
+    "domain": "Planning, Budgeting, and Forecasting",
+    "front": "Budgeted materials purchases = materials needed for production + desired ending materials − ___.",
+    "back": "Materials needed for production + desired ending materials − beginning materials",
+    "example": "2,100 + 400 − 300 = 2,200 lb",
+    "content_revision": "2026-11-18",
+    "type": "cloze_type",
+    "accept": [
+      "beginning materials",
+      "beginning materials inventory",
+      "beginning raw materials inventory",
+      "opening materials inventory"
+    ]
+  },
+  {
+    "id": "FORM-63",
+    "part": "Part 1",
+    "domain": "Planning, Budgeting, and Forecasting",
+    "front": "Plan to produce 1,050 units at 2 standard labor hours per unit and $20 per labor hour. Enter the budgeted direct labor cost in dollars.",
+    "back": "Production units × standard hours per unit × wage rate",
+    "example": "1,050 × 2 × $20 = $42,000",
+    "content_revision": "2026-11-18",
+    "type": "numeric",
+    "answer": 42000.0
+  },
+  {
+    "id": "FORM-64",
+    "part": "Part 1",
+    "domain": "Planning, Budgeting, and Forecasting",
+    "front": "Cash before financing = opening cash + cash receipts − ___.",
+    "back": "Opening cash + cash receipts − cash disbursements",
+    "example": "$5,000 + $20,000 − $23,000 = $2,000",
+    "content_revision": "2026-11-18",
+    "type": "cloze_pick",
+    "options": [
+      "depreciation expense",
+      "accounts receivable",
+      "cash disbursements",
+      "credit sales"
+    ],
+    "answer": "cash disbursements"
+  },
+  {
+    "id": "FORM-65",
+    "part": "Part 1",
+    "domain": "Planning, Budgeting, and Forecasting",
+    "front": "The first unit took 10 hours. Under an 80% cumulative-average learning curve, what is the average labor time per unit after two doublings? Enter hours to one decimal.",
+    "back": "Starting labor per unit × learning rate for each doubling of cumulative output",
+    "example": "10 hours × 80% × 80% = 6.4 average hours after two doublings",
+    "content_revision": "2026-11-18",
+    "type": "numeric",
+    "answer": 6.4
+  },
+  {
+    "id": "FORM-66",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Applied fixed overhead = standard activity allowed × ___.",
+    "back": "Standard activity allowed × predetermined fixed overhead rate",
+    "example": "480 hours × $10 = $4,800",
+    "content_revision": "2026-11-18",
+    "type": "cloze_type",
+    "accept": [
+      "predetermined fixed overhead rate",
+      "standard fixed overhead rate",
+      "budgeted fixed overhead rate"
+    ]
+  },
+  {
+    "id": "FORM-67",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Actual sales were 200 units at $32 per unit, versus a budgeted price of $30. Enter the sales price variance in dollars, positive for favorable.",
+    "back": "Actual sales units × (actual price − budgeted price)",
+    "example": "200 × ($32 − $30) = $400 favorable",
+    "content_revision": "2026-11-18",
+    "type": "numeric",
+    "answer": 400.0
+  },
+  {
+    "id": "FORM-68",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Operating margin = ___ ÷ sales.",
+    "back": "Operating income ÷ sales",
+    "example": "$30,000 ÷ $200,000 = 15%",
+    "content_revision": "2026-11-18",
+    "type": "cloze_pick",
+    "options": [
+      "gross profit",
+      "sales revenue",
+      "average operating assets",
+      "operating income"
+    ],
+    "answer": "operating income"
+  },
+  {
+    "id": "FORM-69",
+    "part": "Part 1",
+    "domain": "Performance Management",
+    "front": "Annual sales are $200,000 and average operating assets are $100,000. Enter investment turnover in times.",
+    "back": "Sales ÷ average operating assets",
+    "example": "$200,000 ÷ $100,000 = 2 times",
+    "content_revision": "2026-11-18",
+    "type": "numeric",
+    "answer": 2.0
+  },
+  {
+    "id": "FORM-70",
+    "part": "Part 1",
+    "domain": "External Financial Reporting Decisions",
+    "front": "Ending retained earnings = beginning retained earnings + net income − ___.",
+    "back": "Beginning retained earnings + net income − dividends",
+    "example": "$10,000 + $3,000 − $500 = $12,500",
+    "content_revision": "2026-11-18",
+    "type": "cloze_type",
+    "accept": [
+      "dividends",
+      "dividends declared",
+      "cash dividends",
+      "dividend distributions"
+    ]
+  },
+  {
+    "id": "FORM-71",
+    "part": "Part 1",
+    "domain": "External Financial Reporting Decisions",
+    "front": "Under periodic weighted-average costing, 200 units are available for sale at a total cost of $2,400. Enter the weighted-average cost per unit in dollars.",
+    "back": "Total cost of goods available ÷ total units available",
+    "example": "$2,400 ÷ 200 = $12 per unit",
+    "content_revision": "2026-11-18",
+    "type": "numeric",
+    "answer": 12.0
+  },
+  {
+    "id": "FORM-72",
+    "part": "Part 1",
+    "domain": "External Financial Reporting Decisions",
+    "front": "For an existing credit balance, allowance adjustment = required ending allowance − ___.",
+    "back": "Required ending allowance − existing credit balance",
+    "example": "$500 − $200 = $300 expense",
+    "content_revision": "2026-11-18",
+    "type": "cloze_pick",
+    "options": [
+      "gross accounts receivable",
+      "existing allowance credit balance",
+      "prior-period credit sales",
+      "current-period write-offs"
+    ],
+    "answer": "existing allowance credit balance"
   }
 ]
