@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
+import WrittenCase from './WrittenCase';
 import {ErrorCause} from './StudyMetrics';
 
-export default function TimedSet({api, part, run, setRun, onBack}) {
+export default function TimedSet({api, part, run, setRun, onBack, gate=false}) {
   const [answer,setAnswer] = useState('');
   const [busy,setBusy] = useState(false);
   const [error,setError] = useState('');
@@ -27,11 +28,11 @@ export default function TimedSet({api, part, run, setRun, onBack}) {
   },[run,left,busy,error]);
   const q=run?.question;
   return <section>
-    <h2>Timed set</h2>
-    <button onClick={onBack}>Back to Question Practice</button>
+    <h2>{gate ? "Gate drill" : "Timed set"}</h2>
+    {onBack && <button onClick={onBack}>Back to Question Practice</button>}
     {error && <p role="alert">{error}</p>}
-    {!run && <div className="card"><p>{part} · 25 questions · 45 minutes</p>
-      <button className="primary" disabled={busy} onClick={()=>send('/api/timed/start',{part})}>Start timed set</button></div>}
+    {!run && <div className="card"><p>{part} · {gate ? "20 questions · 36 minutes · 10 correct unlocks a case" : "25 questions · 45 minutes"}</p>
+      <button className="primary" disabled={busy} onClick={()=>send(gate?'/api/gate/start':'/api/timed/start',{part})}>{gate?"Start gate drill":"Start timed set"}</button></div>}
     {q && <div className="question">
       <p>Question {run.index+1} of {run.total} · {Math.floor(left/60)}:{String(left%60).padStart(2,'0')} left</p>
       <h3>{q.question}</h3>
@@ -43,6 +44,9 @@ export default function TimedSet({api, part, run, setRun, onBack}) {
         <button disabled={busy} onClick={()=>send('/api/timed/'+run.id,{finish:true})}>Finish set now</button></div>
     </div>}
     {run?.results && <div><h3>Score · {run.score}/{run.total} ({Math.round(100*run.score/run.total)}%)</h3>
+      {gate && (run.gate_case_id
+        ? <WrittenCase key={run.id} api={api} caseId={run.gate_case_id} runId={run.id}/>
+        : <p>The case section would stay closed at this score. Written case practice is available from Case Practice.</p>)}
       {run.results.map((item,i)=><article className="card" key={item.attempt_id}>
         <h4>{i+1}. {item.question}</h4>
         <p>{item.selected ? 'Your answer: '+item.choices[item.selected]+' · '+item.elapsed_seconds+'s' : 'Unanswered'}</p>

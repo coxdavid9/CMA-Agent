@@ -29,7 +29,8 @@
             "D": null
           },
           "tolerance": 0
-        }
+        },
+        "type": "mcq"
       },
       {
         "q": "Which product has the higher contribution margin per machine hour?",
@@ -54,7 +55,8 @@
             "D": null
           },
           "tolerance": 0
-        }
+        },
+        "type": "mcq"
       }
     ],
     "content_revision": "2026-09-30",
@@ -90,7 +92,8 @@
             "D": 3.5
           },
           "tolerance": 0.05
-        }
+        },
+        "type": "mcq"
       },
       {
         "q": "Why is NPV preferred over simple payback for value-creation decisions?",
@@ -104,7 +107,8 @@
         "explanation": "NPV discounts all relevant project cash flows at an appropriate required return. Simple payback neither discounts cash flows nor measures benefits received after recovery of the initial investment.",
         "skills": [
           "Net present value"
-        ]
+        ],
+        "type": "mcq"
       }
     ],
     "content_revision": "2026-09-30",
@@ -140,7 +144,8 @@
             "D": 336000
           },
           "tolerance": 0.5
-        }
+        },
+        "type": "mcq"
       },
       {
         "q": "Compared with the flexible budget, actual operating costs produced what variance?",
@@ -174,7 +179,8 @@
             "D": "unfavorable"
           },
           "absolute": true
-        }
+        },
+        "type": "mcq"
       }
     ],
     "content_revision": "2026-09-30",
@@ -210,7 +216,8 @@
             "D": 18
           },
           "tolerance": 0.5
-        }
+        },
+        "type": "mcq"
       },
       {
         "q": "What is the total incremental operating income from accepting the order?",
@@ -235,7 +242,8 @@
             "D": 48000
           },
           "tolerance": 0.5
-        }
+        },
+        "type": "mcq"
       }
     ],
     "content_revision": "2026-09-30",
@@ -262,7 +270,8 @@
           "Flexible budgeting"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       },
       {
         "q": "What is the flexible-budget cost variance?",
@@ -278,12 +287,39 @@
           "Budget variance analysis"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       }
     ],
     "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "written_practice": {
+      "scenario": "Your company budgeted 10,000 units but produced and sold 9,000. Actual total manufacturing cost was $460,000 vs. a static budget of $500,000. Your manager says \"we came in $40,000 under budget — great job.\" You have the cost breakdown: budgeted variable cost $30/unit, budgeted fixed cost $200,000; actual variable cost $29/unit, actual fixed cost $199,000.",
+      "content_revision": "2026-11-18",
+      "questions": [
+        {
+          "q": "Compute the flexible budget at 9,000 units.",
+          "type": "short_answer",
+          "model_answer": "Flexible budget = ($30 × 9,000) + $200,000 = $470,000."
+        },
+        {
+          "q": "What is the flexible-budget variance, and is it favorable or unfavorable?",
+          "type": "short_answer",
+          "model_answer": "$470,000 − $460,000 = $10,000 favorable."
+        },
+        {
+          "q": "The manager claims the company came in $40,000 under budget. What is wrong with that claim?",
+          "type": "short_answer",
+          "model_answer": "The static comparison takes credit for $30,000 of \"savings\" that was just lower volume. Comparing actuals at 9,000 units to a budget built for 10,000 mixes the volume effect with real cost control."
+        },
+        {
+          "q": "Was it actually a good performance? Which cost line drove it?",
+          "type": "short_answer",
+          "model_answer": "Yes, genuinely favorable — but only $10,000, not $40,000. Variable cost control was good ($29 actual vs $30 budgeted); fixed costs were essentially on target ($199,000 vs $200,000)."
+        }
+      ]
+    }
   },
   {
     "id": "PART1-B-2",
@@ -306,7 +342,8 @@
           "Master budgeting"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       },
       {
         "q": "What is budgeted manufacturing cost for the quarter?",
@@ -322,7 +359,8 @@
           "Master budgeting"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       }
     ],
     "content_revision": "2026-09-30",
@@ -350,7 +388,8 @@
           "Standard cost and variances"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       },
       {
         "q": "What is the materials usage variance?",
@@ -366,7 +405,8 @@
           "Standard cost and variances"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       },
       {
         "q": "What is the labor rate variance?",
@@ -382,7 +422,8 @@
           "Standard cost and variances"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       },
       {
         "q": "What is the labor efficiency variance?",
@@ -398,12 +439,44 @@
           "Standard cost and variances"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       }
     ],
     "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "written_practice": {
+      "scenario": "Standard cost data: DM 3 lbs/unit at $5.00/lb; DL 2 hrs/unit at $20/hr. Actual: produced 4,000 units; purchased 13,000 lbs at $4.80/lb; used 12,500 lbs; worked 8,200 hrs at $20.50/hr.",
+      "content_revision": "2026-11-18",
+      "questions": [
+        {
+          "q": "Compute the direct materials price variance (F/U).",
+          "type": "short_answer",
+          "model_answer": "($4.80 − $5.00) × 13,000 lbs purchased = $2,600 F. (Price variance uses quantity purchased, not used.)"
+        },
+        {
+          "q": "Compute the direct materials quantity variance (F/U).",
+          "type": "short_answer",
+          "model_answer": "Standard quantity allowed = 4,000 × 3 = 12,000 lbs. (12,500 − 12,000) × $5.00 = $2,500 U."
+        },
+        {
+          "q": "Compute the direct labor rate variance (F/U).",
+          "type": "short_answer",
+          "model_answer": "($20.50 − $20.00) × 8,200 hrs = $4,100 U."
+        },
+        {
+          "q": "Compute the direct labor efficiency variance (F/U).",
+          "type": "short_answer",
+          "model_answer": "Standard hours allowed = 4,000 × 2 = 8,000 hrs. (8,200 − 8,000) × $20 = $4,000 U."
+        },
+        {
+          "q": "The purchasing manager is proud of the favorable price variance. What should you tell her?",
+          "type": "short_answer",
+          "model_answer": "Investigate whether cheaper materials contributed to waste or labor inefficiency. The $2,500 unfavorable usage variance offsets all but $100 of the $2,600 favorable price variance, and the data do not prove a causal link."
+        }
+      ]
+    }
   },
   {
     "id": "PART1-C-2",
@@ -426,7 +499,8 @@
           "ROI and residual income"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       },
       {
         "q": "Which decision best aligns with corporate value creation?",
@@ -442,12 +516,39 @@
           "ROI and residual income"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       }
     ],
     "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "written_practice": {
+      "scenario": "Division X has operating income of $900,000 on average operating assets of $5,000,000. The corporate hurdle rate is 12%. A project needs $1,000,000 investment and promises $150,000 annual operating income.",
+      "content_revision": "2026-11-18",
+      "questions": [
+        {
+          "q": "Compute the division's current ROI and residual income.",
+          "type": "short_answer",
+          "model_answer": "ROI = $900,000 ÷ $5,000,000 = 18%. RI = $900,000 − (0.12 × $5,000,000) = $300,000."
+        },
+        {
+          "q": "Compute the project's ROI and residual income.",
+          "type": "short_answer",
+          "model_answer": "Project ROI = $150,000 ÷ $1,000,000 = 15%. Project RI = $150,000 − (0.12 × $1,000,000) = $30,000."
+        },
+        {
+          "q": "Will the manager accept the project if evaluated on ROI? On residual income?",
+          "type": "short_answer",
+          "model_answer": "On ROI: reject — 15% drags the 18% average down. On RI: accept — $30,000 > 0 adds to residual income."
+        },
+        {
+          "q": "Which measure produces the better decision for the company, and why?",
+          "type": "short_answer",
+          "model_answer": "Residual income. The project earns 15%, above the 12% cost of capital, so it creates shareholder value. ROI evaluation causes suboptimization — the manager rejects a value-creating project to protect her percentage. This is the goal-congruence argument for RI/EVA over ROI."
+        }
+      ]
+    }
   },
   {
     "id": "PART1-D-1",
@@ -470,7 +571,8 @@
           "Overhead allocation"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       },
       {
         "q": "How much ABC overhead is assigned to Product H?",
@@ -486,12 +588,34 @@
           "Activity-based costing"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       }
     ],
     "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "written_practice": {
+      "scenario": "A plant makes two products. Traditional costing applies $900,000 of overhead on direct labor hours: Product H (high-volume, simple): 40,000 DLH; Product L (low-volume, complex): 10,000 DLH. An ABC study finds three pools: setups $300,000 (H: 20 setups, L: 130), machining $400,000 (H: 35,000 hrs, L: 5,000), engineering $200,000 (H: 100 hrs, L: 900).",
+      "content_revision": "2026-11-18",
+      "questions": [
+        {
+          "q": "Compute the traditional overhead rate and the overhead assigned to each product.",
+          "type": "short_answer",
+          "model_answer": "Rate = $900,000 ÷ 50,000 DLH = $18/DLH. H: 40,000 × $18 = $720,000. L: 10,000 × $18 = $180,000."
+        },
+        {
+          "q": "Compute the ABC activity rates and the overhead assigned to each product.",
+          "type": "short_answer",
+          "model_answer": "Setups: $300,000 ÷ 150 = $2,000/setup → H $40,000, L $260,000. Machining: $400,000 ÷ 40,000 = $10/hr → H $350,000, L $50,000. Engineering: $200,000 ÷ 1,000 = $200/hr → H $20,000, L $180,000. Totals: H $410,000; L $490,000."
+        },
+        {
+          "q": "Which product was overcosted under traditional costing, by how much, and why does this pattern occur?",
+          "type": "short_answer",
+          "model_answer": "H was overcosted by $310,000 ($720,000 vs $410,000); L was undercosted by the same amount. The pattern: traditional costing spreads batch- and product-level costs by volume, so the high-volume simple product subsidizes the low-volume complex product that actually consumes setups and engineering."
+        }
+      ]
+    }
   },
   {
     "id": "PART1-D-2",
@@ -514,7 +638,8 @@
           "Joint and by-product costing"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       },
       {
         "q": "What is the incremental profit from further processing Y?",
@@ -530,12 +655,34 @@
           "Joint and by-product costing"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       }
     ],
     "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "written_practice": {
+      "scenario": "Joint cost of $240,000 produces X (8,000 units, sells at split-off for $25/unit) and Y (4,000 units, sells at split-off for $30/unit, or $45/unit if processed further at $8/unit separable cost).",
+      "content_revision": "2026-11-18",
+      "questions": [
+        {
+          "q": "Allocate the joint cost using the sales value at split-off method.",
+          "type": "short_answer",
+          "model_answer": "X value = 8,000 × $25 = $200,000; Y value = 4,000 × $30 = $120,000; total $320,000. X: $240,000 × ($200,000 ÷ $320,000) = $150,000. Y: $240,000 × ($120,000 ÷ $320,000) = $90,000."
+        },
+        {
+          "q": "Should Y be processed further? Show the incremental analysis.",
+          "type": "short_answer",
+          "model_answer": "Incremental revenue = 4,000 × ($45 − $30) = $60,000. Separable cost = 4,000 × $8 = $32,000. Incremental profit = $28,000 → process further."
+        },
+        {
+          "q": "Why are joint costs excluded from the part (b) decision?",
+          "type": "short_answer",
+          "model_answer": "Joint costs are sunk — they are incurred whether or not Y is processed further. Only the $60,000 incremental revenue and $32,000 separable cost change with the decision. Including allocated joint cost is the classic sunk-cost error."
+        }
+      ]
+    }
   },
   {
     "id": "PART1-A-1",
@@ -558,7 +705,8 @@
           "GAAP vs. IFRS"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       },
       {
         "q": "What is the permitted IFRS treatment of a qualifying inventory write-down recovery?",
@@ -574,12 +722,44 @@
           "Asset valuation"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       }
     ],
     "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "written_practice": {
+      "scenario": "A US manufacturer is converting its reporting to IFRS for a European parent. The conversion review covers these items (ignore taxes): (1) LIFO inventory with a $2M LIFO reserve; (2) a $3M inventory write-down taken two years ago, of which $1M of value has since recovered; (3) $5M of development costs expensed this year that meet IFRS capitalization criteria; (4) a lawsuit the company judged \"reasonably possible\" but not \"probable.\"",
+      "content_revision": "2026-11-18",
+      "questions": [
+        {
+          "q": "Item 1: what is the IFRS treatment and adjustment direction?",
+          "type": "short_answer",
+          "model_answer": "LIFO is prohibited under IFRS — restate to FIFO or weighted average. The $2M LIFO reserve is added back to inventory and equity."
+        },
+        {
+          "q": "Item 2: what is the IFRS treatment and adjustment direction?",
+          "type": "short_answer",
+          "model_answer": "IFRS permits reversal of inventory write-downs: restore the recovered $1M through profit (capped at the original write-down)."
+        },
+        {
+          "q": "Item 3: what is the IFRS treatment and adjustment direction?",
+          "type": "short_answer",
+          "model_answer": "Capitalize the $5M as an intangible asset (amortized over useful life) instead of expensing; equity rises by the unamortized amount."
+        },
+        {
+          "q": "Item 4: what changes under IFRS, if anything?",
+          "type": "short_answer",
+          "model_answer": "IFRS accrues contingencies at \"more likely than not\" — a \"reasonably possible\" item that GAAP leaves unaccrued may still clear the IFRS bar; if so, accrue the estimable amount, reducing equity."
+        },
+        {
+          "q": "Which adjustments increase IFRS equity relative to GAAP, and why?",
+          "type": "short_answer",
+          "model_answer": "Items 1–3 increase equity (inventory and asset recognition); item 4 may decrease it. Net effect: IFRS equity is typically higher for this profile, driven by LIFO elimination and development capitalization."
+        }
+      ]
+    }
   },
   {
     "id": "PART1-A-2",
@@ -602,7 +782,8 @@
           "Revenue recognition"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       },
       {
         "q": "How much service revenue is recognized per month over six months?",
@@ -618,12 +799,39 @@
           "Revenue recognition"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       }
     ],
     "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "written_practice": {
+      "scenario": "A software company signs a $1.2M contract: $900,000 license (delivered at signing) and $300,000 of implementation services (delivered evenly over 6 months). The standalone prices are $1,000,000 and $250,000. Cash is received in full at signing. Assume the license and implementation are distinct obligations and control of the license transfers at signing.",
+      "content_revision": "2026-11-18",
+      "questions": [
+        {
+          "q": "How many performance obligations are there, and what are they?",
+          "type": "short_answer",
+          "model_answer": "Two: the license and the implementation services — each is distinct (the customer can benefit from each separately)."
+        },
+        {
+          "q": "How is the $1.2M transaction price allocated?",
+          "type": "short_answer",
+          "model_answer": "Allocated by relative standalone price (total $1,250,000): license = $1.2M × ($1,000,000 ÷ $1,250,000) = $960,000; services = $1.2M × ($250,000 ÷ $1,250,000) = $240,000."
+        },
+        {
+          "q": "How much revenue is recognized at signing, and per month thereafter?",
+          "type": "short_answer",
+          "model_answer": "At signing: $960,000 (license delivered). Monthly: $240,000 ÷ 6 = $40,000 as services are performed."
+        },
+        {
+          "q": "What is recorded at signing for the cash received in excess of revenue recognized?",
+          "type": "short_answer",
+          "model_answer": "Cash $1.2M vs revenue $960,000 → a $240,000 contract liability (deferred revenue), drawn down as services are performed. Control transferred — not cash receipt — drives recognition."
+        }
+      ]
+    }
   },
   {
     "id": "PART1-E-1",
@@ -646,7 +854,8 @@
           "Control activities"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       },
       {
         "q": "Which improvement best addresses cash disbursement risk?",
@@ -662,12 +871,34 @@
           "Control activities"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       }
     ],
     "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "written_practice": {
+      "scenario": "A 40-employee manufacturer has: the owner approves all purchases over $5,000 but never reviews anything under that; the bookkeeper writes checks, signs them (under $5,000), reconciles the bank account, and posts to the ledger; inventory counts are done annually by the warehouse staff with no independent recount; there is no audit committee and no internal audit function.",
+      "content_revision": "2026-11-18",
+      "questions": [
+        {
+          "q": "Name three control deficiencies and the COSO component each one hits.",
+          "type": "short_answer",
+          "model_answer": "Any three: (1) Bookkeeper holds authorization (signing), custody (checks), and recordkeeping (ledger, reconciliation) — segregation-of-duties failure under control activities. (2) Purchases under $5,000 have no review — authorization gap under control activities. (3) Inventory counts lack independence — control activities. (4) No audit committee or internal audit — governance/monitoring gap under control environment and monitoring activities."
+        },
+        {
+          "q": "Which deficiency is most severe, and could it constitute a material weakness? Why or why not?",
+          "type": "short_answer",
+          "model_answer": "The bookkeeper's combined duties are most severe: custody + recordkeeping + authorization over cash disbursements creates the opportunity for disbursement fraud with a reasonable possibility of material misstatement going undetected — that meets the material weakness definition if disbursement volume is material."
+        },
+        {
+          "q": "Recommend three practical improvements given the company's size.",
+          "type": "short_answer",
+          "model_answer": "Practical fixes: the owner (or a second person) signs all checks and reviews the bank reconciliation; the bookkeeper posts but doesn't reconcile; independent spot-counts of inventory; the owner reviews a monthly disbursement listing as a compensating control."
+        }
+      ]
+    }
   },
   {
     "id": "PART1-E-2",
@@ -690,7 +921,8 @@
           "Control activities"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       },
       {
         "q": "Which duties should be separated?",
@@ -706,12 +938,44 @@
           "Control activities"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       }
     ],
     "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "written_practice": {
+      "scenario": "A 200-employee company with a centralized accounting department needs key controls over cash receipts.",
+      "content_revision": "2026-11-18",
+      "questions": [
+        {
+          "q": "Give two preventive controls.",
+          "type": "short_answer",
+          "model_answer": "Any two: segregation of duties; lockbox or electronic payments to reduce cash handling; restrictive endorsement of checks immediately on receipt; pre-numbered receipts."
+        },
+        {
+          "q": "Give two detective controls.",
+          "type": "short_answer",
+          "model_answer": "Any two: daily reconciliation of cash to receipts; bank reconciliation by someone independent of the receipts function; surprise cash counts; exception reports on discounts and voids."
+        },
+        {
+          "q": "Give one corrective control.",
+          "type": "short_answer",
+          "model_answer": "Fidelity bond/insurance recovery procedures; documented incident response and reconstruction of accounts from backup records."
+        },
+        {
+          "q": "What segregation of duties is required?",
+          "type": "short_answer",
+          "model_answer": "Separate opening mail/logging receipts, custody of cash, recording in AR, and reconciling — no one person spans custody and recordkeeping; the bank reconciliation sits outside the receipts function."
+        },
+        {
+          "q": "How does the fraud triangle explain why these controls matter?",
+          "type": "short_answer",
+          "model_answer": "Pressure and rationalization live in people's heads — the company can't control them. Opportunity is the controllable leg: segregation, reconciliations, and surprise counts shrink opportunity, and visible controls also strengthen the control environment, making rationalization harder."
+        }
+      ]
+    }
   },
   {
     "id": "PART1-F-1",
@@ -734,7 +998,8 @@
           "Information systems and ERP"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       },
       {
         "q": "What should the controller own during ERP implementation?",
@@ -750,12 +1015,39 @@
           "Information systems and ERP"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       }
     ],
     "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "written_practice": {
+      "scenario": "A mid-size distributor is selecting an ERP to replace disconnected accounting, inventory, and sales systems. Implementation quotes range from $800,000 to $1.5M over 18 months.",
+      "content_revision": "2026-11-18",
+      "questions": [
+        {
+          "q": "What are the three most important benefits of the ERP for this company?",
+          "type": "short_answer",
+          "model_answer": "A single central database — inventory, sales, and accounting finally agree; process integration across order-to-cash; real-time visibility with built-in controls and audit trails."
+        },
+        {
+          "q": "What are the three biggest risks of the implementation?",
+          "type": "short_answer",
+          "model_answer": "Cost and timeline overruns; business disruption during cutover (orders can't ship); rigidity — processes must conform to the software, and a bad fit cripples operations."
+        },
+        {
+          "q": "Recommend a conversion approach and justify it.",
+          "type": "short_answer",
+          "model_answer": "Use a phased or pilot conversion: convert one module or site first, stabilize, then roll out. Parallel operation can reduce cutover risk but requires duplicate work for the overlap period. Direct cutover creates more immediate disruption risk."
+        },
+        {
+          "q": "What role should the controller play in the project?",
+          "type": "short_answer",
+          "model_answer": "Define requirements, design controls into the workflows (approvals, segregation, edit checks), lead user-acceptance testing, and run the post-implementation review. Not coding — owning control and data-quality outcomes."
+        }
+      ]
+    }
   },
   {
     "id": "PART1-F-2",
@@ -778,7 +1070,8 @@
           "Prescriptive analytics"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       },
       {
         "q": "Which analytics type forecasts SKU-store demand using history and seasonality?",
@@ -794,11 +1087,64 @@
           "Predictive analytics"
         ],
         "calculation": null,
-        "numeric_check": null
+        "numeric_check": null,
+        "type": "mcq"
       }
     ],
     "content_revision": "2026-09-30",
     "source": "cma-part1-case-based-questions.md",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "written_practice": {
+      "scenario": "A retail chain has basic monthly sales reports (descriptive) and wants to build analytics maturity to reduce stockouts and markdowns.",
+      "content_revision": "2026-11-18",
+      "questions": [
+        {
+          "q": "Describe what diagnostic, predictive, and prescriptive analytics would each look like for this goal.",
+          "type": "short_answer",
+          "model_answer": "Diagnostic: drill into stockout patterns — which SKUs, stores, days of week; correlate with promotions and lead times. Predictive: forecast demand by SKU-store using history, seasonality, and promotions. Prescriptive: optimization recommending reorder quantities and timing to minimize the combined stockout, holding, and markdown cost."
+        },
+        {
+          "q": "What data governance and quality foundations must be in place first?",
+          "type": "short_answer",
+          "model_answer": "Governance first: consistent SKU/store definitions across systems; complete and timely sales and inventory feeds; accurate POS data. Models built on dirty data produce confident wrong answers."
+        },
+        {
+          "q": "Where could RPA help, and where would it be the wrong tool?",
+          "type": "short_answer",
+          "model_answer": "RPA fits rule-based, repetitive, structured work: pulling daily reports, loading POS feeds, reconciling inventory counts. Wrong tool for demand forecasting itself (needs ML, not fixed rules) and for deciding markdown strategy (judgment under uncertainty)."
+        }
+      ]
+    }
+  },
+  {
+    "id": "CASE-005",
+    "title": "Special order with idle capacity",
+    "part": "Part 1",
+    "domain": "Planning, Budgeting, and Forecasting",
+    "difficulty": "Medium",
+    "scenario": "A manufacturer is considering a special order for 2,000 units at $38/unit. Normal price is $55, unit variable cost is $32, and the plant has idle capacity. Fixed costs are $400,000 and won't change.",
+    "questions": [],
+    "content_revision": "2026-11-18",
+    "written_practice": {
+      "scenario": "A manufacturer is considering a special order for 2,000 units at $38/unit. Normal price is $55, unit variable cost is $32, and the plant has idle capacity. Fixed costs are $400,000 and won't change.",
+      "content_revision": "2026-11-18",
+      "questions": [
+        {
+          "q": "Show the incremental analysis. Should the order be accepted on financial grounds?",
+          "type": "short_answer",
+          "model_answer": "Incremental contribution margin = ($38 − $32) × 2,000 = $12,000 positive → accept. Fixed costs are irrelevant — they don't change."
+        },
+        {
+          "q": "Name two qualitative factors management should weigh.",
+          "type": "short_answer",
+          "model_answer": "Any two: Will regular customers find out and demand the lower price? Does it damage brand positioning? Is this a one-time order or the start of a long-term low-margin customer? Will it eat capacity needed for future full-price orders?"
+        },
+        {
+          "q": "How does your answer change if the plant is operating at full capacity?",
+          "type": "short_answer",
+          "model_answer": "At full capacity, accepting displaces regular sales — the relevant cost becomes the forgone regular contribution margin of $55 − $32 = $23/unit, which exceeds the $6/unit gained on the special order → reject, unless strategic reasons dominate."
+        }
+      ]
+    }
   }
 ]

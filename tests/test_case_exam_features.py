@@ -16,7 +16,7 @@ class CaseBankTests(unittest.TestCase):
         for case in self.cases:
             self.assertIn(case["part"], {"Part 1", "Part 2"})
             self.assertTrue(case.get("scenario"))
-            self.assertGreaterEqual(len(case.get("questions", [])), 2)
+            self.assertGreaterEqual(len(case.get("questions") or case.get("written_practice", {}).get("questions", [])), 2)
             for idx, question in enumerate(case["questions"], 1):
                 qid = f"{case['id']}-Q{idx}"
                 self.assertNotIn(qid, ids)

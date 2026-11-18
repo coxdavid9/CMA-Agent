@@ -7,7 +7,7 @@ import cma_agent.engine as engine
 import cma_agent.adaptive as adaptive
 import cma_agent.skills as skills
 from fastapi import FastAPI, HTTPException
-from cma_agent import lessons, coverage, study_metrics, timed, exam_mix, formulas
+from cma_agent import lessons, coverage, study_metrics, timed, exam_mix, formulas, case_drill
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from typing import Optional
@@ -183,16 +183,17 @@ def _recent_question_ids(limit=15):
 def _choose_case(part="Both", domain="All", exclude_case_ids=None):
     excluded = set(exclude_case_ids or [])
     eligible = [c for c in _cases if c.get("id") not in excluded
-                and (part == "Both" or c.get("part") == part)
+                and c.get("questions") and (part == "Both" or c.get("part") == part)
                 and (domain == "All" or c.get("domain") == domain)]
     if not eligible:
-        eligible = [c for c in _cases if (part == "Both" or c.get("part") == part)
+        eligible = [c for c in _cases if c.get("questions") and (part == "Both" or c.get("part") == part)
                     and (domain == "All" or c.get("domain") == domain)]
     return random.choice(eligible) if eligible else None
 
 
 def _public_case(case):
     result = copy.deepcopy(case)
+    result.pop("written_practice", None)
     public_questions = []
     for idx, item in enumerate(case.get("questions", []), 1):
         public_questions.append({
@@ -338,7 +339,7 @@ def case_choose(request: CaseRequest):
 @app.post("/api/exam/start")
 def exam_start(request: ExamStartRequest):
     questions = _exam_questions(request.part)
-    cases = [c for c in _cases if c.get("part") == request.part]
+    cases = [c for c in _cases if c.get("questions") and c.get("part") == request.part]
     if len(cases) > 2:
         cases = random.sample(cases, 2)
     return {
@@ -545,6 +546,62 @@ def grade_formula(request: FormulaGrade):
         return formulas.grade(request.formula_id, request.correct)
     except KeyError:
         raise HTTPException(404, "Formula not found")
+
+
+class WrittenScores(BaseModel):
+    scores: list[float]
+    run_id: Optional[str] = None
+
+
+@app.post("/api/gate/start")
+def start_gate():
+    part = "Part 1"
+    return timed.start(part, exam_mix.weights(part, _BLUEPRINT[part]))
+
+
+@app.get("/api/written-cases")
+def written_cases():
+    return case_drill.listing()
+
+
+@app.get("/api/written-cases/{case_id}")
+def written_case(case_id: str):
+    try:
+        return case_drill.public(case_id)
+    except KeyError:
+        raise HTTPException(404, "Written case not found")
+
+
+@app.post("/api/written-cases/{case_id}/reveal/{index}")
+def reveal_written_answer(case_id: str, index: int):
+    try:
+        return {"model_answer": case_drill.model_answer(case_id, index)}
+    except KeyError:
+        raise HTTPException(404, "Written question not found")
+
+
+@app.post("/api/written-cases/{case_id}/complete")
+def complete_written_case(case_id: str, request: WrittenScores):
+    try:
+        return case_drill.save(case_id, request.scores, request.run_id)
+    except KeyError:
+        raise HTTPException(404, "Written case not found")
+    except ValueError as exc:
+        raise HTTPException(422, str(exc))
+
+
+class CaseAttempts(BaseModel):
+    attempt_ids: list[int]
+
+
+@app.post("/api/cases/{case_id}/complete")
+def complete_mcq_case(case_id: str, request: CaseAttempts):
+    try:
+        return case_drill.save_mcq(case_id, request.attempt_ids)
+    except KeyError:
+        raise HTTPException(404, "Case not found")
+    except ValueError as exc:
+        raise HTTPException(422, str(exc))
 
 
 app.mount("/", StaticFiles(directory="frontend/dist", html=True), name="frontend")
