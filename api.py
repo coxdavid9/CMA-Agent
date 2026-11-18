@@ -7,9 +7,9 @@ import cma_agent.engine as engine
 import cma_agent.adaptive as adaptive
 import cma_agent.skills as skills
 from fastapi import FastAPI, HTTPException
-from cma_agent import lessons, coverage
+from cma_agent import lessons, coverage, study_metrics, timed
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional
 
 _original_db = engine.db
@@ -32,6 +32,8 @@ def db():
         c.execute("ALTER TABLE attempts ADD COLUMN IF NOT EXISTS session_id TEXT")
         c.execute("ALTER TABLE preferences ADD COLUMN IF NOT EXISTS resume_question_id TEXT")
         c.execute("ALTER TABLE attempts ADD COLUMN IF NOT EXISTS hint_level INTEGER DEFAULT 0")
+        c.execute("ALTER TABLE attempts ADD COLUMN IF NOT EXISTS error_cause TEXT")
+        c.execute("ALTER TABLE attempts ADD COLUMN IF NOT EXISTS elapsed_seconds REAL")
         c.execute("CREATE INDEX IF NOT EXISTS idx_attempts_session ON attempts(session_id)")
         c.execute("CREATE INDEX IF NOT EXISTS idx_attempts_ts ON attempts(ts)")
         c.execute("ALTER TABLE attempts ADD COLUMN IF NOT EXISTS bank_revision TEXT")
@@ -90,6 +92,7 @@ class Settings(BaseModel):
 
 
 class GradeRequest(BaseModel):
+    elapsed_seconds: Optional[float] = Field(default=None, ge=0, allow_inf_nan=False)
     question_id: str
     selected: str
     confidence: int = 0
@@ -303,7 +306,7 @@ def grade_question(request: GradeRequest):
     q = get_question(request.question_id)
     if not q:
         raise HTTPException(status_code=404, detail="Question not found")
-    ok, graded = grade(request.question_id, request.selected, request.confidence, request.session_id, request.hint_level)
+    ok, graded, attempt_id = grade(request.question_id, request.selected, request.confidence, request.session_id, request.hint_level, request.elapsed_seconds, include_id=True)
     adaptive.record_result(request.question_id, ok, request.confidence, request.hint_level)
     feedback = learning_feedback(request.question_id, request.selected, request.confidence)
     skill_feedback = skills.record_attempt(q, ok, request.confidence, hint_level=max(0,min(3,request.hint_level)))
@@ -316,7 +319,7 @@ def grade_question(request: GradeRequest):
         feedback["diagnosis"] = "Correct with support" if ok else "Keep building the setup"
         feedback["coaching"] = "Help is part of learning. This attempt does not establish independent mastery; a short review will return later."
     sid = request.session_id or get_or_start_session()
-    return {"correct": bool(ok), "question": clean_question(graded), "feedback": feedback, "session": session_stats(sid)}
+    return {"attempt_id": attempt_id, "correct": bool(ok), "question": clean_question(graded), "feedback": feedback, "session": session_stats(sid)}
 
 
 @app.post("/api/case")
@@ -464,6 +467,61 @@ def syllabus_coverage(part: str = "Both"):
     if part not in ("Both", "Part 1", "Part 2"):
         raise HTTPException(status_code=400, detail="Choose Part 1, Part 2, or Both")
     return coverage.report(part)
+
+
+class ErrorCauseRequest(BaseModel):
+    cause: str
+
+
+class TimedAction(BaseModel):
+    question_id: Optional[str] = None
+    selected: Optional[str] = None
+    finish: bool = False
+
+
+def study_part(part):
+    if part not in ("Part 1", "Part 2"):
+        raise HTTPException(422, "Choose Part 1 or Part 2")
+    return part
+
+
+@app.get("/api/readiness")
+def readiness(part: str = "Part 1"):
+    return study_metrics.profile(study_part(part))
+
+
+@app.get("/api/error-profile")
+def error_profile(part: str = "Part 1"):
+    return study_metrics.profile(study_part(part))["errors"]
+
+
+@app.get("/api/pace")
+def pace(part: str = "Part 1"):
+    return study_metrics.profile(study_part(part))["pace"]
+
+
+@app.post("/api/attempts/{attempt_id}/error-cause")
+def tag_error(attempt_id: int, request: ErrorCauseRequest):
+    if request.cause not in study_metrics.CAUSES:
+        raise HTTPException(422, "Invalid error cause")
+    if not study_metrics.set_cause(attempt_id, request.cause):
+        raise HTTPException(404, "Missed attempt not found")
+    return {"cause": request.cause}
+
+
+@app.post("/api/timed/start")
+def start_timed(request: Settings):
+    return timed.start(study_part(request.part))
+
+
+@app.post("/api/timed/{set_id}")
+def advance_timed(set_id: str, request: TimedAction):
+    try:
+        return timed.advance(set_id, request.question_id, request.selected, request.finish)
+    except KeyError:
+        raise HTTPException(404, "Timed set not found")
+    except ValueError as exc:
+        raise HTTPException(422, str(exc))
 
 
 app.mount("/", StaticFiles(directory="frontend/dist", html=True), name="frontend")
