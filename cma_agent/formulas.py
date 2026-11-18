@@ -21,7 +21,7 @@ def connect():
     return c
 
 
-def due(part, limit=50, exclude=()):
+def due(part, limit=50, exclude=(), include_future=False):
     excluded = set(exclude)
     c = connect()
     try:
@@ -37,6 +37,10 @@ def due(part, limit=50, exclude=()):
     eligible = [CARDS[key] for key in [*scheduled, *new_cards]
                 if key not in excluded and key in CARDS and CARDS[key]["part"] == part
                 and scheduled.get(key, "") <= now]
+    if include_future:
+        eligible.extend(CARDS[key] for key, date in scheduled.items()
+                        if key not in excluded and key in CARDS and CARDS[key]["part"] == part
+                        and date > now)
     return [public_card(card) for card in eligible[:limit]]
 
 

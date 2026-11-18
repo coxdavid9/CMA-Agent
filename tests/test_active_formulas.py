@@ -36,7 +36,7 @@ def test_due_answer_and_override(tmp_path, monkeypatch):
 
     monkeypatch.setattr(engine, "DB", tmp_path / "active.db")
     client = TestClient(app)
-    cards = client.get("/api/formulas/due").json()
+    cards = client.get("/api/formulas/due?limit=10").json()
     assert len(cards) == 10
     assert all(card["type"] != "reveal" for card in cards)
     for card in cards:
